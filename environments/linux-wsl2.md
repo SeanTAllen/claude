@@ -34,7 +34,7 @@
 
 ## WSL2 Temp Files
 
-**Clean up temp files**: WSL doesn't automatically clean `/tmp` on reboot the way a native Linux install does. Don't leave temporary files behind — if you create files in `/tmp` (or anywhere outside the project), delete them when you're done.
+**Use `~/tmp` instead of `/tmp`**: Store temporary files in `~/tmp`, not `/tmp`. Create the directory if it doesn't exist. WSL doesn't automatically clean `/tmp` on reboot the way a native Linux install does, and `~/tmp` keeps temp files in the user's space where they're easier to find and manage. Still clean up after yourself — delete temp files when you're done.
 
 ## WSL2 Mirrored Networking
 
