@@ -1,5 +1,10 @@
 # Global Instructions
 
+**ALWAYS read your environment file before doing any other work.** At the start of every conversation, read the appropriate file from `~/.claude/environments/` based on your platform info. Match the first rule that applies:
+
+- OS version contains `microsoft` (WSL2) → read `~/.claude/environments/linux-wsl2.md`
+- Platform is Windows → read `~/.claude/environments/windows.md`
+
 ## Working Style
 
 **Complete the plan, then check in**: When a plan is approved, execute all steps to completion. Don't stop after each step for review. When you think you're done, recursively apply all relevant principles from this file — check each one, act on any that apply, then check again until no more principles are relevant. This recursive check IS self-review; it's not a separate step, it's what "done" means. Only then report completion and wait for feedback.
@@ -151,9 +156,4 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 # Environment-Specific (do not export)
 
-Everything below this line is specific to Sean's dev environments and should be removed if exporting these instructions for use elsewhere.
-
-At the start of every conversation, read the appropriate environment file from `~/.claude/environments/` based on your platform info. Match the first rule that applies:
-
-- OS version contains `microsoft` (WSL2) → read `~/.claude/environments/linux-wsl2.md`
-- Platform is Windows → read `~/.claude/environments/windows.md`
+Everything below this line is specific to Sean's dev environments and should be removed if exporting these instructions for use elsewhere. The environment file mapping at the top of this file is also environment-specific.
