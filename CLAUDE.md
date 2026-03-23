@@ -151,9 +151,3 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 ### Pony Reference
 
 **Load `/pony-ref` proactively when working on Pony code**: At the start of any conversation where the working directory is a Pony project (contains `corral.json` or `*.pony` files), load `/pony-ref` before doing any work. It contains the capabilities table, subtyping rules, key patterns, common gotchas, syntax, PonyCheck patterns, stdlib pitfalls, mort pattern, and performance cheat sheet. Also load it mid-conversation when hitting capabilities, PonyCheck, stdlib, or performance questions. Don't wait to be asked — if you're writing or reviewing Pony code, load it.
-
----
-
-# Environment-Specific (do not export)
-
-Everything below this line is specific to Sean's dev environments and should be removed if exporting these instructions for use elsewhere. The environment file mapping at the top of this file is also environment-specific.
