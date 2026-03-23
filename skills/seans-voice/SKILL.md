@@ -13,9 +13,11 @@ the calibration step.
 ## Calibration (long-form writing only)
 
 For blog posts, announcements, discussions, and other substantial prose: read
-2-3 posts from `~/code/seantallen/seantallen.com/content/posts/` before
-writing. This is the primary voice reference. Not needed for commit messages,
-PR descriptions, or other short-form writing.
+2-3 posts before writing. This is the primary voice reference. Not needed for
+commit messages, PR descriptions, or other short-form writing.
+
+If `~/code/seantallen/seantallen.com/content/posts/` exists, read from there.
+Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 
 ## Core Traits
 
