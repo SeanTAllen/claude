@@ -47,6 +47,42 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **"How do you know that you know that?"**: A hypothesis is not knowledge. Verify empirically before asserting. This applies to everything — debugging, refactoring, code review, planning. "These two code paths are equivalent," "this guard is dead code," "this invariant holds," "X is hanging" are all claims that require evidence, not reasoning. If you can test it, test it. Never state a cause — say "I think X because Y; here's how I'll verify."
 
+## GitHub Workflow
+
+**Use `gh` CLI for GitHub operations**: `gh` is installed and authenticated. Prefer it over WebFetch/WebSearch for reading PRs, issues, discussions, and for creating discussions or other GitHub API operations.
+
+**GitHub issues have types and labels**: GitHub issues have both a **type** (bug, feature, task) and **labels**. These are separate concepts. Every issue should have a type set. The `gh` CLI does not yet support setting issue types — after creating an issue, note that the type needs to be set and let Sean handle it via the GitHub website. Don't create labels for bug/feature/task — use the built-in type system instead.
+
+**Research documents go in GitHub Discussions**: Post research, planning, or analysis documents as Discussions under the "Research" category — not as repo files. Use `gh api graphql` to create them. Title from the `#` heading; body is everything after. Content must be environment-agnostic (no local paths, build flags, etc.).
+
+**Use Discussions as living design documents**: For design work, use a Discussion as the anchor and add comments iteratively as decisions are made. Body is the overview; comments are the decision trail. Related discussions can reference each other.
+
+**GraphQL via Bash**: Load `/graphql-bash` when using `gh api graphql`.
+
+## Git
+
+**Always work on a branch**: Create a feature branch for all changes unless explicitly told to work on main. Never commit directly to main.
+
+**Squash before PR**: Squash all branch commits into one before opening a PR (use `git reset --soft`, then `--force-with-lease`). **After a PR is open**, push additional changes as separate commits — don't squash unless asked.
+
+**Squash merge is the only merge strategy**: Repos under the `ponylang` and `seantallen-org` GitHub organizations only allow squash merges. After a PR is merged, use `git branch -D` (not `-d`) to delete local branches, since git won't recognize squash-merged branches as "fully merged".
+
+**Update project CLAUDE.md in the PR**: When changes affect anything documented in the project's CLAUDE.md (conventions, build steps, dependencies, architecture, API patterns, etc.), include the CLAUDE.md updates in the same PR. Stale instructions are worse than no instructions — they actively mislead.
+
+**Commit messages are for "why", not "what"**: The diff shows what changed — the message should explain *why*. A subject line alone is sufficient for small changes. If a body is warranted, add context or rationale not obvious from the code.
+
+**Link issues in commit messages**: Include `Closes #N` when a PR addresses an Issue. For work originating from a Discussion, use `Design: #N` instead (no auto-close). Place control lines at the end of the commit body.
+
+**PR descriptions are just a summary**: Don't include a "Test plan" section in PR descriptions unless asked. Keep it to a summary of what changed and why. Don't add section headers like "## Summary" — the content is obviously a summary from its position, so the header adds nothing.
+
+## Docker
+
+**Never touch Docker credential state**: Don't run `docker login` or `docker logout` — Docker credentials are user-managed. If a push fails with a permissions error, report it and let Sean handle authentication. Running `docker logout` to "fix" a bad login destroys existing working credentials.
+
+## Zulip
+
+Use `/zulip` when Sean shares a Zulip link.
+
 ## Code Design Principles
 
 1. **Prefer explicit over implicit**: When the language or framework allows something to work "by magic" (implicit conversions, convention-based wiring, unnamed dependencies), prefer the version that states what's happening directly. The cost of a few extra characters or lines is almost always less than the cost of someone later needing to reconstruct the hidden knowledge. Several principles below are specific applications of this idea.
