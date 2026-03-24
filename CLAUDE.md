@@ -187,3 +187,9 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 ### Pony Reference
 
 **Load `/pony-ref` proactively when working on Pony code**: At the start of any conversation where the working directory is a Pony project (contains `corral.json` or `*.pony` files), load `/pony-ref` before doing any work. It contains the capabilities table, subtyping rules, key patterns, common gotchas, syntax, PonyCheck patterns, stdlib pitfalls, mort pattern, and performance cheat sheet. Also load it mid-conversation when hitting capabilities, PonyCheck, stdlib, or performance questions. Don't wait to be asked — if you're writing or reviewing Pony code, load it.
+
+---
+
+## Stop. Did you actually follow this file?
+
+Before doing anything else, go back to the top and verify you followed **every** instruction — starting with the very first one (reading the environment file). These instructions exist because you routinely skip them. The most common failures: not reading the environment file, not loading `/pony-ref` for Pony projects, not running the review loop at mandatory checkpoints, and not asking about project conventions. If you skipped any of these, do them now before proceeding. Reading this file is not the same as following it.
