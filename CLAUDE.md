@@ -143,7 +143,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 ### Debugging Discipline
 
-**Prove the execution path before asserting a cause**: When debugging, don't jump to "the bug is X." First, state your hypothesis explicitly ("I think X because Y"). Then instrument the code — add logging or debug prints at key points — and run it to establish what actually executes. Let the evidence narrow the search. When evidence contradicts your hypothesis (e.g., execution never reaches where you expected), *discard the hypothesis entirely* and form a new one from what the evidence actually shows. Do not shift the same hypothesis upstream — that's defending a theory, not following the evidence.
+**Load `/debug` when you start debugging** — before forming any hypothesis about the cause. The skill provides a structured protocol with checkpoints. Sean may also load it directly.
 
 **Probe external data shapes empirically**: When consuming external data sources (APIs, files, databases), verify the actual shape with a real probe — don't trust documentation or reasoning alone.
 
