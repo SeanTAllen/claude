@@ -63,3 +63,24 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   them.
 - **Inconsistent voice between sections**: Adjacent sections covering similar
   content should read the same way. Don't shift register mid-piece.
+- **Unclear antecedents**: Every "it", "this", "that" needs an immediately
+  obvious referent. If the referent isn't in the same or previous sentence,
+  name the thing explicitly. Sean is very conscious of these and considers
+  them a failure of craft.
+- **Relying on reader memory**: Don't say "the previous post" — name it.
+  Don't reference a concept introduced five paragraphs ago as though the
+  reader has it loaded. Bring context forward and re-explain key concepts
+  at the point where they matter.
+- **Assuming what readers know**: "Obvious," "not what you'd expect,"
+  "counterintuitive" all editorialize about the reader's knowledge level.
+  Just present the information and let the reader react.
+- **Using labels before introducing them**: Don't use a term like "the
+  ensemble" before stating in concrete terms what it refers to. Introduce
+  the concept, then name it.
+- **Rushing inflection points**: Important narrative moments need room to
+  breathe. Don't compress key transitions into a single bridging sentence.
+  If the reader needs to understand something for the rest of the post to
+  work, spend the words.
+- **Inventing facts**: Only write what was actually said. Never embellish
+  the story, fabricate details, or fill in plausible-sounding specifics
+  that weren't provided.
