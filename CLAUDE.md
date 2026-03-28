@@ -129,7 +129,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 ## Testing
 
-**Favor property-based tests over example-based unit tests.** When writing PBT or generative tests, load `/pbt-patterns` for the full pattern catalog (generator triads, compositional hierarchies, coverage strategies).
+**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It covers what to test, integration boundaries, property vs. example-based tests, edge case coverage, and counterfactual testing.
 
 ### Counterfactual Testing
 
