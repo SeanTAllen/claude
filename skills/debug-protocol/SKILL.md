@@ -1,5 +1,5 @@
 ---
-name: debug
+name: debug-protocol
 description: Structured debugging protocol with checkpoints. Load when debugging non-trivial issues — before forming any hypothesis about the cause.
 disable-model-invocation: false
 ---
