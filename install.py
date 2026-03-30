@@ -89,6 +89,29 @@ def main():
             dst = home / "skills" / skill_dir.name
             print(symlink(skill_dir, dst, dry_run))
 
+    # Remove stale skill symlinks that point into this repo but no longer
+    # have a corresponding source directory.
+    skills_dst = home / "skills"
+    if skills_dst.is_dir():
+        stale = []
+        for entry in sorted(skills_dst.iterdir()):
+            if not entry.is_symlink():
+                continue
+            target = entry.resolve()
+            # Only touch symlinks that point into this repo's skills dir.
+            try:
+                target.relative_to(skills_src.resolve())
+            except ValueError:
+                continue
+            if not target.exists():
+                stale.append(entry)
+        if stale:
+            print("\nStale skill symlinks:")
+            for entry in stale:
+                if not dry_run:
+                    entry.unlink()
+                print(f"  remove: {entry}")
+
     if dry_run:
         print("\n=== DRY RUN complete (no changes were made) ===")
     else:
