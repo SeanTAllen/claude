@@ -25,6 +25,10 @@ Produce higher-confidence outputs through decorrelated reasoning paths. Multiple
 
 Specified per invocation — Sean provides them, or the orchestrator selects contextually appropriate ones. They should be small perturbations, not fundamentally different approaches. The diversity comes from how small differences cascade through the reasoning chain.
 
+### Fix reviews require an adversarial focus
+
+When reviewing a fix (bug fix, security fix, race condition fix), always include an adversarial agent alongside whatever other focuses are specified. The adversarial agent's job is goal-directed: "The PR claims to fix X. Construct a concrete scenario where X still occurs despite the fix. Work backward from the bug's symptoms, not forward from the fix's mechanism." The other agents will verify the fix was applied correctly (positive check). The adversarial agent tries to break it (negative check). Positive checks are bounded by whatever search terms and code paths the orchestrator thinks to include in the prompt. The adversarial check is bounded by the bug itself, which makes it harder to miss adjacent instances of the same problem class.
+
 ## Agent Output Format
 
 Every agent produces:
