@@ -15,12 +15,58 @@ but weren't derived from the problem.
 Design is the act of discovering what is needed. It's about finding surprising
 affordances and avoiding candy-machine interfaces riddled with footguns.
 
+## Process: design uses ensemble
+
+Design work is where pattern-matching failures are most costly and hardest to
+self-detect. A single agent applying design disciplines will still
+pattern-match — the disciplines become post-hoc rationalizations for a
+retrieved design rather than actual constraints on the exploration.
+
+Use the ensemble workflow with three design-specific personas. Load `/ensemble`
+for the mechanical process; the personas below replace the generic attention
+focuses.
+
+### Design personas
+
+Each persona applies all the disciplines below but enters the problem from a
+different direction. The decorrelation comes from where they start, not what
+they know.
+
+**Consumer-first designer.** Starts by writing the code that *uses* the API —
+every call site, every configuration point, every error path. Derives the types
+and interfaces from what makes that code clean. When the design claims two APIs
+are "the same," writes both side by side and verifies they literally use the
+same names and signatures. The consumer sketch is not an illustration of the
+design — it IS the design.
+
+**Skeptic.** For every type, trait, or abstraction in the design, asks: what if
+we didn't have this? What does the language/stdlib/codebase already provide that
+addresses this need? Tries to subtract from the design rather than add. Proposes
+the smallest possible design that solves the problem. When existing code already
+handles part of the need, starts from that rather than inventing a parallel
+structure.
+
+**Principle checker.** Runs each design principle from this skill and from
+CLAUDE.md as a hard verification gate — not "consider whether this applies" but
+"does this hold? show evidence." Writes down the answer for each principle.
+Specifically checks: is every outcome explicit? Can the user forget a step? Can
+something compile but silently do the wrong thing? Are there two representations
+for the same concept?
+
+### Synthesis focus
+
+The synthesizer should pay special attention to:
+- Where the consumer-first designer's sketches conflict with the skeptic's
+  subtractions — the tension usually reveals the right boundary
+- Where the principle checker found a violation that the other two missed —
+  this is the highest-value finding
+- Whether all three converged on the same abstraction — convergence from
+  different starting points is strong signal
+
 ## The disciplines
 
-These aren't a checklist you run top-to-bottom. They're lenses you apply as you
-explore. Sometimes one sends you back to revisit another. The design process is
-an OODA loop — observe the problem, orient around what the consumer needs,
-decide on the smallest next piece, act by sketching it, then loop.
+These are the foundation each persona builds on. Every agent applies all of
+them.
 
 ### Start from the problem, not the solution
 
@@ -44,6 +90,27 @@ is the specification. It reveals:
 
 If the consumer code is awkward, the API is wrong. Fix the API, not the
 consumer code.
+
+**When claiming consistency between two APIs** (e.g., "guards use the same API
+as handlers"), write both consumer sketches side by side. If the method names,
+signatures, or interaction patterns differ, the claim is false — address the
+discrepancy before proceeding.
+
+### Inventory before inventing
+
+Before proposing a new type, trait, or abstraction, write down what already
+exists that addresses the same need: in the codebase, in the language's stdlib,
+in the ecosystem. If nothing exists, say so explicitly. If something exists,
+start from it — extend, adapt, or compose it rather than building a parallel
+structure.
+
+On a greenfield project, "what already exists" means the language's built-in
+types, stdlib, and idioms. A new type that duplicates what the language provides
+is a smell.
+
+This is not "reuse for reuse's sake." It's a forcing function against the
+pattern-matching tendency to invent new abstractions when the problem doesn't
+require them.
 
 ### Build up incrementally
 
@@ -92,6 +159,7 @@ correct but fails silently or in non-obvious ways:
 - Are there boolean flag combinations that represent illegal states?
 - Does the API make it easy to forget a step?
 - Can the user confuse two values that have different semantics but the same type?
+- Is any outcome implicit (success by silence, failure by absence)?
 
 A candy-machine interface is one where the user can put the money in the slot
 and push the button and get something other than what they expected. Good design
@@ -142,6 +210,16 @@ constraint. Move the consumer code to the beginning.
 **Giving the framework too much responsibility.** When in doubt, the user owns
 it. The framework can always take on more responsibility later; taking it back
 is a breaking change.
+
+**Claiming consistency without verifying it.** "This uses the same API as X"
+is a testable claim. Write both usages side by side. If they don't match, the
+design has a problem — either make them actually match or drop the claim and
+design each on its own merits.
+
+**Inventing when extending would suffice.** Proposing a new type when the
+codebase, language, or stdlib already has something that serves the same
+purpose. The new type may feel cleaner in isolation but adds a concept the user
+must learn and the codebase must maintain.
 
 ## Pony-specific design guidance
 
