@@ -31,6 +31,7 @@ The writer session spawns a reviewer Task subagent:
    - **Context from prior reviews**, if any: settled decisions ("Sean ruled X is acceptable"), opened issues ("issue #N tracks Y — don't re-flag"), or fixes already in progress.
 3. **Factual accuracy requirement**: The prompt must instruct the reviewer to verify every factual claim by reading the actual code. Do not summarize from memory or inference. If stating a count (e.g., "5 property tests"), verify by reading the test list.
 4. **Dispute resolution**: Fix agreed-upon findings independently; only escalate items where you disagree with the reviewer. Present the dispute to Sean. Sean rules. Pass the ruling to the next reviewer as prior-review context in the prompt. Rulings are transient — they belong in the prompt, not in CLAUDE.md, because they're specific to the current review cycle.
+5. **Pattern check**: Before fixing findings, look at them as a group. If multiple findings cluster around the same area, or if the fixes feel like patches on a structure that should be different, stop and raise it. Individual findings can each be valid while collectively revealing that the approach is wrong. Five small fixes in one area is often cheaper to address with one design change than with five patches. Don't let the review loop converge to "no more findings" on a fundamentally flawed approach.
 
 ## Both Modes
 

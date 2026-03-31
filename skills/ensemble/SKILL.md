@@ -17,9 +17,14 @@ Produce higher-confidence outputs through decorrelated reasoning paths. Multiple
    - The agent output format (below)
    - Instructions to run a reviewer loop per CLAUDE.md before returning
    - Instructions that this is an ensemble agent — return output and any local file paths to the orchestrator. Do not take external actions (publishing to GitHub Discussions, creating PRs, pushing branches, etc.)
-2. Pass all reviewed agent outputs to a synthesis agent loaded with `/synthesize`
-3. Reviewer loop on the synthesis
-4. Present to Sean
+2. Triage agent outputs before synthesis. Read each agent's output and check:
+   - Did the agent address the actual task, or did its attention focus pull it off-topic?
+   - Is the output coherent and complete, or did the agent fail partway through?
+   - Are the outputs answering the same question, or did one interpret the task differently?
+   If an agent went off-topic or answered the wrong question, either re-prompt it with clarification or exclude its output and note why for the synthesizer. Don't forward garbage to synthesis and hope it sorts itself out.
+3. Pass triaged agent outputs to a synthesis agent loaded with `/synthesize`
+4. Reviewer loop on the synthesis
+5. Present to Sean
 
 ## Attention Focuses
 

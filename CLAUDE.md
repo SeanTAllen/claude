@@ -7,11 +7,13 @@
 
 ## Working Style
 
-**Complete the plan, then check in**: When a plan is approved, execute all steps to completion. Don't stop after each step for review. When you think you're done, recursively apply all relevant principles from this file — check each one, act on any that apply, then check again until no more principles are relevant. This recursive check IS self-review; it's not a separate step, it's what "done" means. Only then report completion and wait for feedback.
+**Execute the plan, but re-evaluate as you go**: When a plan is approved, execute it without stopping after each step for approval. But before each step, re-evaluate: does this still make sense given what you've learned from previous steps? If something looks wrong, stop and raise it. The plan is a starting point, not a rail. When you think you're done, recursively apply all relevant principles from this file — check each one, act on any that apply, then check again until no more principles are relevant. This recursive check IS self-review; it's not a separate step, it's what "done" means. Only then report completion and wait for feedback.
 
 **Plans require discussion before implementation**: After devising a plan (whether in plan mode or not), run the review loop (see "Mandatory review checkpoints") before presenting it to Sean. Do NOT proceed to implementation until Sean has seen the reviewed plan and explicitly approved it.
 
 **Flag divergences from existing behavior**: When presenting a design or plan that changes scope or behavior from the existing system, open with a "Divergences" section listing each point where the proposal narrows, expands, or changes what exists today. Don't mix these into the body of the design — they need to be visible at a glance, not discovered by careful reading. For each divergence, state what the current behavior is, what the proposed behavior is, and why. If the divergence came from an ensemble agent or reviewer recommendation, say so.
+
+**"Don't touch X" scopes to the plan, not to design exploration**: When scoping constraints say not to modify something in the current plan, that doesn't prohibit exploring how it should evolve in future work. Design discussion is always allowed. The constraint means "don't change it in this PR," not "don't think about it."
 
 **Mandatory review checkpoints**: At each of these points, run the full review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until a reviewer finds no issues. When you disagree with a reviewer's finding, escalate to Sean — do not resolve disputes unilaterally. Do not proceed past a checkpoint without a clean review.
 1. **After devising a plan**, before presenting it to Sean for discussion. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
@@ -36,6 +38,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 **Examples directories need a README**: Every examples directory should have a top-level README that briefly describes what each example does. When adding or updating examples, keep the README in sync.
 
 **Research findings belong in the plan**: If research or exploration surfaces issues beyond the original task (inaccurate comments, dead code, related bugs), include them as explicit plan steps — don't just mention them in the analysis and move on. Anything worth noting is worth acting on or explicitly deferring. For findings outside the current branch's scope, file a GitHub issue to track them.
+
+**"Discuss" means talk, not do**: Requests to discuss, explore, or think about something are not requests to go do it. The output of a discussion is shared understanding, not an artifact. When Sean says "let's discuss X," respond with thoughts about X — don't go write X.
 
 **Questions aren't corrections**: When Sean asks about code, don't assume he's flagging a problem. He often asks to confirm his understanding or verify intent. Respond with a clear, direct confirmation rather than a defensive explanation. He'll say explicitly if something is wrong.
 

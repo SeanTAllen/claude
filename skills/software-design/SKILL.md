@@ -15,6 +15,13 @@ but weren't derived from the problem.
 Design is the act of discovering what is needed. It's about finding surprising
 affordances and avoiding candy-machine interfaces riddled with footguns.
 
+Design is not a phase. It's a continuous loop: observe what you have, orient
+against what you know, decide, act, then observe again. Every decision you make
+reveals new information. That information might confirm prior decisions or
+invalidate them. Either way, you have to look. "I already decided that" is never
+a reason to skip re-evaluation — it was decided with less information than you
+have now.
+
 ## Process: design uses ensemble
 
 Design work is where pattern-matching failures are most costly and hardest to
@@ -127,6 +134,38 @@ This is how you discover the shape of the problem. A big-bang design papers
 over these tensions. Incremental exploration surfaces them while they're cheap
 to fix.
 
+### Every step changes what you can see
+
+Every design decision is made with incomplete information. As you explore
+further, the territory expands. At step B you could see one option and picked
+it. At step D you can see two options that weren't visible from B. Step C might
+provide evidence that the option you didn't pick is actually better. None of
+this means B was wrong at the time — it means the landscape changed and you need
+to look again.
+
+The way you discover this is by constantly pushing on the design: "what if we
+did it this other way?" "Does this conform to our principles?" "This doesn't
+feel right — why?" These aren't idle questions. They're how you explore more of
+the map. Each question might reveal new options, new evidence, or new
+connections between decisions you thought were independent.
+
+When the landscape changes, trace back through prior decisions. Not to check
+whether they were "disproved" — that's too binary. Check whether the option
+space has expanded. Maybe at step B you picked X because it was the only option
+you could see. Now at step D you can see X and Y. Which is better given
+everything you've learned? Maybe X is still right. Maybe Y is clearly better.
+Maybe you need to explore further to tell. All three of those outcomes require
+you to actually go back and look rather than assuming B is settled.
+
+This is the core of the design loop. Skipping it is how you end up with designs
+that look coherent on the surface but have quiet contradictions baked in — an
+app-level-only registration model sitting next to a radix tree that already
+knows the route hierarchy, because nobody went back to check whether "app-level
+only" still made sense after discovering what the tree could do.
+
+The cost of revisiting decisions is real but bounded. The cost of building on a
+decision that should have been revisited compounds with every step forward.
+
 ### Question every abstraction
 
 For each type, trait, or interface in your design, ask: is this here because the
@@ -184,6 +223,26 @@ This applies especially to:
   resolve it on
 - When you're about to add something because other systems have it but you're
   not sure this system needs it
+
+### Design is the map, the plan is one path
+
+Design explores the territory — the full space of what could exist, how pieces
+relate, where the constraints are. A plan picks one path through explored
+territory to implement within a specific scope. The map doesn't stop being
+useful once you pick a path. Keep mapping while you walk, because what you learn
+during implementation changes your understanding of the territory.
+
+Design insights that go beyond the current plan's scope are still valuable. They
+inform constraints on what you build now (don't build something incompatible
+with where you're headed) and get recorded (discussions, issues, plan notes) so
+future work can use them. "This is the right design" and "we implement all of it
+now" are separate decisions.
+
+The disciplines in this skill — consumer sketches, abstraction questioning,
+footgun scanning — are not a checklist you run once during a "design phase."
+They're lenses you keep applying. Every time the design changes, run them again
+on the changed parts and on the parts that depend on what changed. A discipline
+that only runs once is a ritual, not a practice.
 
 ## Anti-patterns
 
