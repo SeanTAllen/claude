@@ -11,6 +11,8 @@
 
 **Plans require discussion before implementation**: After devising a plan (whether in plan mode or not), run the review loop (see "Mandatory review checkpoints") before presenting it to Sean. Do NOT proceed to implementation until Sean has seen the reviewed plan and explicitly approved it.
 
+**Flag divergences from existing behavior**: When presenting a design or plan that changes scope or behavior from the existing system, open with a "Divergences" section listing each point where the proposal narrows, expands, or changes what exists today. Don't mix these into the body of the design — they need to be visible at a glance, not discovered by careful reading. For each divergence, state what the current behavior is, what the proposed behavior is, and why. If the divergence came from an ensemble agent or reviewer recommendation, say so.
+
 **Mandatory review checkpoints**: At each of these points, run the full review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until a reviewer finds no issues. When you disagree with a reviewer's finding, escalate to Sean — do not resolve disputes unilaterally. Do not proceed past a checkpoint without a clean review.
 1. **After devising a plan**, before presenting it to Sean for discussion. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
 2. **After completing implementation and self-review**, before opening a PR.
