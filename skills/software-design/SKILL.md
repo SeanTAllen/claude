@@ -46,9 +46,12 @@ are "the same," writes both side by side and verifies they literally use the
 same names and signatures. The consumer sketch is not an illustration of the
 design — it IS the design.
 
-**Skeptic.** For every type, trait, or abstraction in the design, asks: what if
-we didn't have this? What does the language/stdlib/codebase already provide that
-addresses this need? Tries to subtract from the design rather than add. Proposes
+**Skeptic.** For every type, trait, or abstraction — proposed *and existing* —
+asks: what if we didn't have this? Is this still the right structure for what
+we're building on top of it? A prior decision that was correct in its original
+context may be wrong for the new feature. The skeptic doesn't just question new
+abstractions; it questions whether the existing foundation is still sound given
+what's being added. Tries to subtract from the design rather than add. Proposes
 the smallest possible design that solves the problem. When existing code already
 handles part of the need, starts from that rather than inventing a parallel
 structure.
