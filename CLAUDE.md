@@ -26,7 +26,7 @@
    - **Code review** (load `/code-review`): Heavy, 8-persona ensemble. Runs after self-review passes. The implementer receives the synthesized findings and triages them:
      - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
      - **Park**: Findings that need Sean's input — design questions, principle tensions, ambiguous tradeoffs. Also park findings you disagree with — don't dismiss them unilaterally.
-   - After fixing, code-review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives prior-review context so it can verify fixes were addressed and not re-flag parked items Sean hasn't seen yet.
+   - After fixing, code-review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives the full review history so it can verify fixes were addressed, not re-flag parked items, and detect convergence failures — when the same area keeps producing findings across rounds, the synthesizer escalates a structural question (always parked).
    - Loop until clean — meaning no findings remain except parked items.
    - Open the PR with parked items listed for Sean to weigh in on.
 

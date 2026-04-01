@@ -47,7 +47,7 @@ The synthesize skill's output format (Integrated Result, Synthesis Rationale, et
 
 5. **Triage agent outputs** per ensemble protocol — check that each persona addressed the actual code and stayed coherent.
 
-6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format. If this is a re-review (iterative mode), include prior-review context: what was found before, what was fixed, what was parked for Sean. The synthesizer uses this to verify fixes and avoid re-flagging parked items.
+6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format. If this is a re-review (iterative mode), include the full review history: for each prior round, what was found, what was fixed, what was parked. The synthesizer uses this to verify fixes, avoid re-flagging parked items, and detect convergence failures.
 
 7. **Reviewer loop on the synthesis** — the reviewer verifies that no persona findings were dropped, severity changes from individual findings are justified, and cross-persona patterns were correctly identified.
 
@@ -69,7 +69,19 @@ The implementer categorizes each finding:
 After fixing the "fix" items, code-review runs again with two key rules:
 
 - **Personas run ignorant.** No knowledge of the prior review. Fresh eyes on all the code, including the fixes. This prevents tunnel-vision on whether prior findings were addressed and ensures the fixes themselves get the same scrutiny as any other code.
-- **Synthesis knows the prior review.** The orchestrator passes prior-review context to the synthesis step: what was found before, what was fixed, what was parked. The synthesizer uses this to verify fixes were actually addressed (not just differently broken), avoid re-flagging parked items that Sean hasn't ruled on yet, and detect whether a fix introduced a new problem that the ignorant personas caught independently.
+- **Synthesis knows the full review history.** The orchestrator passes the complete review history to the synthesis step — not just the immediately prior round, but all prior rounds. For each round: what was found, what was fixed, what was parked. The synthesizer uses this to verify fixes were actually addressed (not just differently broken), avoid re-flagging parked items that Sean hasn't ruled on yet, detect whether a fix introduced a new problem that the ignorant personas caught independently, and detect convergence failures (see below).
+
+### Convergence Failure Detection
+
+The synthesizer monitors the review history for signs that point fixes aren't converging — that the code area has a structural problem no amount of individual fixes will resolve. Signals:
+
+- **Recurring location**: The same file or code area produces findings across multiple review rounds, even after fixes are applied. The specific findings may differ each round, but the area keeps generating problems.
+- **Rising fix complexity**: Fixes that add complexity (new fields, new branches, new state distinctions, new special cases) rather than simplifying. Each fix makes the next bug harder to see.
+- **Bug class repetition**: Multiple findings across rounds that are different symptoms of the same underlying mismatch — e.g., boundary confusion, impedance mismatch between a data structure and its usage pattern, a leaky abstraction that keeps leaking in new places.
+
+When the synthesizer detects a convergence failure, it escalates a structural question: "This area has produced findings across N review rounds. The fixes are adding complexity rather than removing it. Is the underlying data structure / abstraction / design right for this problem?" This is always parked — it's a design decision, not something the implementer resolves autonomously.
+
+The structural question should be specific: name the data structure or abstraction, describe the pattern of bugs it's producing, and suggest what kind of replacement might eliminate the bug class. Don't just say "consider a redesign" — say "the radix tree is producing segment-boundary bugs because it operates at the character level; a segment-level trie would eliminate this class structurally."
 
 ### Loop Termination
 
@@ -86,6 +98,7 @@ The synthesizer should pay special attention to:
 - **Principle violations others missed**: Findings from the Principles persona that no other persona noticed represent systematic blind spots.
 - **Cross-persona corroboration**: When multiple personas independently flag the same issue from different angles, that's high confidence. Call it out.
 - **Wildcard findings**: The wildcard persona deliberately looks for things the other personas miss. Its findings may be unconventional — evaluate them on merit, not on whether they fit a category. If a wildcard finding aligns with a faint signal from another persona, that's strong evidence both caught the same thing from different angles.
+- **Convergence failures** (re-reviews only): Check the review history for signs that an area isn't converging — recurring findings in the same location, fixes that add complexity instead of removing it, different symptoms of the same structural mismatch across rounds. When detected, escalate a specific structural question (see "Convergence Failure Detection" in the iterative workflow section). This is always a parked item.
 - **When digging deeper**: Work from the summaries by default. Read the evidence files when a finding needs more context — when severities conflict, when a finding's summary is ambiguous, or when you need to verify the evidence supports the claim.
 
 ## Final Output Format
