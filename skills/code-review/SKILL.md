@@ -8,6 +8,12 @@ disable-model-invocation: false
 
 Ensemble code review that runs 8 specialized reviewer personas in parallel, synthesizes their findings, and presents a consolidated review. Use for substantial changes where thorough review justifies the cost: features, refactors, bug fixes with non-obvious scope. Not for one-line config changes or typo fixes.
 
+## Invocation Modes
+
+**Integrated (pre-PR pipeline):** After implementation and self-review (principle-review loop) pass, the implementer runs code-review as the next stage. Findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. See "Iterative Workflow" below.
+
+**Standalone:** Invoked directly on an existing PR, branch, or local changes for a one-shot thorough review. The process section below applies as-is.
+
 ## Relationship to Ensemble Workflow
 
 Use the ensemble workflow with review-specific customizations. Load `/ensemble` for the mechanical process. This skill replaces the generic attention focuses with 8 review personas and replaces the generic agent output format with the review-specific format defined below.
@@ -41,11 +47,33 @@ The synthesize skill's output format (Integrated Result, Synthesis Rationale, et
 
 5. **Triage agent outputs** per ensemble protocol — check that each persona addressed the actual code and stayed coherent.
 
-6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format.
+6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format. If this is a re-review (iterative mode), include prior-review context: what was found before, what was fixed, what was parked for Sean. The synthesizer uses this to verify fixes and avoid re-flagging parked items.
 
 7. **Reviewer loop on the synthesis** — the reviewer verifies that no persona findings were dropped, severity changes from individual findings are justified, and cross-persona patterns were correctly identified.
 
 8. **Present the consolidated review.**
+
+## Iterative Workflow (Integrated Mode)
+
+When code-review runs as part of the pre-PR pipeline, findings go back to the implementer for triage and fixing. The loop repeats until clean.
+
+### Finding Triage
+
+The implementer categorizes each finding:
+
+- **Fix**: The right action is obvious from the finding itself. Bugs, missing tests, stale docs, pattern violations, naming issues. Fix without waiting for Sean.
+- **Park**: The finding needs Sean's input. Design questions, principle tensions, ambiguous tradeoffs where reasonable people could disagree. Also park findings you disagree with — don't dismiss them. Parked items are listed in the PR for Sean to weigh in on.
+
+### Re-review After Fixes
+
+After fixing the "fix" items, code-review runs again with two key rules:
+
+- **Personas run ignorant.** No knowledge of the prior review. Fresh eyes on all the code, including the fixes. This prevents tunnel-vision on whether prior findings were addressed and ensures the fixes themselves get the same scrutiny as any other code.
+- **Synthesis knows the prior review.** The orchestrator passes prior-review context to the synthesis step: what was found before, what was fixed, what was parked. The synthesizer uses this to verify fixes were actually addressed (not just differently broken), avoid re-flagging parked items that Sean hasn't ruled on yet, and detect whether a fix introduced a new problem that the ignorant personas caught independently.
+
+### Loop Termination
+
+The loop ends when no findings remain except parked items. At that point, open the PR with the parked items listed so Sean can weigh in. If Sean's direction on parked items requires changes, make them and run a final code-review pass to confirm.
 
 ## Synthesis Focus
 

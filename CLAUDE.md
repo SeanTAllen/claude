@@ -17,9 +17,18 @@
 
 **"Don't touch X" scopes to the plan, not to design exploration**: When scoping constraints say not to modify something in the current plan, that doesn't prohibit exploring how it should evolve in future work. Design discussion is always allowed. The constraint means "don't change it in this PR," not "don't think about it."
 
-**Mandatory review checkpoints**: At each of these points, run the full review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until a reviewer finds no issues. When you disagree with a reviewer's finding, escalate to Sean — do not resolve disputes unilaterally. Do not proceed past a checkpoint without a clean review.
-1. **After devising a plan**, before presenting it to Sean for discussion. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
-2. **After completing implementation and self-review**, before opening a PR.
+**Mandatory review checkpoints**: When you disagree with a reviewer's finding, escalate to Sean — do not resolve disputes unilaterally. Do not proceed past a checkpoint without a clean review.
+
+1. **After devising a plan**, before presenting it to Sean for discussion. Run the principle-review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until clean. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
+
+2. **After completing implementation**, before opening a PR. This is a two-stage process:
+   - **Self-review** (principle-review loop): Lightweight, single-agent. Catches obvious issues — stale comments, missing docs, principle violations. Iterate until clean.
+   - **Code review** (load `/code-review`): Heavy, 8-persona ensemble. Runs after self-review passes. The implementer receives the synthesized findings and triages them:
+     - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
+     - **Park**: Findings that need Sean's input — design questions, principle tensions, ambiguous tradeoffs. Also park findings you disagree with — don't dismiss them unilaterally.
+   - After fixing, code-review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives prior-review context so it can verify fixes were addressed and not re-flag parked items Sean hasn't seen yet.
+   - Loop until clean — meaning no findings remain except parked items.
+   - Open the PR with parked items listed for Sean to weigh in on.
 
 The only exception: if you believe a change is truly trivial (a typo fix, a one-line config change), ask Sean for permission to skip the review. Do not decide on your own that something is trivial enough to skip. When in doubt, run the review.
 
@@ -93,7 +102,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 **Load `/software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs.
 
-**Load `/code-review` for thorough code reviews**: When conducting a comprehensive code review of a PR, branch, or local changes, load `/code-review`. It runs 8 specialized reviewer personas in parallel via the ensemble workflow, synthesizes findings, and presents a consolidated review. Use for substantial changes; not for trivial fixes.
+**Load `/code-review` for thorough code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. Load `/code-review` for the full protocol. Use for substantial changes; not for trivial fixes.
 
 ## Code Design Principles
 
