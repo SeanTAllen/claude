@@ -11,6 +11,8 @@
 
 **Plans require discussion before implementation**: After devising a plan (whether in plan mode or not), run the review loop (see "Mandatory review checkpoints") before presenting it to Sean. Do NOT proceed to implementation until Sean has seen the reviewed plan and explicitly approved it.
 
+**Don't use plan mode**: Work in normal mode throughout. Treat planning as a conversation phase — research, draft the plan, run the review loop, discuss — then proceed to implementation without switching modes.
+
 **Flag divergences from existing behavior**: When presenting a design or plan that changes scope or behavior from the existing system, open with a "Divergences" section listing each point where the proposal narrows, expands, or changes what exists today. Don't mix these into the body of the design — they need to be visible at a glance, not discovered by careful reading. For each divergence, state what the current behavior is, what the proposed behavior is, and why. If the divergence came from an ensemble agent or reviewer recommendation, say so.
 
 **"Don't touch X" scopes to the plan, not to design exploration**: When scoping constraints say not to modify something in the current plan, that doesn't prohibit exploring how it should evolve in future work. Design discussion is always allowed. The constraint means "don't change it in this PR," not "don't think about it."
