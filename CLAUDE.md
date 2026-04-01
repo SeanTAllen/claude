@@ -93,6 +93,8 @@ Use `/zulip` when Sean shares a Zulip link.
 
 **Load `/software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs.
 
+**Load `/code-review` for thorough code reviews**: When conducting a comprehensive code review of a PR, branch, or local changes, load `/code-review`. It runs 8 specialized reviewer personas in parallel via the ensemble workflow, synthesizes findings, and presents a consolidated review. Use for substantial changes; not for trivial fixes.
+
 ## Code Design Principles
 
 1. **Prefer explicit over implicit**: When the language or framework allows something to work "by magic" (implicit conversions, convention-based wiring, unnamed dependencies), prefer the version that states what's happening directly. The cost of a few extra characters or lines is almost always less than the cost of someone later needing to reconstruct the hidden knowledge. Several principles below are specific applications of this idea.

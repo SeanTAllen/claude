@@ -1,0 +1,123 @@
+---
+name: code-review
+description: Ensemble code review with 8 specialized reviewer personas. Load when conducting a thorough code review of a PR, branch, or local changes.
+disable-model-invocation: false
+---
+
+# Code Review
+
+Ensemble code review that runs 8 specialized reviewer personas in parallel, synthesizes their findings, and presents a consolidated review. Use for substantial changes where thorough review justifies the cost: features, refactors, bug fixes with non-obvious scope. Not for one-line config changes or typo fixes.
+
+## Relationship to Ensemble Workflow
+
+Use the ensemble workflow with review-specific customizations. Load `/ensemble` for the mechanical process. This skill replaces the generic attention focuses with 8 review personas and replaces the generic agent output format with the review-specific format defined below.
+
+The Adversarial persona satisfies the ensemble's "fix reviews require an adversarial focus" requirement — when the review target is a fix, the Adversarial persona naturally focuses on showing the fix is incomplete per its identity statement.
+
+Persona agents write detailed evidence to files and return structured summaries to the orchestrator. The synthesizer works from summaries and digs into evidence files only when it needs to examine a finding more closely. This prevents context overload during synthesis.
+
+The synthesize skill's output format (Integrated Result, Synthesis Rationale, etc.) is not a natural fit for code review. The orchestrator instructs the synthesizer to produce output in the review-specific final format (below) rather than the generic synthesizer format. No changes to `/synthesize` itself.
+
+## Process
+
+1. **Identify the review target.** PR URL, branch name, or local changes. If not specified, ask. Resolve the target into concrete instructions for agents: the base branch to diff against, the git diff command or `gh pr diff` command to run, and any design doc or issue URLs for context.
+
+2. **Build and run tests once.** Capture the build output and test results. These results are provided to persona agents that need them — no agent runs tests itself. If the build fails or tests fail, proceed with the review anyway — provide the failure output to all personas and note whether the failure is pre-existing or introduced by the change.
+
+3. **Create a temporary directory for evidence files.** Use `~/tmp/code-review-<timestamp>/`. Each persona will write its detailed evidence to a file in this directory. Generate the file path for each persona (e.g., `correctness-evidence.md`) and pass it in the prompt.
+
+4. **Spawn 8 persona agents in parallel** as Tasks with subagent_type="general-purpose" and model="opus". Each agent's prompt includes:
+
+   - The persona document, read from the corresponding file in `personas/`. When a persona's context loading references an external skill (e.g., `/test-design`, `/pbt-patterns`, `/pony-ref`), read that skill's content and include it in the agent prompt.
+   - Instructions to read `~/.claude/CLAUDE.md` and project CLAUDE.md (if one exists — not all projects have one; if absent, note it and proceed with global CLAUDE.md only) and follow those principles, including loading any skills they reference.
+   - The review target: base branch, diff command, PR URL, and any related issue/discussion URLs.
+   - Instructions to read all changed files in full (not just diffs), plus supporting files needed for context.
+   - For Correctness, Adversarial, and Tests personas: the captured build output and test results from step 2.
+   - The shared persona output format (below), including the evidence file path and instructions to write detailed evidence to that file and return a summary.
+   - Instructions to run a reviewer loop before returning — the reviewer checks the persona's analysis for coherence, completeness, and evidence quality, not the underlying code a second time.
+   - Instructions that this is an ensemble agent — return findings to the orchestrator, don't take external actions.
+
+   **For the Wildcard persona specifically:** include the identity statement (first paragraph) from each of the other 7 personas so the wildcard knows what territory is already covered.
+
+5. **Triage agent outputs** per ensemble protocol — check that each persona addressed the actual code and stayed coherent.
+
+6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format.
+
+7. **Reviewer loop on the synthesis** — the reviewer verifies that no persona findings were dropped, severity changes from individual findings are justified, and cross-persona patterns were correctly identified.
+
+8. **Present the consolidated review.**
+
+## Synthesis Focus
+
+The synthesizer should pay special attention to:
+
+- **Severity conflicts**: When one persona flags something as critical and another doesn't mention it, investigate why. The persona that flagged it may have domain-specific knowledge the others lack. Don't average severity — if one reviewer says "critical" with evidence, the finding is critical.
+- **Pattern detection**: Multiple low-severity findings in the same area of code often indicate a structural problem. Five small issues is one design issue. Look for clusters.
+- **Adversarial findings the correctness reviewer missed**: These are high-value — the correctness reviewer was looking forward from the code and didn't see the failure path.
+- **Test gaps matching other findings**: When the Tests persona identifies coverage gaps that align with issues found by Adversarial or Correctness, those are the highest-priority test additions.
+- **Principle violations others missed**: Findings from the Principles persona that no other persona noticed represent systematic blind spots.
+- **Cross-persona corroboration**: When multiple personas independently flag the same issue from different angles, that's high confidence. Call it out.
+- **Wildcard findings**: The wildcard persona deliberately looks for things the other personas miss. Its findings may be unconventional — evaluate them on merit, not on whether they fit a category. If a wildcard finding aligns with a faint signal from another persona, that's strong evidence both caught the same thing from different angles.
+- **When digging deeper**: Work from the summaries by default. Read the evidence files when a finding needs more context — when severities conflict, when a finding's summary is ambiguous, or when you need to verify the evidence supports the claim.
+
+## Final Output Format
+
+Findings grouped by severity, then by location:
+
+**Critical** (must fix before merge)
+**High** (should fix — real risk if left)
+**Medium** (would improve the code, not blocking)
+**Low** (suggestions, style)
+
+Each finding:
+- **Location**: `file:line`
+- **Finding**: What's wrong
+- **Personas**: Which reviewer(s) flagged this
+- **Evidence**: What was observed
+- **Suggested fix**: If applicable
+
+Followed by:
+- **Passes**: Key things checked across all personas that look correct (brief — builds confidence the review was thorough)
+- **Uncertainties**: Things that need input — genuinely hard questions no persona could resolve
+
+## Shared Persona Output Format
+
+Include these instructions in every persona agent's prompt.
+
+Each persona produces two artifacts:
+
+### Evidence File
+
+Written to the file path provided by the orchestrator. Contains the full detailed analysis: every finding with complete evidence, full code excerpts, detailed reasoning, complete pass/fail evaluations. This is the authoritative record.
+
+### Summary (returned to orchestrator)
+
+A structured summary for the synthesizer to work from:
+
+**Findings** — ordered by severity (Critical > High > Medium > Low). Each:
+- **Location**: `file:line`
+- **Severity**: Critical / High / Medium / Low
+- **Confidence**: High / Medium / Low
+- **Finding**: What's wrong (concise — full evidence is in the file)
+- **Suggested fix**: If applicable
+
+Confidence calibration: **High** = verified by reading code or running tests. **Medium** = strong inference from code structure, not directly verified. **Low** = inferred from patterns or conventions, may not apply.
+
+**Passes** — key things checked that look correct. Brief.
+
+**Uncertainties** — things the persona couldn't determine, and why.
+
+## Personas
+
+The 8 persona documents are in `personas/`:
+
+| File | Focus |
+|------|-------|
+| `correctness.md` | Logic, edge cases, completeness for valid inputs |
+| `adversarial.md` | Concrete break scenarios, backward from failure |
+| `api-design.md` | Consumer experience, naming, footguns, pattern conformance |
+| `security.md` | Trust boundaries, injection, auth, resource bounds |
+| `performance.md` | Architectural bottlenecks, then local waste |
+| `tests.md` | Test quality, missing tests, counterfactual reasoning |
+| `principles.md` | Systematic CLAUDE.md audit with evidence |
+| `wildcard.md` | Chaos agent — finds what the others miss |
