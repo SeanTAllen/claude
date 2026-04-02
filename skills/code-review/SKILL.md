@@ -85,7 +85,7 @@ The structural question should be specific: name the data structure or abstracti
 
 ### Loop Termination
 
-The loop ends when no findings remain except parked items. At that point, open the PR with the parked items listed so Sean can weigh in. If Sean's direction on parked items requires changes, make them and run a final code-review pass to confirm.
+The loop ends when no findings remain except parked items. At that point, open the PR with the parked items listed in the PR description or as a PR comment so Sean can weigh in — never in commit messages. Commit messages are for change rationale only; parked items are transient review artifacts that don't belong in git history. If Sean's direction on parked items requires changes, make them and run a final code-review pass to confirm.
 
 ## Synthesis Focus
 
