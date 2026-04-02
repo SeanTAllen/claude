@@ -22,56 +22,179 @@ invalidate them. Either way, you have to look. "I already decided that" is never
 a reason to skip re-evaluation — it was decided with less information than you
 have now.
 
-## Process: design uses ensemble
+## Process: two-stage design ensemble
 
 Design work is where pattern-matching failures are most costly and hardest to
 self-detect. A single agent applying design disciplines will still
 pattern-match — the disciplines become post-hoc rationalizations for a
 retrieved design rather than actual constraints on the exploration.
 
-Use the ensemble workflow with three design-specific personas. Load `/ensemble`
-for the mechanical process; the personas below replace the generic attention
-focuses.
+The design process runs in two stages with a feedback loop. Load `/ensemble`
+for the mechanical process; the personas defined in this skill replace the
+generic attention focuses.
 
-### Design personas
+### Relationship to Ensemble Workflow
 
-Each persona applies all the disciplines below but enters the problem from a
-different direction. The decorrelation comes from where they start, not what
-they know.
+This skill uses the ensemble workflow with domain-specific customizations.
+Stage 1 (design) runs as a standard ensemble with 3 personas. Stage 2
+(evaluation) runs as a second ensemble with 5 personas, using the Stage 1
+synthesis output as its input. The two-stage loop and finding categorization
+(Rejection/Adjustment/Tension) are additions specific to this skill — the
+base ensemble protocol handles agent spawning, triage, and synthesis
+mechanics.
 
-**Consumer-first designer.** Starts by writing the code that *uses* the API —
-every call site, every configuration point, every error path. Derives the types
-and interfaces from what makes that code clean. When the design claims two APIs
-are "the same," writes both side by side and verifies they literally use the
-same names and signatures. The consumer sketch is not an illustration of the
-design — it IS the design.
+### Stage 1: Design
 
-**Skeptic.** For every type, trait, or abstraction — proposed *and existing* —
-asks: what if we didn't have this? Is this still the right structure for what
-we're building on top of it? A prior decision that was correct in its original
-context may be wrong for the new feature. The skeptic doesn't just question new
-abstractions; it questions whether the existing foundation is still sound given
-what's being added. Tries to subtract from the design rather than add. Proposes
-the smallest possible design that solves the problem. When existing code already
-handles part of the need, starts from that rather than inventing a parallel
-structure.
+Three design personas explore the problem space in parallel. Each applies all
+the disciplines below but enters the problem from a different direction. The
+decorrelation comes from where they start, not what they know. Persona
+definitions are in `personas/design/`.
 
-**Principle checker.** Runs each design principle from this skill and from
-CLAUDE.md as a hard verification gate — not "consider whether this applies" but
-"does this hold? show evidence." Writes down the answer for each principle.
-Specifically checks: is every outcome explicit? Can the user forget a step? Can
-something compile but silently do the wrong thing? Are there two representations
-for the same concept?
+| File | Focus |
+|------|-------|
+| `consumer-first.md` | Starts from usage code, derives API from what makes call sites clean |
+| `skeptic.md` | Questions every abstraction, tries to subtract, proposes the smallest design |
+| `principle-checker.md` | Hard verification of each design principle with evidence |
 
-### Synthesis focus
+Stage 1 synthesis produces a candidate design using the standard ensemble
+synthesis process. The synthesis should pay special attention to:
 
-The synthesizer should pay special attention to:
 - Where the consumer-first designer's sketches conflict with the skeptic's
   subtractions — the tension usually reveals the right boundary
-- Where the principle checker found a violation that the other two missed —
+- Where the principle checker found a violation that the others missed —
   this is the highest-value finding
 - Whether all three converged on the same abstraction — convergence from
   different starting points is strong signal
+
+### Stage 2: Evaluation
+
+Five evaluation personas stress-test the candidate design in parallel. Their
+input is the Integrated Result from Stage 1 synthesis — the candidate design
+with its consumer sketches, type definitions, and boundary decisions. They
+evaluate these design artifacts, not implementation code. Persona definitions
+are in `personas/evaluation/`.
+
+| File | Focus |
+|------|-------|
+| `security.md` | Trust boundaries, attack surfaces, resource bounds in the design |
+| `performance.md` | Architectural bottlenecks, coordination points, data structure choices |
+| `adversarial.md` | Concrete usage scenarios that lead to bad outcomes |
+| `testability.md` | Whether the design is verifiable — observable effects, isolatable components |
+| `wildcard.md` | What all 7 other personas missed |
+
+For the wildcard persona specifically: include the identity statement (first
+paragraph) from each of the other 7 personas so the wildcard knows what
+territory is already covered.
+
+Before spawning evaluation personas, create a temporary directory for evidence
+files (`~/tmp/design-eval-<timestamp>/`). Each persona writes its detailed
+analysis to a file in this directory and returns a structured summary to the
+orchestrator. The synthesizer works from summaries and digs into evidence
+files only when it needs to examine a finding more closely. This prevents
+context overload during synthesis.
+
+Evaluation personas identify problems and assess impact — they do not
+categorize their own findings as Rejection/Adjustment/Tension. Categorization
+is the synthesis step's responsibility.
+
+### Evaluation persona output format
+
+Each evaluation persona produces two artifacts:
+
+**Evidence file** — written to the path provided by the orchestrator. Contains
+the full detailed analysis: every finding with complete evidence, full design
+element excerpts, detailed reasoning, and complete pass/fail evaluations. This
+is the authoritative record.
+
+**Summary** (returned to orchestrator) — a structured summary for the
+synthesizer to work from:
+
+**Findings** — ordered by impact (Structural > Significant > Minor). Each:
+
+- **Design element**: The type, boundary, API, or interaction being evaluated
+- **Concern**: What the problem is
+- **Impact**: Structural (requires rethinking the approach), significant
+  (requires notable changes to the candidate), or minor (small adjustment)
+- **Evidence**: Brief — full evidence is in the file
+- **Suggested change**: If applicable
+
+The impact assessment helps the synthesizer with categorization without
+pre-empting it. A persona's "structural" assessment is a strong signal toward
+Rejection, but the synthesizer may disagree if it sees the concern addressed
+by another persona's suggestion.
+
+**Passes** — things checked that look correct. Brief.
+
+**Uncertainties** — things the persona couldn't determine, and why.
+
+Stage 2 synthesis works from the persona summaries and categorizes each
+finding. Provide the paths to each persona's evidence file so the synthesizer
+can dig in when it needs more context — when impact assessments conflict, when
+a finding's summary is ambiguous, or when it needs to verify the evidence
+supports the concern.
+
+Stage 2 synthesis categorizes each finding:
+
+- **Rejection**: A structural problem that invalidates the design direction.
+  The candidate cannot be fixed by adjustment — the design personas need to
+  rethink the approach. The rejection includes why the direction fails and
+  what constraint it violates.
+- **Adjustment**: A specific aspect that needs to change, but the overall
+  direction is sound. Becomes a constraint for the next design iteration.
+- **Tension**: A fundamental conflict that the personas cannot resolve — it
+  requires human judgment. Collected and presented at the end.
+
+### The loop
+
+After stage 2 synthesis:
+
+1. If there are only tensions (no rejections or adjustments), the loop
+   terminates. Present the design with the tensions for human review.
+2. If there are adjustments and/or rejections, feed them back to the design
+   personas. Each design persona receives: the prior candidate design, the
+   original problem statement, and the categorized findings. Rejections include
+   the rationale for why the direction failed — design personas should explore
+   a different approach, not patch the rejected one. Adjustments include the
+   specific change needed and why — design personas should revise the candidate
+   to incorporate them as constraints.
+3. The design personas run again with this context, producing a revised
+   candidate.
+4. Evaluation runs again on the revised candidate. Evaluation personas run with
+   fresh context (no knowledge of prior evaluations). The synthesis step
+   receives the full history so it can track convergence.
+5. Repeat until clean or until convergence failure is detected.
+
+### Convergence failure
+
+The orchestrator monitors the loop for signs that it isn't converging:
+
+- The same evaluation concern keeps appearing across iterations, even after
+  design revisions attempt to address it
+- Rejections and adjustments are contradicting each other (fixing one
+  evaluation concern breaks another)
+- The design is growing more complex with each iteration rather than settling
+
+When a convergence failure is detected, the orchestrator stops the loop and
+escalates to the human: "Here's the fundamental tension — these concerns pull
+in opposite directions, and we need you to decide which matters more." This is
+not a failure of the process. Surfacing genuine tensions is one of its primary
+outputs.
+
+### Output
+
+The final output includes:
+
+- **Accepted design** (if one emerged): The candidate that passed evaluation,
+  with consumer sketches, type definitions, and boundary decisions.
+- **Rejected designs**: Each candidate that was rejected during the loop, with
+  the rejection rationale. These are valuable — they document explored
+  territory and why it didn't work.
+- **Unresolved tensions**: Findings categorized as tensions that require human
+  judgment.
+
+If the loop terminated via convergence failure rather than a clean evaluation,
+there is no accepted design — only the history of attempts, the rejections, and
+the tensions.
 
 ## The disciplines
 
@@ -282,6 +405,12 @@ design each on its own merits.
 codebase, language, or stdlib already has something that serves the same
 purpose. The new type may feel cleaner in isolation but adds a concept the user
 must learn and the codebase must maintain.
+
+**Skipping evaluation.** Producing a design from the design personas and going
+straight to implementation without running the evaluation stage. The evaluation
+personas catch structural problems — security gaps, performance ceilings,
+untestable interfaces, adversarial usage scenarios — that the design personas
+aren't looking for.
 
 ## Pony-specific design guidance
 
