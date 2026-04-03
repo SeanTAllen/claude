@@ -141,7 +141,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 ## Testing
 
-**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It runs a two-stage ensemble — 3 planning personas produce a candidate test strategy, then 5 evaluation personas stress-test it for specificity (are you testing your code or the stdlib?), coverage gaps, weak assertions, and missed property-test opportunities. The ensemble loops until evaluation passes or surfaces tensions for human judgment.
+**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It counters the tendency to write tests that exercise the stdlib instead of your code. The skill has two modes (full and lightweight) — suggest which mode fits and why, then let Sean confirm before proceeding. Lightweight uses 3 planning + 2 evaluation personas in a single pass; full uses 3 planning + 5 evaluation with a feedback loop.
 
 ### Counterfactual Testing
 

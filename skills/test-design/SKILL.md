@@ -1,6 +1,6 @@
 ---
 name: test-design
-description: Two-stage ensemble for planning meaningful tests. Load when writing tests for new features or reviewing test quality. Counters the tendency to write tests that exercise the stdlib instead of your code.
+description: Two-stage ensemble for planning meaningful tests. Load when writing tests for new features or reviewing test quality. Counters the tendency to write tests that exercise the stdlib instead of your code. Has full (8-persona) and lightweight (5-persona) modes — suggest mode and let human confirm.
 disable-model-invocation: false
 ---
 
@@ -18,7 +18,34 @@ to write rather than actual constraints on the planning. The two-stage ensemble
 forces genuine exploration of what needs testing and genuine scrutiny of
 whether the proposed tests accomplish it.
 
-## Process: two-stage test-design ensemble
+## Mode selection
+
+The skill has two modes: **full** and **lightweight**. Before starting test
+planning, the orchestrator should suggest which mode looks appropriate and why,
+then ask the human to confirm. The human decides — the orchestrator doesn't
+self-select.
+
+**Full mode** is the default. Use it when:
+
+- Testing a new feature or subsystem with substantial test work
+- The right test approach is genuinely uncertain
+- Code under test has complex state, many code paths, or crosses multiple
+  boundaries
+- Multiple test strategies need to be explored and compared
+
+**Lightweight mode** is for bounded test work within established patterns:
+
+- Adding a single regression test for a known bug
+- Extending an existing test pattern to a new variant
+- Testing a simple function with clear inputs/outputs
+- Adding tests that follow an established pattern in the codebase
+- The task can be described as "add a test for X" where X is well-understood
+
+When in doubt, suggest full mode. Lightweight is the opt-in when justified —
+the orchestrator must state what makes the test work bounded and why fewer
+evaluation personas are sufficient.
+
+## Process: full mode
 
 Test planning runs in two stages with a feedback loop. Load `/ensemble` for
 the mechanical process; the personas defined in this skill replace the generic
@@ -242,6 +269,102 @@ The final output includes:
 If the loop terminated via convergence failure rather than a clean evaluation,
 there is no accepted test strategy — only the history of attempts, the
 rejections, and the tensions.
+
+## Process: lightweight mode
+
+Lightweight mode uses fewer personas and a single pass. It keeps all three
+planning personas but reduces evaluation to two personas and drops the
+feedback loop. Load `/ensemble` for the mechanical process.
+
+### Stage 1: Planning
+
+Three planning personas explore the code under test from different directions
+in parallel — the same as full mode. The same disciplines apply; the
+decorrelation still comes from different entry points.
+
+| File | Focus |
+|------|-------|
+| `boundary-focused.md` | Starts from implementation — maps decision points, branches, state transitions |
+| `failure-focused.md` | Starts from "how does this break?" — works backward from bad outcomes |
+| `contract-focused.md` | Starts from public API without reading implementation first |
+
+Stage 1 synthesis produces a candidate test strategy using the standard
+ensemble synthesis process. The same synthesis guidance as full mode applies:
+inside-out/outside-in convergence is strong signal, failure-focused scenarios
+the others missed are the highest-value additions, and disagreements on input
+approach (property vs. example) reveal whether an invariant exists.
+
+### Stage 2: Evaluation
+
+Two evaluation personas stress-test the candidate. The specificity evaluator
+always runs. The second slot is context-dependent — if the human specifies
+which evaluator to use, use that. Otherwise the orchestrator picks whichever
+lens is most relevant to the task:
+
+| When | Pick |
+|------|------|
+| Tests have non-obvious assertions or complex code paths | `counterfactual.md` |
+| Code under test has many branches, states, or variants | `coverage.md` |
+| Tests use example-based inputs for behavior with potential invariants | `property-opportunity.md` |
+
+Pick whichever is closest — every test strategy has some risk profile. If
+multiple conditions apply, ask the human which risk they want covered — or
+whether the task warrants full mode. If the reason for picking a particular
+evaluator is a code characteristic that also appears in the full-mode
+selection criteria, that's a signal the task warrants full mode — don't use
+the persona pick to compensate for a wrong mode selection.
+
+Before spawning evaluation personas, create a temporary directory for
+evidence files (`~/tmp/test-eval-<timestamp>/`), same as full mode.
+Each persona writes its detailed analysis to a file in this directory and
+returns a structured summary. Evaluation personas use the same output
+format as full mode (evidence file + summary with findings ordered by
+impact, passes, uncertainties).
+
+Stage 2 synthesis categorizes each finding as Rejection, Adjustment, or
+Tension using the same scheme as full mode. If the 2 personas collectively
+produce more findings than expected for the test scope, note this explicitly
+— a high density of findings on a small test task suggests the code under
+test is more complex than it appeared and may warrant full mode.
+
+### Not included in lightweight
+
+- **Wildcard** — the wildcard's value scales with change complexity and the
+  number of other personas whose territory it needs to look beyond. With only
+  2 focused evaluation personas on a small test task, there's insufficient
+  covered territory for the wildcard to add meaningful signal.
+
+### No loop — single pass
+
+Lightweight mode does not iterate. After Stage 2 synthesis:
+
+- **Adjustments and tensions**: Present the test strategy with findings to the
+  human. Adjustments are expected to be small enough that the orchestrator or
+  human can apply them directly. If adjustments collectively amount to
+  replanning the test strategy rather than tweaking it, that's the same
+  escalation signal as high finding density — present it to the human.
+- **Rejection**: The test approach is wrong. Present the rejected candidate,
+  the rejection rationale, and all other findings to the human. The human
+  decides what to do — escalate to full mode, fix it directly, rethink the
+  problem statement, or something else. Lightweight doesn't prescribe the
+  response; it presents the information.
+
+If the review produces an unexpectedly high density of findings relative to
+the test scope, if a finding reveals the test approach is fundamentally wrong,
+or if findings reveal the code under test is more complex than the mode
+selection assumed, the orchestrator presents this to the human. The human
+decides what to do — the same options apply.
+
+### Output
+
+The final output includes:
+
+- **Candidate test strategy**: With proposed tests, input approaches, and
+  expected assertions.
+- **Adjustments**: Specific changes needed, small enough to apply directly.
+- **Tensions**: Conflicts requiring human judgment.
+- **Rejection rationale**: If applicable — the structural finding and why the
+  test approach was rejected.
 
 ## The disciplines
 
