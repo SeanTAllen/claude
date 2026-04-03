@@ -141,7 +141,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 ## Testing
 
-**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It covers what to test, integration boundaries, property vs. example-based tests, edge case coverage, and counterfactual testing.
+**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It runs a two-stage ensemble — 3 planning personas produce a candidate test strategy, then 5 evaluation personas stress-test it for specificity (are you testing your code or the stdlib?), coverage gaps, weak assertions, and missed property-test opportunities. The ensemble loops until evaluation passes or surfaces tensions for human judgment.
 
 ### Counterfactual Testing
 
