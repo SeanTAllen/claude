@@ -18,11 +18,11 @@
 
 2. **After completing implementation**, before opening a PR. This is a two-stage process:
    - **Self-review** (principle-review loop): Lightweight, single-agent. Catches obvious issues — stale comments, missing docs, principle violations. Iterate until clean.
-   - **Code review** (load `/code-review`): Heavy, 8-persona ensemble. Runs after self-review passes. The implementer receives the synthesized findings and triages them:
+   - **Code review** (load `/code-review`): Full (8-persona) or lightweight (3-persona) — the orchestrator suggests which mode based on change scope; the human confirms. Load `/code-review` for mode selection criteria. The implementer receives the synthesized findings and triages them:
      - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
      - **Park**: Findings that need Sean's input — design questions, principle tensions, ambiguous tradeoffs. Also park findings you disagree with — don't dismiss them unilaterally.
-   - After fixing, code-review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives the full review history so it can verify fixes were addressed, not re-flag parked items, and detect convergence failures — when the same area keeps producing findings across rounds, the synthesizer escalates a structural question (always parked).
-   - Loop until clean — meaning no findings remain except parked items.
+   - **Full mode only**: After fixing, code-review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives the full review history so it can verify fixes were addressed, not re-flag parked items, and detect convergence failures — when the same area keeps producing findings across rounds, the synthesizer escalates a structural question (always parked). Loop until clean — meaning no findings remain except parked items.
+   - **Lightweight mode**: No re-review loop. Fix the findings and proceed. If finding density is unexpectedly high, the orchestrator presents this to the human — the change may warrant full mode.
    - Open the PR with parked items listed for Sean to weigh in on.
 
 The only exception: if you believe a change is truly trivial (a typo fix, a one-line config change), ask Sean for permission to skip the review. Do not decide on your own that something is trivial enough to skip. When in doubt, run the review.
@@ -95,7 +95,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 **Load `/software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs. The skill has two modes (full and lightweight) — suggest which mode fits and why, then let Sean confirm before proceeding. Lightweight uses 3 design + 2 evaluation personas in a single pass; full uses 3 design + 5 evaluation with a feedback loop.
 
-**Load `/code-review` for thorough code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. Load `/code-review` for the full protocol. Use for substantial changes; not for trivial fixes.
+**Load `/code-review` for code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. The skill has two modes (full and lightweight) — suggest which mode fits and why, then let Sean confirm before proceeding. Lightweight uses 3 personas in a single pass; full uses 8 personas with iterative re-review. Not for trivial fixes — ask permission to skip review for those.
 
 ## Code Design Principles
 
