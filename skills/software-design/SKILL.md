@@ -476,6 +476,9 @@ correct but fails silently or in non-obvious ways:
   If so, revisit "Distinguish values with distinct semantics" — the type
   boundaries may be too coarse.
 - Is any outcome implicit (success by silence, failure by absence)?
+- Can the user receive an error and not know what to do with it? If so,
+  revisit "Design error vocabularies" — the error types may be too coarse or
+  missing context.
 
 A candy-machine interface is one where the user can put the money in the slot
 and push the button and get something other than what they expected. Good design
@@ -513,6 +516,49 @@ that's a tension worth surfacing — not a conflict to resolve silently. Both ar
 needed: subtraction prevents unnecessary abstraction, distinct-semantics prevents
 premature unification. The design process should make the tension visible so it
 gets an explicit decision.
+
+### Design error vocabularies
+
+Error types are not just return values — they're an API. "Distinguish values
+with distinct semantics" asks the general question: do any values in this design
+have different meanings but share a representation? This discipline applies that
+question specifically to error types, where the consequences of getting it wrong
+are distinct: a caller that can't tell errors apart can't handle them correctly,
+and context lost at a wrapping boundary is gone forever.
+
+At each layer or boundary in the design:
+
+- **What are the distinct failure modes?** Enumerate them. If two failure modes
+  need different handling by the caller, they need different representations. If
+  two failure modes always get the same treatment, they might be one.
+- **Does each error carry enough context for the caller to act?** "Not found" is
+  reporting. "Not found: key X in store Y" is actionable. If the caller needs to
+  do something about the error — retry, fall back, present a specific message —
+  it needs the data to do so.
+- **Are distinct failures collapsed into one type?** A generic "parse error" that
+  covers both "malformed input" and "unsupported version" forces the caller to
+  guess which it is. This is the error-specific form of premature unification.
+- **How does context propagate across layers?** When a low-level error gets
+  wrapped by a higher-level one, is the original context preserved? Can a human
+  (or a log aggregator) trace the error back to its source? Information lost at
+  wrapping boundaries is gone forever.
+- **Can the consumer distinguish errors that need different handling?** The
+  consumer sketch shows what the match statement looks like. The question here is
+  whether the error types *support* the distinctions the consumer needs. If the
+  consumer has to inspect string messages or use out-of-band knowledge to tell
+  errors apart, the vocabulary is too coarse.
+
+The consumer-first discipline sketches what error handling looks like from
+outside — it reveals what distinctions the caller needs. This discipline designs
+the error types themselves, ensuring they carry the right distinctions and enough
+context. Both are needed: the consumer sketch is the specification, this
+discipline is the implementation check.
+
+When this discipline pushes toward more error variants and the skeptic's
+subtraction pushes toward fewer, surface the tension — don't resolve it silently.
+Each error variant added to a public API is hard to remove later; the consumer
+sketch shows which distinctions the caller actually needs versus which are
+internal detail.
 
 ### When in doubt, ask
 
@@ -597,6 +643,13 @@ look identical, but the values mean different things at different boundaries. Th
 skeptic's "what breaks if we remove this?" may not catch it because nothing
 breaks structurally — the breakage is semantic, showing up as a caller that
 treats an unvalidated input as a trusted record or vice versa.
+
+**Treating error types as an afterthought.** Designing the happy-path types and
+interactions first, then bolting on generic error types at the end. Error
+vocabularies designed this way tend to be too coarse — one error type for many
+distinct failure modes — because they weren't part of the design exploration.
+Error types should emerge alongside the domain types; they're part of the API,
+not an appendage.
 
 **Skipping evaluation.** Producing a design from the design personas and going
 straight to implementation without running the evaluation stage. The evaluation
