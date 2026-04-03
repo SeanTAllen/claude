@@ -418,6 +418,66 @@ The strongest signal that you're importing rather than discovering: your design
 has the same nouns as Rails/Phoenix/Express/Django and you're working in a
 language with fundamentally different idioms.
 
+### Name things precisely
+
+Names are the primary interface of a design — they're how it communicates
+intent to every future reader. A design that's structurally sound can still
+fail in practice because a name suggested something different from what the
+thing actually does, and the user built a wrong mental model from it.
+
+This discipline earns its keep at boundaries: public API types, method names,
+parameter names, module names — anywhere a user encounters a name and forms an
+expectation about what it means. Internal names matter too, but the cost of a
+misleading public name is much higher because it shapes how every consumer
+understands the system.
+
+At each design step, ask:
+
+- **Does the name come from the problem domain or the solution domain?**
+  Problem-domain names ("invoice," "route," "subscription") connect the code
+  to what users already understand. Solution-domain names ("manager,"
+  "handler," "processor") describe implementation roles that tell the user
+  nothing about what the thing actually does. Prefer problem-domain names for
+  types the user interacts with; reserve solution-domain names for internal
+  machinery where they're the clearest description of the role. Note that some
+  of these words become problem-domain vocabulary in specific contexts —
+  "handler" is the natural term in web frameworks and event systems. The
+  concern is with using them as generic suffixes that avoid naming what the
+  thing actually handles or manages.
+- **Does the name describe what this thing does, or just what category it
+  belongs to?** "Validator" says it validates — but what?
+  "InvoiceAmountValidator" says what it validates. "Store" says it stores —
+  but a `UserStore` that also sends email notifications lies about its
+  responsibilities. A name that categorizes without specifying is a name that
+  lets scope creep in without anyone noticing.
+- **Could the name mislead a user about what this thing does?** If someone
+  reading only the name would form a wrong expectation about the behavior, the
+  name is wrong. This includes names that are accurate but incomplete — a
+  `Cache` that also writes through to the database is misleading because the
+  name suggests read-only caching.
+- **Are there names that sound similar but mean different things?** `Session`
+  and `SessionState`, `Token` and `TokenData`, `Route` and `Router` — when
+  names differ by a suffix or prefix, users will assume the relationship is
+  systematic. If `SessionState` is not the state of a `Session`, the naming
+  implies a relationship that doesn't exist.
+- **Are there names that sound different but mean the same thing?** If the
+  design uses `user` in one place and `account` in another for the same
+  concept, readers will assume these are different things and spend effort
+  trying to understand the distinction. One concept, one name — everywhere.
+  This is about vocabulary consistency, not boundary-qualified variants like
+  `UserInput` and `UserRecord` — those are distinct types that need distinct
+  names per "Distinguish values with distinct semantics."
+
+"Distinguish values with distinct semantics" ensures different concepts get
+different types. This discipline ensures those types get names that communicate
+what they actually are. A type can be correctly distinct and still misleading
+if its name suggests the wrong thing.
+
+When this discipline pushes for more precise names and the skeptic questions
+whether the named concepts need to exist at all, surface the tension — both
+are needed. Good names make abstractions easier to evaluate: a precisely named
+type reveals its purpose, which either justifies or undermines its existence.
+
 ### Reason about ownership boundaries
 
 For every capability in the design, ask: does the framework/library own this, or
@@ -475,6 +535,9 @@ correct but fails silently or in non-obvious ways:
 - Can the user confuse two values that have different semantics but the same type?
   If so, revisit "Distinguish values with distinct semantics" — the type
   boundaries may be too coarse.
+- Could a name lead the user to misunderstand what something does and use it
+  incorrectly? If so, revisit "Name things precisely" — the name may be
+  misleading or too generic.
 - Is any outcome implicit (success by silence, failure by absence)?
 - Can the user receive an error and not know what to do with it? If so,
   revisit "Design error vocabularies" — the error types may be too coarse or
@@ -630,6 +693,15 @@ is a breaking change.
 is a testable claim. Write both usages side by side. If they don't match, the
 design has a problem — either make them actually match or drop the claim and
 design each on its own merits.
+
+**Naming from the solution domain instead of the problem domain.** If you
+can't explain what a type does without restating its name — "it manages
+connections," "it handles requests," "it processes events" — the name is a
+solution-domain label, not a problem-domain description. The tell is that the
+name describes the type's role in the code structure rather than what it means
+to the user. A `ConnectionManager` might be fine as an internal implementation
+detail, but if it's in the public API, the user has to open the docs to find
+out what it manages and how.
 
 **Inventing when extending would suffice.** Proposing a new type when the
 codebase, language, or stdlib already has something that serves the same
