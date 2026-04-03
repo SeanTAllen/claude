@@ -1,22 +1,47 @@
 ---
 name: code-review
-description: Ensemble code review with 8 specialized reviewer personas. Load when conducting a thorough code review of a PR, branch, or local changes.
+description: Ensemble code review with specialized reviewer personas. Has full (8-persona) and lightweight (3-persona) modes — suggest mode and let human confirm. Load when conducting a code review of a PR, branch, or local changes.
 disable-model-invocation: false
 ---
 
 # Code Review
 
-Ensemble code review that runs 8 specialized reviewer personas in parallel, synthesizes their findings, and presents a consolidated review. Use for substantial changes where thorough review justifies the cost: features, refactors, bug fixes with non-obvious scope. Not for one-line config changes or typo fixes.
+Ensemble code review that synthesizes findings from specialized reviewer personas. Has two modes: full (8 personas, iterative re-review) and lightweight (3 personas, single pass). Not for one-line config changes or typo fixes — ask permission to skip review for those.
+
+## Mode Selection
+
+The skill has two modes: **full** and **lightweight**. Before starting a review, the orchestrator should suggest which mode looks appropriate and why, then ask the human to confirm. The human decides — the orchestrator doesn't self-select.
+
+**Full mode** is the default. Use it when:
+
+- The change has non-obvious scope — a feature, a refactor that moves boundaries, a bug fix with wide blast radius
+- The change touches multiple subsystems or crosses ownership boundaries
+- "Is the approach right?" is genuinely uncertain
+- The change is large enough that a single review pass might miss interactions between parts
+
+**Lightweight mode** is for small, bounded changes within established patterns:
+
+- Bug fix in a well-understood area
+- Simple refactor (rename, extract, inline)
+- Straightforward test addition
+- Small feature following existing patterns
+- Change touches a single subsystem with clear boundaries
+
+When in doubt, suggest full mode. Lightweight is the opt-in when justified — the orchestrator must state what makes the change bounded and why fewer personas are sufficient.
+
+Note: the software-design skill's lightweight mode follows a similar pattern (mode selection, single pass, escalation) but reduces differently — it has two stages and shrinks only the evaluation stage (5→2 personas). Code-review has a single stage, so the reduction is in persona count (8→3). The shared pattern is the mode selection and escalation structure.
 
 ## Invocation Modes
 
-**Integrated (pre-PR pipeline):** The implementer runs code-review as part of their pre-PR workflow. Findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. See "Iterative Workflow" below.
+These modes apply to both full and lightweight:
 
-**Standalone:** Invoked directly on an existing PR, branch, or local changes for a one-shot thorough review. The process section below applies as-is.
+**Integrated (pre-PR pipeline):** The implementer runs code-review as part of their pre-PR workflow. In full mode, findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. In lightweight mode, findings are triaged and fixed in a single pass. See the relevant process section below.
+
+**Standalone:** Invoked directly on an existing PR, branch, or local changes for a one-shot review. The process section for the selected mode applies as-is.
 
 ## Relationship to Ensemble Workflow
 
-Use the ensemble workflow with review-specific customizations. Load `/ensemble` for the mechanical process. This skill replaces the generic attention focuses with 8 review personas and replaces the generic agent output format with the review-specific format defined below.
+Use the ensemble workflow with review-specific customizations. Load `/ensemble` for the mechanical process. This skill replaces the generic attention focuses with review personas (8 for full mode, 3 for lightweight) and replaces the generic agent output format with the review-specific format defined below.
 
 The Adversarial persona satisfies the ensemble's "fix reviews require an adversarial focus" requirement — when the review target is a fix, the Adversarial persona naturally focuses on showing the fix is incomplete per its identity statement.
 
@@ -24,7 +49,7 @@ Persona agents write detailed evidence to files and return structured summaries 
 
 The synthesize skill's output format (Integrated Result, Synthesis Rationale, etc.) is not a natural fit for code review. The orchestrator instructs the synthesizer to produce output in the review-specific final format (below) rather than the generic synthesizer format. No changes to `/synthesize` itself.
 
-## Process
+## Process: Full Mode
 
 1. **Identify the review target.** PR URL, branch name, or local changes. If not specified, ask. Resolve the target into concrete instructions for agents: the base branch to diff against, the git diff command or `gh pr diff` command to run, and any design doc or issue URLs for context.
 
@@ -53,7 +78,7 @@ The synthesize skill's output format (Integrated Result, Synthesis Rationale, et
 
 8. **Present the consolidated review.**
 
-## Iterative Workflow (Integrated Mode)
+## Iterative Workflow (Full Mode, Integrated)
 
 When code-review runs as part of the pre-PR pipeline, findings go back to the implementer for triage and fixing. The loop repeats until clean.
 
@@ -88,7 +113,79 @@ The structural question should be specific: name the data structure or abstracti
 
 The loop ends when no findings remain except parked and out-of-scope items. At that point, open the PR with the parked items listed in the PR description or as a PR comment so Sean can weigh in — never in commit messages. Commit messages are for change rationale only; parked items are transient review artifacts that don't belong in git history. If Sean's direction on parked items requires changes, make them and run a final code-review pass to confirm.
 
-## Synthesis Focus
+## Process: Lightweight Mode
+
+Lightweight mode runs 3 personas in a single pass with no iterative re-review. Load `/ensemble` for the mechanical process.
+
+### Personas
+
+**Core pair (always run):**
+
+| File | Focus |
+|------|-------|
+| `correctness.md` | Logic, edge cases, completeness for valid inputs |
+| `adversarial.md` | Concrete break scenarios, backward from failure |
+
+**Context-dependent slot (pick 1):**
+
+| When | Pick |
+|------|------|
+| Tests changed or should have been changed | `tests.md` |
+| API surface changed | `api-design.md` |
+| Change touches trust boundaries or external input | `security.md` |
+| Change is on a hot path or introduces coordination points | `performance.md` |
+
+Pick whichever is most relevant to the change. If multiple conditions apply, ask the human which risk to cover — or whether the change warrants full mode. If none of the conditions apply (e.g., documentation or CI changes), ask the human which persona to include — or whether the change is simple enough to skip code-review and rely on the principle-review self-review alone.
+
+**Not included in lightweight:**
+
+- **Principles** — the principle-review self-review (checkpoint 2, stage 1) already iterates until clean on principle violations before code-review runs. A fresh-context principle check adds diminishing value on small changes. If the change is large enough to benefit from it, it's large enough for full mode.
+- **Wildcard** — the wildcard's value scales with change complexity and the number of other personas whose territory it needs to look beyond. With only 3 focused personas on a small change, there's insufficient covered territory for the wildcard to add meaningful signal.
+
+### Steps
+
+1. **Identify the review target.** Same as full mode — PR URL, branch name, or local changes. Resolve into concrete diff instructions for agents.
+
+2. **Build and run tests once.** Same as full mode — capture output, proceed with review even if build or tests fail.
+
+3. **Create a temporary directory for evidence files.** Use `~/tmp/code-review-<timestamp>/`. Same convention as full mode.
+
+4. **Spawn 3 persona agents in parallel** as Tasks with subagent_type="general-purpose" and model="opus". Each agent's prompt includes:
+
+   - The persona document, read from the corresponding file in `personas/`. When a persona's context loading references an external skill (e.g., `/test-design`, `/pbt-patterns`, `/pony-ref`), read that skill's content and include it in the agent prompt.
+   - Instructions to read `~/.claude/CLAUDE.md` and project CLAUDE.md (if one exists — not all projects have one; if absent, note it and proceed with global CLAUDE.md only) and follow those principles, including loading any skills they reference.
+   - The review target: base branch, diff command, PR URL, and any related issue/discussion URLs.
+   - Instructions to read all changed files in full (not just diffs), plus supporting files needed for context.
+   - The captured build output and test results from step 2 — always provided to Correctness and Adversarial. Also provided to Tests when it is the context-dependent persona.
+   - The shared persona output format (below), including the evidence file path and instructions to write detailed evidence to that file and return a summary.
+   - Instructions to run a reviewer loop before returning — the reviewer checks the persona's analysis for coherence, completeness, and evidence quality, not the underlying code a second time.
+   - Instructions that this is an ensemble agent — return findings to the orchestrator, don't take external actions.
+
+   When the review target is a fix, the Adversarial persona's prompt still includes the fix-specific focus from the ensemble protocol: construct a concrete scenario where the bug still occurs despite the fix.
+
+   The Wildcard-specific instruction (providing other personas' identity statements) does not apply — Wildcard is not part of lightweight mode.
+
+5. **Triage agent outputs** per ensemble protocol — check that each persona addressed the actual code and stayed coherent.
+
+6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the lightweight synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format — same override as full mode.
+
+7. **Reviewer loop on the synthesis** — same checks as full mode: verify no persona findings were dropped, severity changes from individual findings are justified, and cross-persona patterns were correctly identified.
+
+8. **Present the consolidated review** in the same output format as full mode.
+
+### Finding Triage (Lightweight, Integrated)
+
+Same categories as full mode:
+
+- **Fix**: Obvious action from the finding itself. Fix without waiting.
+- **Park**: Needs the human's input. Listed in the PR.
+- **Out of scope**: Real but in code outside this change. File a GitHub issue.
+
+No re-review loop. Fix the findings and proceed to opening the PR.
+
+If the review produces an unexpectedly high density of findings relative to the change size, if a finding reveals the approach is fundamentally wrong, or if a finding reveals the change touches more subsystems or has more complex interactions than the mode selection assumed, the orchestrator presents this to the human. The human decides what to do — run full mode from scratch, fix directly, rethink the approach, or something else. Lightweight doesn't prescribe the response; it presents the information.
+
+## Synthesis Focus: Full Mode
 
 The synthesizer should pay special attention to:
 
@@ -102,6 +199,18 @@ The synthesizer should pay special attention to:
 - **Convergence failures** (re-reviews only): Check the review history for signs that an area isn't converging — recurring findings in the same location, fixes that add complexity instead of removing it, different symptoms of the same structural mismatch across rounds. When detected, escalate a specific structural question (see "Convergence Failure Detection" in the iterative workflow section). This is always a parked item.
 - **Pre-existing issues**: Findings about problems in code outside the current change are still findings — never silently discard them. Flag them clearly as pre-existing so the implementer can triage them as "out of scope" and file issues. A review that discovers a real problem and then drops it because "it's not part of this PR" has wasted the discovery.
 - **When digging deeper**: Work from the summaries by default. Read the evidence files when a finding needs more context — when severities conflict, when a finding's summary is ambiguous, or when you need to verify the evidence supports the claim.
+
+## Synthesis Focus: Lightweight Mode
+
+The synthesizer should pay special attention to:
+
+- **Severity conflicts**: Same as full mode — when one persona flags something as critical and another doesn't mention it, investigate why. Don't average severity.
+- **Adversarial findings the correctness reviewer missed**: These are high-value — the correctness reviewer was looking forward from the code and didn't see the failure path.
+- **Cross-persona corroboration**: When multiple personas independently flag the same issue from different angles, that's high confidence.
+- **Test gaps matching other findings**: When Tests is the context-dependent persona and identifies coverage gaps that align with issues found by Adversarial or Correctness, those are the highest-priority test additions.
+- **Pre-existing issues**: Same as full mode — never silently discard them. Flag as pre-existing for "out of scope" triage.
+- **Finding density signal**: If the 3 personas collectively produce more findings than expected for the change size, note this explicitly. A high density of findings on a small change suggests the change is more complex than it appeared and may warrant full mode. This is the synthesizer's primary escalation signal.
+- **When digging deeper**: Same as full mode — summaries by default, evidence files when needed.
 
 ## Final Output Format
 
@@ -152,7 +261,7 @@ Confidence calibration: **High** = verified by reading code or running tests. **
 
 ## Personas
 
-The 8 persona documents are in `personas/`:
+The persona documents are in `personas/`. Full mode uses all 8; lightweight uses Correctness + Adversarial + one context-dependent persona (see "Process: Lightweight Mode" for selection criteria).
 
 | File | Focus |
 |------|-------|
