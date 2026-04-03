@@ -59,10 +59,11 @@ When code-review runs as part of the pre-PR pipeline, findings go back to the im
 
 ### Finding Triage
 
-The implementer categorizes each finding:
+The implementer categorizes each finding. Every finding must be categorized — no finding is silently dropped, regardless of severity.
 
 - **Fix**: The right action is obvious from the finding itself. Bugs, missing tests, stale docs, pattern violations, naming issues. Fix without waiting for Sean.
 - **Park**: The finding needs Sean's input. Design questions, principle tensions, ambiguous tradeoffs where reasonable people could disagree. Also park findings you disagree with — don't dismiss them. Parked items are listed in the PR for Sean to weigh in on.
+- **Out of scope**: The finding is real but exists in code that isn't part of the current change. Don't fix it in this PR — file a GitHub issue to track it. Before filing, search existing issues to avoid duplicates. The issue should include the finding, its location, the evidence, and which persona(s) flagged it. These issues ensure that problems discovered during review are tracked even when they can't be addressed in the current change.
 
 ### Re-review After Fixes
 
@@ -85,7 +86,7 @@ The structural question should be specific: name the data structure or abstracti
 
 ### Loop Termination
 
-The loop ends when no findings remain except parked items. At that point, open the PR with the parked items listed in the PR description or as a PR comment so Sean can weigh in — never in commit messages. Commit messages are for change rationale only; parked items are transient review artifacts that don't belong in git history. If Sean's direction on parked items requires changes, make them and run a final code-review pass to confirm.
+The loop ends when no findings remain except parked and out-of-scope items. At that point, open the PR with the parked items listed in the PR description or as a PR comment so Sean can weigh in — never in commit messages. Commit messages are for change rationale only; parked items are transient review artifacts that don't belong in git history. If Sean's direction on parked items requires changes, make them and run a final code-review pass to confirm.
 
 ## Synthesis Focus
 
@@ -99,6 +100,7 @@ The synthesizer should pay special attention to:
 - **Cross-persona corroboration**: When multiple personas independently flag the same issue from different angles, that's high confidence. Call it out.
 - **Wildcard findings**: The wildcard persona deliberately looks for things the other personas miss. Its findings may be unconventional — evaluate them on merit, not on whether they fit a category. If a wildcard finding aligns with a faint signal from another persona, that's strong evidence both caught the same thing from different angles.
 - **Convergence failures** (re-reviews only): Check the review history for signs that an area isn't converging — recurring findings in the same location, fixes that add complexity instead of removing it, different symptoms of the same structural mismatch across rounds. When detected, escalate a specific structural question (see "Convergence Failure Detection" in the iterative workflow section). This is always a parked item.
+- **Pre-existing issues**: Findings about problems in code outside the current change are still findings — never silently discard them. Flag them clearly as pre-existing so the implementer can triage them as "out of scope" and file issues. A review that discovers a real problem and then drops it because "it's not part of this PR" has wasted the discovery.
 - **When digging deeper**: Work from the summaries by default. Read the evidence files when a finding needs more context — when severities conflict, when a finding's summary is ambiguous, or when you need to verify the evidence supports the claim.
 
 ## Final Output Format
