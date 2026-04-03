@@ -25,7 +25,14 @@ the smallest possible design that solves the problem.
    need, start from that rather than inventing a parallel structure. Extend,
    adapt, or compose existing elements.
 
-5. **Propose the minimal design.** After subtracting everything non-essential,
+5. **Check subtractions against semantic boundaries.** Before removing a type,
+   verify that the removal doesn't collapse values with distinct semantics into
+   a shared representation. "Nothing breaks if we merge these" is necessary but
+   not sufficient — also ask whether callers would need out-of-band knowledge to
+   distinguish the values after merging. If so, the types carry different
+   meanings and should stay separate even if they share structure.
+
+6. **Propose the minimal design.** After subtracting everything non-essential,
    present the smallest design that solves the problem. This is the baseline —
    anything added must justify itself against this.
 

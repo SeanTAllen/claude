@@ -473,11 +473,46 @@ correct but fails silently or in non-obvious ways:
   revisit "Map state explicitly" — the state model is incomplete.
 - Does the API make it easy to forget a step?
 - Can the user confuse two values that have different semantics but the same type?
+  If so, revisit "Distinguish values with distinct semantics" — the type
+  boundaries may be too coarse.
 - Is any outcome implicit (success by silence, failure by absence)?
 
 A candy-machine interface is one where the user can put the money in the slot
 and push the button and get something other than what they expected. Good design
 makes the right thing easy and the wrong thing impossible (or at least loud).
+
+### Distinguish values with distinct semantics
+
+Two values that look similar but carry different guarantees, different lifetimes,
+or different validation states are not the same thing. Sharing a type between
+them forces callers to use out-of-band knowledge to tell them apart — which
+guarantee does this `String` carry? Is this `User` from input or from the
+database? Did this `Config` pass validation?
+
+This discipline is an active counterbalance to subtraction. The skeptic asks
+"what breaks if we remove this type?" and the answer may be "nothing breaks
+right now." But that's the wrong test when two values have different semantics.
+The right test is: can a caller distinguish them without context they shouldn't
+need? If collapsing two types into one means the caller must remember which kind
+they're holding, the types should stay separate — even if the fields are
+identical today.
+
+At each design step, ask:
+
+- Do any values in this design have different meanings but share a
+  representation?
+- If two things look similar, do they carry different guarantees, different
+  lifetimes, or different validation states?
+- Would collapsing two types into one force callers to use out-of-band knowledge
+  to distinguish them?
+- At each data boundary (input, storage, output, inter-component), is the type
+  actually the same concept or a similar-looking different concept?
+
+When this discipline and the skeptic's subtraction pull in opposite directions,
+that's a tension worth surfacing — not a conflict to resolve silently. Both are
+needed: subtraction prevents unnecessary abstraction, distinct-semantics prevents
+premature unification. The design process should make the tension visible so it
+gets an explicit decision.
 
 ### When in doubt, ask
 
@@ -554,6 +589,14 @@ design each on its own merits.
 codebase, language, or stdlib already has something that serves the same
 purpose. The new type may feel cleaner in isolation but adds a concept the user
 must learn and the codebase must maintain.
+
+**Collapsing distinct semantics into a shared type.** Using one type for two
+values that carry different guarantees — user input and a validated record, a
+database row and an API response, a request and a stored entity. The fields may
+look identical, but the values mean different things at different boundaries. The
+skeptic's "what breaks if we remove this?" may not catch it because nothing
+breaks structurally — the breakage is semantic, showing up as a caller that
+treats an unvalidated input as a trusted record or vice versa.
 
 **Skipping evaluation.** Producing a design from the design personas and going
 straight to implementation without running the evaluation stage. The evaluation
