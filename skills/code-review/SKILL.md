@@ -135,7 +135,7 @@ Lightweight mode runs 3 personas in a single pass with no iterative re-review. L
 | Change touches trust boundaries or external input | `security.md` |
 | Change is on a hot path or introduces coordination points | `performance.md` |
 
-Pick whichever is most relevant to the change. If multiple conditions apply, ask the human which risk to cover — or whether the change warrants full mode. If none of the conditions apply (e.g., documentation or CI changes), ask the human which persona to include — or whether the change is simple enough to skip code-review and rely on the principle-review self-review alone.
+Pick whichever is most relevant to the change. If multiple conditions apply, ask the human which risk to cover — or whether the change warrants full mode. If the reason for picking a particular persona is a change characteristic that also appears in the full-mode selection criteria, that's a signal the change warrants full mode — don't use the persona pick to compensate for a wrong mode selection. If none of the conditions apply (e.g., documentation or CI changes), ask the human which persona to include — or whether the change is simple enough to skip code-review and rely on the principle-review self-review alone.
 
 **Not included in lightweight:**
 

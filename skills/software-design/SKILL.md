@@ -263,7 +263,11 @@ whichever lens is most relevant to the task:
 
 Pick whichever is closest — every design has some risk profile. If
 multiple conditions apply, ask the human which risk they want covered —
-or whether the task warrants full mode.
+or whether the task warrants full mode. If the reason for picking a
+particular evaluator is a characteristic that also appears in the
+full-mode selection criteria, that's a signal the task warrants full
+mode — don't use the persona pick to compensate for a wrong mode
+selection.
 
 Before spawning evaluation personas, create a temporary directory for
 evidence files (`~/tmp/design-eval-<timestamp>/`), same as full mode.
@@ -280,13 +284,22 @@ Tension using the same scheme as full mode.
 Lightweight mode does not iterate. After Stage 2 synthesis:
 
 - **Adjustments and tensions**: Present the design with findings to the human.
-  Adjustments are small enough that the orchestrator or human can apply them
-  directly.
+  Adjustments are expected to be small enough that the orchestrator or human
+  can apply them directly. If adjustments collectively amount to redesigning
+  rather than tweaking, that's the same escalation signal as high finding
+  density — present it to the human.
 - **Rejection**: The design direction is wrong. Present the rejected
   candidate, the rejection rationale, and all other findings to the human.
   The human decides what to do — escalate to full mode, fix it directly,
   rethink the problem statement, or something else. Lightweight doesn't
   prescribe the response; it presents the information.
+
+If the review produces an unexpectedly high density of findings relative to
+the change size, if a finding reveals the approach is fundamentally wrong,
+or if a finding reveals the change touches more subsystems or has more
+complex interactions than the mode selection assumed, the orchestrator
+presents this to the human. The human decides what to do — the same options
+apply.
 
 ### Output
 
