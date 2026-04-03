@@ -508,7 +508,9 @@ a good name. For everything else, answer these questions:
 - **What are the transitions?** What event or action moves the system from one
   state to another? Are there transitions the design allows but shouldn't?
 - **What invariants hold in each state?** What can the rest of the system
-  assume about a component that's in state X?
+  assume about a component that's in state X? For invariants that span beyond
+  individual states — cross-component relationships, ordering constraints — see
+  "Articulate invariants."
 - **What happens when an input arrives in a state where it doesn't apply?**
   The design should answer this explicitly — ignore, error, queue, crash —
   rather than leaving it undefined.
@@ -521,6 +523,64 @@ a good name. For everything else, answer these questions:
 The test for whether you've mapped state well: can someone new to the design
 draw the state diagram from your description? If not, the state model isn't
 explicit enough.
+
+### Articulate invariants
+
+Every design establishes contracts — things that must always be true for the
+system to work correctly. Callers rely on ordering guarantees, components depend
+on data relationships, operations assume structural properties hold. When these
+contracts are implicit, nobody can verify them, nobody knows when they've been
+violated, and future changes break them without anyone realizing what happened
+until the symptoms surface far from the cause.
+
+State modeling asks "what states can this component be in?" Invariant
+articulation asks the broader question: what must always be true across the
+entire design? Some invariants are specific to individual states within a single
+component (and "Map state explicitly" covers those). But many span the design — relationships between
+components, ordering guarantees across sequences of operations, structural
+properties that the system maintains by construction or by convention.
+
+At each design step, ask:
+
+- **What can callers rely on?** What guarantees does this API make to its
+  consumers? Not just what it returns, but what it promises about the state of
+  the system after it returns. If a caller can't answer "what did this operation
+  guarantee?" from the API alone, the contract is unstated.
+- **What are the pre/post conditions of operations?** What must be true before
+  an operation is called, and what does it establish afterward? Preconditions
+  that exist but aren't stated become silent failure modes — the operation
+  "works" but produces wrong results because the caller didn't know what it
+  needed.
+- **What relationships between components are maintained by construction vs. by
+  convention?** Relationships maintained by construction (enforced by the type
+  system, by encapsulation, by the structure of the code) are invariants callers
+  can trust without knowing about them. Relationships maintained by convention
+  (documented rules, expected call sequences, assumed configurations) are
+  invariants that break when someone doesn't read the documentation.
+- **Which invariants does the type system enforce, and which depend on correct
+  usage?** This is the enforcement boundary. Invariants the type system enforces
+  are guarantees. Invariants that depend on correct usage are hopes — they hold
+  until someone doesn't know about them. For each convention-dependent invariant,
+  ask whether the type system could enforce it instead, and what the cost would
+  be.
+
+The test for whether invariants are well-articulated: can a new team member,
+reading only the design, list the contracts they must not violate? If any
+contract requires reading the implementation to discover, it's implicit.
+
+When this discipline pushes toward articulating more invariants and the skeptic
+questions whether those contracts are necessary, surface the tension — both are
+needed. The skeptic prevents over-specification (inventing invariants the design
+doesn't actually need), while invariant articulation prevents
+under-specification (leaving real contracts unstated). The design process should
+make the tension visible so it gets an explicit decision.
+
+Note that the skeptic's standard subtraction test — "what breaks if we remove
+this?" — is misleading for invariants. Removing an invariant breaks nothing now.
+The cost is deferred: it shows up when a future change violates a contract
+nobody knew existed. The right skeptic test for invariants is "what does this
+prevent?" — not what breaks today, but what incorrect states or sequences does
+this contract make impossible.
 
 ### Look for footguns
 
@@ -538,6 +598,9 @@ correct but fails silently or in non-obvious ways:
 - Could a name lead the user to misunderstand what something does and use it
   incorrectly? If so, revisit "Name things precisely" — the name may be
   misleading or too generic.
+- Can an operation silently violate an invariant, or does the API rely on an
+  ordering guarantee it doesn't enforce? If so, revisit "Articulate invariants"
+  — the contract may be unstated.
 - Is any outcome implicit (success by silence, failure by absence)?
 - Can the user receive an error and not know what to do with it? If so,
   revisit "Design error vocabularies" — the error types may be too coarse or
@@ -739,6 +802,14 @@ the same problem: no transitions, no invariants, no handling for illegal
 combinations. Name the states instead: the valid combinations are the actual
 states, and making them explicit lets the type system enforce which transitions
 are legal.
+
+**Leaving invariants implicit.** When a design establishes contracts between
+components — ordering requirements, data relationships, structural properties —
+but never states them. The contracts exist whether or not they're documented:
+callers depend on them, implementations preserve them, and future changes break
+them. The difference between a stated invariant and an unstated one is that
+when the stated one breaks, you know what went wrong and why. When the unstated
+one breaks, you get symptoms far from the cause and no trail to follow.
 
 ## Pony-specific design guidance
 
