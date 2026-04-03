@@ -10,7 +10,7 @@ Ensemble code review that runs 8 specialized reviewer personas in parallel, synt
 
 ## Invocation Modes
 
-**Integrated (pre-PR pipeline):** After implementation and self-review (principle-review loop) pass, the implementer runs code-review as the next stage. Findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. See "Iterative Workflow" below.
+**Integrated (pre-PR pipeline):** The implementer runs code-review as part of their pre-PR workflow. Findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. See "Iterative Workflow" below.
 
 **Standalone:** Invoked directly on an existing PR, branch, or local changes for a one-shot thorough review. The process section below applies as-is.
 
