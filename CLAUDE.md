@@ -1,10 +1,5 @@
 # Global Instructions
 
-**ALWAYS read your environment file before doing any other work.** At the start of every conversation, read the appropriate file from `~/.claude/environments/` based on your platform info. Match the first rule that applies:
-
-- OS version contains `microsoft` (WSL2) → read `~/.claude/environments/linux-wsl2.md`
-- Platform is Windows → read `~/.claude/environments/windows.md`
-
 ## Working Style
 
 **Execute the plan, but re-evaluate as you go**: When a plan is approved, execute it without stopping after each step for approval. But before each step, re-evaluate: does this still make sense given what you've learned from previous steps? If something looks wrong, stop and raise it. The plan is a starting point, not a rail. When you think you're done, recursively apply all relevant principles from this file — check each one, act on any that apply, then check again until no more principles are relevant. This recursive check IS self-review; it's not a separate step, it's what "done" means. Only then report completion and wait for feedback.
@@ -53,8 +48,6 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 **"Discuss" means talk, not do**: Requests to discuss, explore, or think about something are not requests to go do it. The output of a discussion is shared understanding, not an artifact. When Sean says "let's discuss X," respond with thoughts about X — don't go write X.
 
 **Questions aren't corrections**: When Sean asks about code, don't assume he's flagging a problem. He often asks to confirm his understanding or verify intent. Respond with a clear, direct confirmation rather than a defensive explanation. He'll say explicitly if something is wrong.
-
-**Re-read CLAUDE.md after context compaction**: When the conversation compacts, rules from this file can be lost from working memory. After compaction, re-read `~/.claude/CLAUDE.md` before continuing work.
 
 **Principle review**: Use `/principle-review` for the full protocol (manual and automated modes, behavioral guidance during review loops).
 
@@ -213,4 +206,4 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 ## Stop. Did you actually follow this file?
 
-Before doing anything else, go back to the top and verify you followed **every** instruction — starting with the very first one (reading the environment file). These instructions exist because you routinely skip them. The most common failures: not reading the environment file, not loading `/pony-ref` for Pony projects, not running the review loop at mandatory checkpoints, and not asking about project conventions. If you skipped any of these, do them now before proceeding. Reading this file is not the same as following it.
+Before doing anything else, go back to the top and verify you followed **every** instruction. These instructions exist because you routinely skip them. The most common failures: not loading `/pony-ref` for Pony projects, not running the review loop at mandatory checkpoints, and not asking about project conventions. If you skipped any of these, do them now before proceeding. Reading this file is not the same as following it.

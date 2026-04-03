@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install Claude Code configuration by symlinking CLAUDE.md, skills, and environments.
+"""Install Claude Code configuration by symlinking repo files into ~/.claude/.
 
 Usage:
     python install.py              Install (create symlinks)
@@ -7,7 +7,9 @@ Usage:
 
 What it does:
 - Symlinks ~/.claude/CLAUDE.md to this repo's CLAUDE.md
+- Symlinks ~/.claude/settings.json to this repo's settings.json
 - Symlinks ~/.claude/environments/ to this repo's environments/
+- Symlinks ~/.claude/hooks/ to this repo's hooks/
 - Symlinks each skill directory from skills/ into ~/.claude/skills/
 
 Existing symlinks pointing into this repo are updated silently.
@@ -68,6 +70,10 @@ def main():
     print("CLAUDE.md:")
     print(symlink(repo / "CLAUDE.md", home / "CLAUDE.md", dry_run))
 
+    # Symlink settings.json
+    print("\nsettings.json:")
+    print(symlink(repo / "settings.json", home / "settings.json", dry_run))
+
     # Symlink environments directory
     envs_src = repo / "environments"
     if not envs_src.exists():
@@ -75,6 +81,14 @@ def main():
     else:
         print("\nEnvironments:")
         print(symlink(envs_src, home / "environments", dry_run))
+
+    # Symlink hooks directory
+    hooks_src = repo / "hooks"
+    if not hooks_src.exists():
+        print("\nNo hooks/ directory in repo, skipping.")
+    else:
+        print("\nHooks:")
+        print(symlink(hooks_src, home / "hooks", dry_run))
 
     # Symlink each skill directory
     skills_src = repo / "skills"
