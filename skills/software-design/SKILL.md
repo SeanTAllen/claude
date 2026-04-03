@@ -429,6 +429,39 @@ would anything break? Would anything get worse? If the user can do it better
 (more type-safe, more flexible, more natural in the language), the framework
 shouldn't own it.
 
+### Map state explicitly
+
+State is where most design complexity hides. Boolean flags, nullable fields,
+and implicit modes are all state — just state without a name. Unnamed state
+can't be reasoned about systematically: you can't enumerate its transitions,
+verify its invariants, or ask what happens when an input arrives in a state
+you didn't consider.
+
+This discipline earns its keep when a component has multiple interacting pieces
+of state, or when state determines which operations are valid. A single flag
+that independently tracks one condition doesn't need a state machine — it needs
+a good name. For everything else, answer these questions:
+
+- **What states can it be in?** Not just the happy-path states — include
+  initialization, error recovery, shutdown, and any transitional states between
+  them.
+- **What are the transitions?** What event or action moves the system from one
+  state to another? Are there transitions the design allows but shouldn't?
+- **What invariants hold in each state?** What can the rest of the system
+  assume about a component that's in state X?
+- **What happens when an input arrives in a state where it doesn't apply?**
+  The design should answer this explicitly — ignore, error, queue, crash —
+  rather than leaving it undefined.
+- **Can the type system encode the states?** If the language supports it
+  (union types, sealed classes, enums, trait-based state machines), prefer
+  type-level encoding over convention-level tracking. When the type system
+  encodes the states, the compiler enforces completeness — every handler must
+  account for every state.
+
+The test for whether you've mapped state well: can someone new to the design
+draw the state diagram from your description? If not, the state model isn't
+explicit enough.
+
 ### Look for footguns
 
 After sketching a design, look for ways a user could do something that *looks*
@@ -436,7 +469,8 @@ correct but fails silently or in non-obvious ways:
 
 - Can the user set up a configuration that appears valid but doesn't work?
 - Can the user call methods in an order that compiles but produces wrong results?
-- Are there boolean flag combinations that represent illegal states?
+- Are there boolean flag combinations that represent illegal states? If so,
+  revisit "Map state explicitly" — the state model is incomplete.
 - Does the API make it easy to forget a step?
 - Can the user confuse two values that have different semantics but the same type?
 - Is any outcome implicit (success by silence, failure by absence)?
@@ -527,6 +561,17 @@ personas catch structural problems — security gaps, performance ceilings,
 untestable interfaces, adversarial usage scenarios — that the design personas
 aren't looking for.
 
+**Representing state implicitly through field combinations.** When multiple
+fields interact — boolean flags, optional fields, status enums paired with
+counters — the component has an implicit state machine. Boolean flags are the
+most common form: n interacting flags create 2^n combinations, most invalid
+(authenticated-but-not-connected is probably illegal). But any set of fields
+whose valid combinations are a proper subset of all possible combinations has
+the same problem: no transitions, no invariants, no handling for illegal
+combinations. Name the states instead: the valid combinations are the actual
+states, and making them explicit lets the type system enforce which transitions
+are legal.
+
 ## Pony-specific design guidance
 
 When designing Pony APIs, libraries, or framework features:
@@ -543,6 +588,13 @@ When designing Pony APIs, libraries, or framework features:
   patterns compensate for weak type systems. Pony has a strong type system. Use
   it. The idiomatic solution in Pony often looks nothing like the idiomatic
   solution in Ruby or Python.
+- **Favor trait-based state machines for stateful components.** When a
+  component has distinct phases where valid operations change between them,
+  represent each phase as a separate type implementing a shared interface
+  rather than using flags or optional fields. The actor becomes a thin shell
+  that delegates to the current state object — state transitions replace
+  the object, and the old state's resources are released automatically. See
+  the state machine pattern in `/pony-ref`.
 - **Think about capabilities.** Who can read this? Who can write it? Who can
   send it across actor boundaries? If the design requires `val` but the consumer
   naturally produces `ref`, there's a friction point worth examining.
