@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: Disciplines for software design work. Load when designing APIs, type systems, features, or system boundaries. Counters the tendency to retrieve familiar patterns instead of discovering what the problem actually needs.
+description: Disciplines for software design work. Load when designing APIs, type systems, features, or system boundaries. Counters the tendency to retrieve familiar patterns instead of discovering what the problem actually needs. Has full (8-persona) and lightweight (5-persona) modes — suggest mode and let human confirm.
 disable-model-invocation: false
 ---
 
@@ -22,16 +22,44 @@ invalidate them. Either way, you have to look. "I already decided that" is never
 a reason to skip re-evaluation — it was decided with less information than you
 have now.
 
-## Process: two-stage design ensemble
+## Mode selection
+
+The skill has two modes: **full** and **lightweight**. Before starting design
+work, the orchestrator should suggest which mode looks appropriate and why,
+then ask the human to confirm. The human decides — the orchestrator doesn't
+self-select.
+
+**Full mode** is the default. Use it when:
+
+- Defining new boundaries — a new subsystem, API surface, or type hierarchy
+- Multiple ownership or abstraction decisions need to be made simultaneously
+- There's genuine design space to explore — multiple viable approaches
+- The design must be described from first principles, not as an extension of
+  something that already exists
+
+**Lightweight mode** is for bounded design work within established patterns:
+
+- Adding a method to an existing API, a new variant in a type family, a new
+  handler following established conventions
+- The boundaries are already decided — you're filling in, not redrawing
+- Consumer code patterns are already established by adjacent features
+- The task can be described as "another X that does Y" where X already exists
+  in the codebase
+
+When in doubt, suggest full mode. Lightweight is the opt-in when justified —
+the orchestrator must state what existing pattern is being extended and what
+boundaries are already decided.
+
+## Process: full mode
 
 Design work is where pattern-matching failures are most costly and hardest to
 self-detect. A single agent applying design disciplines will still
 pattern-match — the disciplines become post-hoc rationalizations for a
 retrieved design rather than actual constraints on the exploration.
 
-The design process runs in two stages with a feedback loop. Load `/ensemble`
-for the mechanical process; the personas defined in this skill replace the
-generic attention focuses.
+The full design process runs in two stages with a feedback loop. Load
+`/ensemble` for the mechanical process; the personas defined in this skill
+replace the generic attention focuses.
 
 ### Relationship to Ensemble Workflow
 
@@ -80,10 +108,10 @@ are in `personas/evaluation/`.
 | `performance.md` | Architectural bottlenecks, coordination points, data structure choices |
 | `adversarial.md` | Concrete usage scenarios that lead to bad outcomes |
 | `testability.md` | Whether the design is verifiable — observable effects, isolatable components |
-| `wildcard.md` | What all 7 other personas missed |
+| `wildcard.md` | What all the other personas missed |
 
 For the wildcard persona specifically: include the identity statement (first
-paragraph) from each of the other 7 personas so the wildcard knows what
+paragraph) from each of the other personas so the wildcard knows what
 territory is already covered.
 
 Before spawning evaluation personas, create a temporary directory for evidence
@@ -195,6 +223,80 @@ The final output includes:
 If the loop terminated via convergence failure rather than a clean evaluation,
 there is no accepted design — only the history of attempts, the rejections, and
 the tensions.
+
+## Process: lightweight mode
+
+Lightweight mode uses fewer personas and a single pass. It keeps all three
+design personas but reduces evaluation to two personas and drops the
+feedback loop. Load `/ensemble` for the mechanical process.
+
+### Stage 1: Design
+
+Three design personas explore the problem in parallel — the same as full
+mode. The same disciplines apply; the decorrelation still comes from
+different entry points.
+
+| File | Focus |
+|------|-------|
+| `consumer-first.md` | Starts from usage code, derives API from what makes call sites clean |
+| `skeptic.md` | Questions every abstraction, tries to subtract, proposes the smallest design |
+| `principle-checker.md` | Hard verification of each design principle with evidence |
+
+Stage 1 synthesis produces a candidate design using the standard ensemble
+synthesis process. The same synthesis guidance as full mode applies:
+consumer-first vs skeptic tensions reveal boundaries, principle-checker
+violations the others missed are the highest-value findings, and
+convergence from different starting points is strong signal.
+
+### Stage 2: Evaluation
+
+Two evaluation personas stress-test the candidate. The adversarial evaluator
+always runs. The second slot is context-dependent — if the human specifies
+which evaluator to use, use that. Otherwise the orchestrator picks
+whichever lens is most relevant to the task:
+
+| When | Pick |
+|------|------|
+| Design touches trust boundaries or external input | `security.md` |
+| Design is on a hot path or introduces coordination points | `performance.md` |
+| Design has complex state or will be hard to test in isolation | `testability.md` |
+
+Pick whichever is closest — every design has some risk profile. If
+multiple conditions apply, ask the human which risk they want covered —
+or whether the task warrants full mode.
+
+Before spawning evaluation personas, create a temporary directory for
+evidence files (`~/tmp/design-eval-<timestamp>/`), same as full mode.
+Each persona writes its detailed analysis to a file in this directory and
+returns a structured summary. Evaluation personas use the same output
+format as full mode (evidence file + summary with findings ordered by
+impact, passes, uncertainties).
+
+Stage 2 synthesis categorizes each finding as Rejection, Adjustment, or
+Tension using the same scheme as full mode.
+
+### No loop — single pass
+
+Lightweight mode does not iterate. After Stage 2 synthesis:
+
+- **Adjustments and tensions**: Present the design with findings to the human.
+  Adjustments are small enough that the orchestrator or human can apply them
+  directly.
+- **Rejection**: The design direction is wrong. Present the rejected
+  candidate, the rejection rationale, and all other findings to the human.
+  The human decides what to do — escalate to full mode, fix it directly,
+  rethink the problem statement, or something else. Lightweight doesn't
+  prescribe the response; it presents the information.
+
+### Output
+
+The final output includes:
+
+- **Candidate design**: With consumer sketches and type definitions.
+- **Adjustments**: Specific changes needed, small enough to apply directly.
+- **Tensions**: Conflicts requiring human judgment.
+- **Rejection rationale**: If applicable — the structural finding and why
+  the design direction was rejected.
 
 ## The disciplines
 
