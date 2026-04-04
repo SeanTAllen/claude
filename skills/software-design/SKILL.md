@@ -582,6 +582,85 @@ nobody knew existed. The right skeptic test for invariants is "what does this
 prevent?" — not what breaks today, but what incorrect states or sequences does
 this contract make impossible.
 
+### Check cohesion
+
+The skeptic asks "should we remove this?" — the subtraction lens. Cohesion is
+the complementary grouping lens: do the things that survived subtraction belong
+*together*?
+
+A type or module can pass every other discipline and still be a grab-bag of
+loosely related functionality. Each piece is justified individually — the
+skeptic couldn't remove any of them, the names are precise, the state is mapped,
+the invariants are articulated. But the pieces don't cohere. They ended up in
+the same type because they were discovered at the same time, or because they
+operate on the same data, or because nobody asked whether "same type" was the
+right grouping.
+
+The cost of low cohesion is indirect: changes to one responsibility ripple into
+code that deals with an unrelated responsibility, because they share a type.
+Tests for one responsibility drag in setup for the other. The type's name
+becomes either dishonest (describing only one of its jobs) or vague (describing
+the grab-bag with a word like "service" or "utils").
+
+At each design step, ask:
+
+- **Does this type have a single coherent purpose?** If you had to describe
+  what it does in one sentence without using "and," could you? If "and"
+  connects steps in a single workflow or facets of one responsibility
+  ("authenticates users and issues tokens"), the type is likely cohesive. If
+  "and" connects responsibilities that could each exist independently
+  ("authenticates users and sends email notifications"), it's doing more than
+  one thing. This isn't about counting methods — a type with many methods can
+  be cohesive if they all serve the same purpose.
+- **Are there methods or fields that are only used together with a subset of
+  the other methods or fields?** If a type has two clusters of functionality
+  where each cluster uses its own fields and rarely touches the other's, the
+  type is two things wearing a trenchcoat. The clusters should probably be
+  separate types.
+- **Would a change to one responsibility force changes to unrelated code in
+  the same unit?** If modifying how authentication works requires touching
+  code that deals with request routing — not because they interact, but because
+  they share a type — the grouping is wrong.
+- **Did these things end up together for a reason, or by accident?** Common
+  accidents: they were discovered at the same time, they operate on the same
+  raw data, they're called from the same place, or they were "too small" to
+  extract. None of these are reasons for cohesion — they're reasons for
+  proximity, which is different.
+- **For modules or packages: do the types serve a single coherent theme?** A
+  module whose types all participate in one domain concept is cohesive. A
+  module that's a drawer for unrelated helpers (`utils`, `common`, `misc`) has
+  the same problem at a larger scale — the types don't cohere, they just
+  cohabitate.
+
+The test for cohesion: if you split this type along the cluster boundaries,
+would either half need to reach back into the other to function? If yes, the
+coupling is real and the grouping may be justified. If no, the grouping is
+accidental and the type should be split. For data types whose fields represent
+attributes of a single domain concept and co-travel through the system,
+cohesion comes from domain identity, not field interdependence — the split
+test applies to behavioral clusters, not to attribute groupings.
+
+"Distinguish values with distinct semantics" can independently reach the same
+conclusion — different responsibilities often mean different semantic
+guarantees, which that discipline would flag as needing separate types. When
+both disciplines point at the same split, it's a strong signal — but validate
+even strong signals against consumer sketches, because two disciplines agreeing
+on the wrong split is still the wrong split. When only one does, surface the
+tension.
+
+"Name things precisely" often reveals cohesion failures: a type that can't be
+named without "and" or that requires a vague name like "context" or "manager"
+is usually doing too much. The naming discipline catches the symptom; this
+discipline identifies the structural cause.
+
+When this discipline pushes toward splitting a type and the skeptic resists
+because each piece is too small to justify its own type, surface the tension.
+Small pieces that don't cohere are still better separated — a small focused
+type is easier to understand than a large incoherent one. But the skeptic's
+resistance may also signal that the pieces genuinely belong together and the
+cohesion check is being too aggressive. The design process should make the
+tension visible.
+
 ### Look for footguns
 
 After sketching a design, look for ways a user could do something that *looks*
@@ -601,6 +680,9 @@ correct but fails silently or in non-obvious ways:
 - Can an operation silently violate an invariant, or does the API rely on an
   ordering guarantee it doesn't enforce? If so, revisit "Articulate invariants"
   — the contract may be unstated.
+- Does a type do multiple unrelated things, making it unclear which part of its
+  API applies to the user's current need? If so, revisit "Check cohesion" — the
+  type may be a grab-bag of responsibilities.
 - Is any outcome implicit (success by silence, failure by absence)?
 - Can the user receive an error and not know what to do with it? If so,
   revisit "Design error vocabularies" — the error types may be too coarse or
@@ -810,6 +892,17 @@ callers depend on them, implementations preserve them, and future changes break
 them. The difference between a stated invariant and an unstated one is that
 when the stated one breaks, you know what went wrong and why. When the unstated
 one breaks, you get symptoms far from the cause and no trail to follow.
+
+**Accumulating unrelated responsibilities in a type.** When a type grows by
+accretion — each new responsibility is too small to extract on its own, so it
+gets added to the nearest existing type. The result is a type that does five
+things, none of which is its primary purpose, because no single addition was
+large enough to trigger extraction. The tell: methods or fields that cluster
+into subsets that don't interact with each other, or a type whose name has
+drifted to something vague ("manager," "context," "helper") because no precise
+name can describe everything it does. Unlike "collapsing distinct semantics,"
+which is about *values* sharing a type they shouldn't, this is about
+*responsibilities* sharing a type they shouldn't.
 
 ## Pony-specific design guidance
 
