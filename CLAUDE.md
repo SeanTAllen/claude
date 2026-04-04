@@ -18,7 +18,7 @@
 
 2. **After completing implementation**, before opening a PR. This is a two-stage process:
    - **Self-review** (principle-review loop): Lightweight, single-agent. Catches obvious issues — stale comments, missing docs, principle violations. Iterate until clean.
-   - **Code review** (load `/code-review`) or **docs review** (load `/docs-review`): Use code-review for code changes, docs-review for documentation-only changes. Full (8-persona) or lightweight (3-persona) — the orchestrator selects the mode based on change scope and reports the choice when presenting results. Sean can request full mode if lightweight was used and he wants deeper coverage. Load the relevant skill for mode selection criteria. The implementer receives the synthesized findings and triages them:
+   - **Code review** (load `/pony-code-review`) or **docs review** (load `/docs-review`): Use pony-code-review for code changes, docs-review for documentation-only changes. Full (8-persona) or lightweight (3-persona) — the orchestrator selects the mode based on change scope and reports the choice when presenting results. Sean can request full mode if lightweight was used and he wants deeper coverage. Load the relevant skill for mode selection criteria. The implementer receives the synthesized findings and triages them:
      - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
      - **Park**: Findings that need Sean's input — design questions, principle tensions, ambiguous tradeoffs. Also park findings you disagree with — don't dismiss them unilaterally.
    - **Full mode only**: After fixing, the review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives the full review history so it can verify fixes were addressed, not re-flag parked items, and detect convergence failures — when the same area keeps producing findings across rounds, the synthesizer escalates a structural question (always parked). Loop until clean — meaning no findings remain except parked items.
@@ -53,7 +53,7 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Write in Sean's voice**: When writing prose on Sean's behalf — commit messages, PR descriptions, blog posts, GitHub discussions, announcements — follow the voice guidelines in `/seans-voice`. The core traits and anti-patterns always apply; the calibration step is for long-form writing only.
 
-**Ensemble workflow**: When Sean requests the ensemble approach, load `/ensemble` for the full protocol.
+**Ensemble workflow**: When Sean requests the ensemble approach, load `/pony-ensemble` for the full protocol.
 
 **"How do you know that you know that?"**: A hypothesis is not knowledge. Verify empirically before asserting. This applies to everything — debugging, refactoring, code review, planning. "These two code paths are equivalent," "this guard is dead code," "this invariant holds," "X is hanging" are all claims that require evidence, not reasoning. If you can test it, test it. Never state a cause — say "I think X because Y; here's how I'll verify."
 
@@ -93,9 +93,9 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 Use `/zulip` when Sean shares a Zulip link.
 
-**Load `/software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs.
+**Load `/pony-software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/pony-software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs.
 
-**Load `/code-review` for code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. Not for trivial fixes — ask permission to skip review for those.
+**Load `/pony-code-review` for code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. Not for trivial fixes — ask permission to skip review for those.
 
 **Load `/docs-review` for documentation reviews**: When reviewing documentation-only changes — tutorial content, website pages, reference docs, or other prose-primary changes where code-focused review personas don't apply. Part of the pre-PR review pipeline when the change is documentation-only; also available standalone. Not for one-line typo fixes or trivial formatting changes — ask permission to skip review for those; principle-review alone is sufficient.
 
@@ -143,7 +143,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 ## Testing
 
-**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It counters the tendency to write tests that exercise the stdlib instead of your code.
+**Load `/pony-test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the pony-test-design skill. It counters the tendency to write tests that exercise the stdlib instead of your code.
 
 ### Counterfactual Testing
 
