@@ -10,7 +10,7 @@ Ensemble documentation review that synthesizes findings from specialized reviewe
 
 ## Mode Selection
 
-The skill has two modes: **full** and **lightweight**. Full is the default — if the orchestrator judges full is warranted, proceed without asking. If lightweight seems appropriate, the orchestrator should explain why and ask the human to confirm before proceeding.
+The skill has two modes: **full** and **lightweight**. The orchestrator selects the appropriate mode based on the criteria below and proceeds. Report the mode choice when presenting results — the human can request full mode if lightweight was used and they want deeper coverage.
 
 **Full mode** is the default. Use it when:
 
@@ -26,7 +26,7 @@ The skill has two modes: **full** and **lightweight**. Full is the default — i
 - Updating documentation to reflect a code change that's already reviewed
 - Single-page changes with clear scope
 
-When in doubt, use full mode. Lightweight is the opt-in when justified — the orchestrator must state what makes the change bounded and why fewer personas are sufficient, and get human confirmation.
+When in doubt, use full mode. Lightweight is appropriate when the change is clearly bounded — the orchestrator should be able to state what makes it bounded and why fewer personas are sufficient.
 
 Note: the code-review skill follows a similar mode-selection pattern but with code-specific criteria and a different persona roster. Docs-review and code-review are separate skills for separate concerns — documentation review and code review have different failure modes, different severity calibration, and different reviewer lenses.
 
@@ -139,7 +139,7 @@ Lightweight mode runs 3 personas in a single pass with no iterative re-review. L
 | Large document or multi-page change | `structure.md` |
 | Established style guide applies | `principles.md` |
 
-Pick whichever is most relevant to the change. If multiple conditions apply, ask the human which risk to cover — or whether the change warrants full mode. If the reason for picking a particular persona is a change characteristic that also appears in the full-mode selection criteria, that's a signal the change warrants full mode — don't use the persona pick to compensate for a wrong mode selection. If none of the conditions clearly apply, ask the human which persona to include — or whether the change is simple enough to skip docs-review and rely on the principle-review self-review alone.
+Pick whichever is most relevant to the change. If multiple conditions apply, pick the most relevant one. If the reason for picking a particular persona is a change characteristic that also appears in the full-mode selection criteria, that's a signal the change warrants full mode — don't use the persona pick to compensate for a wrong mode selection. If none of the conditions clearly apply, the change may be simple enough to skip docs-review and rely on the principle-review self-review alone.
 
 **Not included in lightweight:**
 
