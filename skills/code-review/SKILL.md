@@ -61,6 +61,12 @@ When principles conflict, these values set the priority. We value the left side 
 
 **Security over performance** — never skip validation at trust boundaries for speed. Optimize how you validate, not whether you validate. Security is correctness.
 
+**Interface simplicity over implementation simplicity** — accept a harder implementation to give users a clean interface. The consumer's experience matters more than the implementer's convenience.
+
+**Performance over interface simplicity** — runtime speed matters more than programmer convenience. It's acceptable to make things harder on the user to improve performance, but never at the cost of correctness.
+
+**Simplicity over consistency** — don't force artificial consistency when it makes things harder to use. If two similar things genuinely need different interfaces, let them be different.
+
 ## Process: Full Mode
 
 1. **Identify the review target.** PR URL, branch name, or local changes. If not specified, ask. Resolve the target into concrete instructions for agents: the base branch to diff against, the git diff command or `gh pr diff` command to run, and any design doc or issue URLs for context.
