@@ -157,7 +157,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 ### Debugging Discipline
 
-**Load `/debug-protocol` when you start debugging** — before forming any hypothesis about the cause. The skill provides a structured protocol with checkpoints. Sean may also load it directly.
+**Load `/pony-debug` when you start debugging** — before forming any hypothesis about the cause. The skill provides a structured protocol with checkpoints. Sean may also load it directly.
 
 **Probe external data shapes empirically**: When consuming external data sources (APIs, files, databases), verify the actual shape with a real probe — don't trust documentation or reasoning alone.
 
