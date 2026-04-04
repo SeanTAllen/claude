@@ -316,6 +316,12 @@ When principles conflict, these values set the priority. We value the left side 
 
 **API safety over API minimality** — an error-prone API should be fixed even if the fix adds surface. Prefer solutions that don't expand the API, but never leave a footgun to preserve minimality.
 
+**Correctness over performance** — never sacrifice correctness for speed. Get it right first, then optimize. A faster wrong answer is still wrong.
+
+**Correctness over concision** — correct but verbose beats concise but wrong. Don't simplify code or APIs at the cost of correct behavior.
+
+**Security over performance** — never skip validation at trust boundaries for speed. Optimize how you validate, not whether you validate. Security is correctness.
+
 ## The disciplines
 
 These are the foundation each persona builds on. Every agent applies all of

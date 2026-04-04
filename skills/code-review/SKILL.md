@@ -49,6 +49,18 @@ Persona agents write detailed evidence to files and return structured summaries 
 
 The synthesize skill's output format (Integrated Result, Synthesis Rationale, etc.) is not a natural fit for code review. The orchestrator instructs the synthesizer to produce output in the review-specific final format (below) rather than the generic synthesizer format. No changes to `/synthesize` itself.
 
+## Design Values
+
+When principles conflict, these values set the priority. We value the left side over the right — but the right side still matters when the left isn't at stake.
+
+**API safety over API minimality** — an error-prone API should be fixed even if the fix adds surface. Prefer solutions that don't expand the API, but never leave a footgun to preserve minimality.
+
+**Correctness over performance** — never sacrifice correctness for speed. Get it right first, then optimize. A faster wrong answer is still wrong.
+
+**Correctness over concision** — correct but verbose beats concise but wrong. Don't simplify code or APIs at the cost of correct behavior.
+
+**Security over performance** — never skip validation at trust boundaries for speed. Optimize how you validate, not whether you validate. Security is correctness.
+
 ## Process: Full Mode
 
 1. **Identify the review target.** PR URL, branch name, or local changes. If not specified, ask. Resolve the target into concrete instructions for agents: the base branch to diff against, the git diff command or `gh pr diff` command to run, and any design doc or issue URLs for context.
