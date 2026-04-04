@@ -93,9 +93,9 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 Use `/zulip` when Sean shares a Zulip link.
 
-**Load `/software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs. The skill has two modes (full and lightweight) — suggest which mode fits and why, then let Sean confirm before proceeding. Lightweight uses 3 design + 2 evaluation personas in a single pass; full uses 3 design + 5 evaluation with a feedback loop.
+**Load `/software-design` for design work**: When the task involves designing APIs, type systems, features, or system boundaries — not just implementing an existing design — load `/software-design` before starting. This includes any work where you're deciding what types to create, what a public interface looks like, or where ownership boundaries fall. The skill counters the tendency to retrieve familiar patterns instead of discovering what the problem needs.
 
-**Load `/code-review` for code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. The skill has two modes (full and lightweight) — suggest which mode fits and why, then let Sean confirm before proceeding. Lightweight uses 3 personas in a single pass; full uses 8 personas with iterative re-review. Not for trivial fixes — ask permission to skip review for those.
+**Load `/code-review` for code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. Not for trivial fixes — ask permission to skip review for those.
 
 ## Code Design Principles
 
@@ -141,7 +141,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 ## Testing
 
-**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It counters the tendency to write tests that exercise the stdlib instead of your code. The skill has two modes (full and lightweight) — suggest which mode fits and why, then let Sean confirm before proceeding. Lightweight uses 3 planning + 2 evaluation personas in a single pass; full uses 3 planning + 5 evaluation with a feedback loop.
+**Load `/test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the test-design skill. It counters the tendency to write tests that exercise the stdlib instead of your code.
 
 ### Counterfactual Testing
 
