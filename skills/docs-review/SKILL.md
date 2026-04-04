@@ -28,25 +28,25 @@ The skill has two modes: **full** and **lightweight**. The orchestrator selects 
 
 When in doubt, use full mode. Lightweight is appropriate when the change is clearly bounded — the orchestrator should be able to state what makes it bounded and why fewer personas are sufficient.
 
-Note: the code-review skill follows a similar mode-selection pattern but with code-specific criteria and a different persona roster. Docs-review and code-review are separate skills for separate concerns — documentation review and code review have different failure modes, different severity calibration, and different reviewer lenses.
+Note: the pony-code-review skill follows a similar mode-selection pattern but with code-specific criteria and a different persona roster. Docs-review and pony-code-review are separate skills for separate concerns — documentation review and code review have different failure modes, different severity calibration, and different reviewer lenses.
 
 ## Invocation Modes
 
 These modes apply to both full and lightweight:
 
-**Integrated (pre-PR pipeline):** The implementer runs docs-review as part of their pre-PR workflow for documentation-only changes, in place of code-review. In full mode, findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. In lightweight mode, findings are triaged and fixed in a single pass. See the relevant process section below.
+**Integrated (pre-PR pipeline):** The implementer runs docs-review as part of their pre-PR workflow for documentation-only changes, in place of pony-code-review. In full mode, findings are triaged, unambiguous ones are fixed, and the loop repeats until clean. In lightweight mode, findings are triaged and fixed in a single pass. See the relevant process section below.
 
 **Standalone:** Invoked directly on an existing PR, branch, or local changes for a one-shot documentation review. The process section for the selected mode applies as-is.
 
 ## Relationship to Ensemble Workflow
 
-Use the ensemble workflow with documentation-review-specific customizations. Load `/ensemble` for the mechanical process. This skill replaces the generic attention focuses with documentation review personas (8 for full mode, 3 for lightweight) and replaces the generic agent output format with the review-specific format defined below.
+Use the ensemble workflow with documentation-review-specific customizations. Load `/pony-ensemble` for the mechanical process. This skill replaces the generic attention focuses with documentation review personas (8 for full mode, 3 for lightweight) and replaces the generic agent output format with the review-specific format defined below.
 
 The ensemble protocol requires an adversarial focus when reviewing fixes. Docs-review does not have a dedicated adversarial persona because documentation "fixes" (correcting factual errors, filling gaps) don't have the same failure mode as code fixes — there's no analog to "the bug still occurs despite the fix." When a docs-review targets a documentation fix, the Accuracy persona naturally covers the adversarial concern: verifying that the corrected information is actually correct and that the fix doesn't introduce new inaccuracies. This satisfies the ensemble protocol's "fix reviews require an adversarial focus" requirement — no additional adversarial agent is needed. The orchestrator should note this in the Accuracy persona's prompt when the review target is a fix.
 
 Persona agents write detailed evidence to files and return structured summaries to the orchestrator. The synthesizer works from summaries and digs into evidence files only when it needs to examine a finding more closely. This prevents context overload during synthesis.
 
-The synthesize skill's output format is not a natural fit for documentation review. The orchestrator instructs the synthesizer to produce output in the review-specific final format (below) rather than the generic synthesizer format. No changes to `/synthesize` itself.
+The pony-synthesize skill's output format is not a natural fit for documentation review. The orchestrator instructs the synthesizer to produce output in the review-specific final format (below) rather than the generic synthesizer format. No changes to `/pony-synthesize` itself.
 
 ## Process: Full Mode
 
@@ -76,7 +76,7 @@ The synthesize skill's output format is not a natural fit for documentation revi
 
 5. **Triage agent outputs** per ensemble protocol — check that each persona addressed the actual documentation and stayed coherent.
 
-6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the docs-review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format. If this is a re-review (iterative mode), include the full review history: for each prior round, what was found, what was fixed, what was parked. The synthesizer uses this to verify fixes were addressed, avoid re-flagging parked items, and detect convergence failures.
+6. **Pass triaged persona summaries to a synthesis agent** loaded with `/pony-synthesize`, plus the docs-review-specific synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format. If this is a re-review (iterative mode), include the full review history: for each prior round, what was found, what was fixed, what was parked. The synthesizer uses this to verify fixes were addressed, avoid re-flagging parked items, and detect convergence failures.
 
 7. **Reviewer loop on the synthesis** — the reviewer verifies that no persona findings were dropped, severity changes from individual findings are justified, and cross-persona patterns were correctly identified.
 
@@ -119,7 +119,7 @@ The loop ends when no findings remain except parked and out-of-scope items. At t
 
 ## Process: Lightweight Mode
 
-Lightweight mode runs 3 personas in a single pass with no iterative re-review. Load `/ensemble` for the mechanical process.
+Lightweight mode runs 3 personas in a single pass with no iterative re-review. Load `/pony-ensemble` for the mechanical process.
 
 ### Personas
 
@@ -171,7 +171,7 @@ Pick whichever is most relevant to the change. If multiple conditions apply, pic
 
 5. **Triage agent outputs** per ensemble protocol — check that each persona addressed the actual documentation and stayed coherent.
 
-6. **Pass triaged persona summaries to a synthesis agent** loaded with `/synthesize`, plus the lightweight synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format — same override as full mode.
+6. **Pass triaged persona summaries to a synthesis agent** loaded with `/pony-synthesize`, plus the lightweight synthesis focus (below). Provide the paths to each persona's evidence file so the synthesizer can dig in when needed. Instruct the synthesizer to produce its output in the final review format (below) rather than the generic synthesizer format — same override as full mode.
 
 7. **Reviewer loop on the synthesis** — same checks as full mode: verify no persona findings were dropped, severity changes from individual findings are justified, and cross-persona patterns were correctly identified.
 
