@@ -926,7 +926,12 @@ When designing Pony APIs, libraries, or framework features:
   rather than using flags or optional fields. The actor becomes a thin shell
   that delegates to the current state object — state transitions replace
   the object, and the old state's resources are released automatically. See
-  the state machine pattern in `/pony-ref`.
+  the state machine pattern in `/pony-ref`. Marker primitives with scattered
+  `match _state` / `if _state is` checks are a step above boolean flags but
+  still fragment behavior across the actor's methods — use them only for
+  simple guards within a single behavior, not for routing different behavior
+  across multiple events. The test: if more than one behavior needs to check
+  the state to decide what to do, the actor needs a trait-based state machine.
 - **Think about capabilities.** Who can read this? Who can write it? Who can
   send it across actor boundaries? If the design requires `val` but the consumer
   naturally produces `ref`, there's a friction point worth examining.
