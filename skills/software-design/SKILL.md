@@ -328,6 +328,12 @@ When principles conflict, these values set the priority. We value the left side 
 
 **Simplicity over consistency** — don't force artificial consistency when it makes things harder to use. If two similar things genuinely need different interfaces, let them be different.
 
+**Explicitness over implicitness** — when the language allows something to work by magic (implicit conversions, convention-based wiring, unnamed dependencies), prefer the version that states what's happening. The cost of a few extra characters is less than the cost of reconstructing hidden knowledge.
+
+**Type safety over convenience** — use the type system to encode constraints even when it's more work. Distinct types for distinct semantics, validated wrappers over raw primitives, explicit error vocabularies over generic errors. "We could just use a String here" is almost always wrong.
+
+**Changeability over predictive design** — make designs modular and replaceable so future needs can be accommodated, but don't add abstractions, extension points, or features for changes that haven't happened yet. Easy to modify beats designed for a specific predicted modification.
+
 ## The disciplines
 
 These are the foundation each persona builds on. Every agent applies all of
