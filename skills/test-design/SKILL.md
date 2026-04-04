@@ -20,10 +20,10 @@ whether the proposed tests accomplish it.
 
 ## Mode selection
 
-The skill has two modes: **full** and **lightweight**. Full is the default —
-if the orchestrator judges full is warranted, proceed without asking. If
-lightweight seems appropriate, the orchestrator should explain why and ask
-the human to confirm before proceeding.
+The skill has two modes: **full** and **lightweight**. The orchestrator
+selects the appropriate mode based on the criteria below and proceeds.
+Report the mode choice when presenting results — the human can request
+full mode if lightweight was used and they want deeper coverage.
 
 **Full mode** is the default. Use it when:
 
@@ -41,9 +41,9 @@ the human to confirm before proceeding.
 - Adding tests that follow an established pattern in the codebase
 - The task can be described as "add a test for X" where X is well-understood
 
-When in doubt, suggest full mode. Lightweight is the opt-in when justified —
-the orchestrator must state what makes the test work bounded and why fewer
-evaluation personas are sufficient.
+When in doubt, use full mode. Lightweight is appropriate when the test
+work is clearly bounded — the orchestrator should be able to state what
+makes it bounded and why fewer evaluation personas are sufficient.
 
 ## Process: full mode
 
@@ -308,11 +308,11 @@ lens is most relevant to the task:
 | Tests use example-based inputs for behavior with potential invariants | `property-opportunity.md` |
 
 Pick whichever is closest — every test strategy has some risk profile. If
-multiple conditions apply, ask the human which risk they want covered — or
-whether the task warrants full mode. If the reason for picking a particular
-evaluator is a code characteristic that also appears in the full-mode
-selection criteria, that's a signal the task warrants full mode — don't use
-the persona pick to compensate for a wrong mode selection.
+multiple conditions apply, pick the most relevant one. If the reason for
+picking a particular evaluator is a code characteristic that also appears
+in the full-mode selection criteria, that's a signal the task warrants full
+mode — don't use the persona pick to compensate for a wrong mode
+selection.
 
 Before spawning evaluation personas, create a temporary directory for
 evidence files (`~/tmp/test-eval-<timestamp>/`), same as full mode.
