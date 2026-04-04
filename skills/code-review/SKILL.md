@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Ensemble code review with specialized reviewer personas. Has full (8-persona) and lightweight (3-persona) modes — suggest mode and let human confirm. Load when conducting a code review of a PR, branch, or local changes.
+description: Ensemble code review with specialized reviewer personas. Has full (8-persona) and lightweight (3-persona) modes. Load when conducting a code review of a PR, branch, or local changes.
 disable-model-invocation: false
 ---
 
@@ -10,7 +10,7 @@ Ensemble code review that synthesizes findings from specialized reviewer persona
 
 ## Mode Selection
 
-The skill has two modes: **full** and **lightweight**. Before starting a review, the orchestrator should suggest which mode looks appropriate and why, then ask the human to confirm. The human decides — the orchestrator doesn't self-select.
+The skill has two modes: **full** and **lightweight**. Full is the default — if the orchestrator judges full is warranted, proceed without asking. If lightweight seems appropriate, the orchestrator should explain why and ask the human to confirm before proceeding.
 
 **Full mode** is the default. Use it when:
 
@@ -27,7 +27,7 @@ The skill has two modes: **full** and **lightweight**. Before starting a review,
 - Small feature following existing patterns
 - Change touches a single subsystem with clear boundaries
 
-When in doubt, suggest full mode. Lightweight is the opt-in when justified — the orchestrator must state what makes the change bounded and why fewer personas are sufficient.
+When in doubt, use full mode. Lightweight is the opt-in when justified — the orchestrator must state what makes the change bounded and why fewer personas are sufficient, and get human confirmation.
 
 Note: the software-design skill's lightweight mode follows a similar pattern (mode selection, single pass, escalation) but reduces differently — it has two stages and shrinks only the evaluation stage (5→2 personas). Code-review has a single stage, so the reduction is in persona count (8→3). The shared pattern is the mode selection and escalation structure.
 

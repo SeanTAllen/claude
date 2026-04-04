@@ -1,6 +1,6 @@
 ---
 name: test-design
-description: Two-stage ensemble for planning meaningful tests. Load when writing tests for new features or reviewing test quality. Counters the tendency to write tests that exercise the stdlib instead of your code. Has full (8-persona) and lightweight (5-persona) modes — suggest mode and let human confirm.
+description: Two-stage ensemble for planning meaningful tests. Load when writing tests for new features or reviewing test quality. Counters the tendency to write tests that exercise the stdlib instead of your code. Has full (8-persona) and lightweight (5-persona) modes.
 disable-model-invocation: false
 ---
 
@@ -20,10 +20,10 @@ whether the proposed tests accomplish it.
 
 ## Mode selection
 
-The skill has two modes: **full** and **lightweight**. Before starting test
-planning, the orchestrator should suggest which mode looks appropriate and why,
-then ask the human to confirm. The human decides — the orchestrator doesn't
-self-select.
+The skill has two modes: **full** and **lightweight**. Full is the default —
+if the orchestrator judges full is warranted, proceed without asking. If
+lightweight seems appropriate, the orchestrator should explain why and ask
+the human to confirm before proceeding.
 
 **Full mode** is the default. Use it when:
 

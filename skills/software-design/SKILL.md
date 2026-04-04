@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: Disciplines for software design work. Load when designing APIs, type systems, features, or system boundaries. Counters the tendency to retrieve familiar patterns instead of discovering what the problem actually needs. Has full (8-persona) and lightweight (5-persona) modes — suggest mode and let human confirm.
+description: Disciplines for software design work. Load when designing APIs, type systems, features, or system boundaries. Counters the tendency to retrieve familiar patterns instead of discovering what the problem actually needs. Has full (8-persona) and lightweight (5-persona) modes.
 disable-model-invocation: false
 ---
 
@@ -24,10 +24,10 @@ have now.
 
 ## Mode selection
 
-The skill has two modes: **full** and **lightweight**. Before starting design
-work, the orchestrator should suggest which mode looks appropriate and why,
-then ask the human to confirm. The human decides — the orchestrator doesn't
-self-select.
+The skill has two modes: **full** and **lightweight**. Full is the default —
+if the orchestrator judges full is warranted, proceed without asking. If
+lightweight seems appropriate, the orchestrator should explain why and ask
+the human to confirm before proceeding.
 
 **Full mode** is the default. Use it when:
 
