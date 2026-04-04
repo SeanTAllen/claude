@@ -489,6 +489,103 @@ would anything break? Would anything get worse? If the user can do it better
 (more type-safe, more flexible, more natural in the language), the framework
 shouldn't own it.
 
+This discipline draws the line between framework and user — the external
+boundary. For application-level design where the question is how to organize
+*within* the user's code, see "Separate layers."
+
+### Separate layers
+
+"Reason about ownership boundaries" asks whether the framework or the user
+should own a capability — the external boundary. This discipline asks the
+internal question: within the application, does each piece of logic live in the
+right layer?
+
+CLAUDE.md principle 8 defines three layers: domain logic (pure business rules,
+zero infrastructure dependencies), orchestration (combines domain logic with
+infrastructure — databases, caches, queues), and presentation (adapts
+orchestration for a specific protocol — HTTP, GraphQL, CLI). This discipline
+operationalizes that principle as design-time questions.
+
+**Scope**: This discipline applies when the skill is used for application-level
+design — systems with distinct domain, orchestration, and presentation concerns.
+For library or API design where there's no application layering, this discipline
+is not relevant. The ownership boundary discipline covers the framework/library
+boundary instead. Note that "infrastructure" in the questions below means
+infrastructure *relative to the application's domain* — a deployment tool's
+domain vocabulary naturally includes container and orchestration concepts, and
+"infrastructure" for that tool means the specific database or message queue it
+uses to do its work, not the deployment concepts it operates on.
+
+At each design step, ask:
+
+- **Which layer does this belong to?** For every type, function, or interaction
+  in the design, classify it: domain, orchestration, or presentation. If you
+  can't classify it cleanly, the boundaries are blurred — which usually means
+  domain logic has acquired an infrastructure dependency or presentation logic
+  has absorbed business rules.
+- **Does this domain type depend on any infrastructure?** Domain types should
+  have zero infrastructure dependencies — no database clients, no HTTP types, no
+  cache interfaces. If a domain type needs to talk to infrastructure, it belongs
+  in orchestration, or the domain type needs to express its need through an
+  interface that orchestration satisfies.
+- **Is orchestration leaking into domain types?** The tell: a domain type that
+  knows about connection pools, transaction boundaries, or retry policies.
+  Domain logic defines what should happen; orchestration decides how to make it
+  happen with real infrastructure.
+- **Is domain logic leaking into presentation?** The tell: a request handler
+  that contains business rules instead of delegating to orchestration. When
+  business logic lives in the presentation layer, it can't be reused by a
+  different presentation (a CLI that needs the same logic as the HTTP API).
+- **Could you swap the presentation layer without touching domain logic?**
+  HTTP → CLI, REST → GraphQL, synchronous → message-queue-driven. If swapping
+  the presentation layer requires changes to domain types, those types have
+  presentation concerns baked in. This is a thought experiment, not a
+  requirement to actually build multiple presentations — it tests whether
+  the boundary is clean.
+- **Is the presentation layer coupled to orchestration internals?** The tell:
+  a request handler that manages transaction boundaries, knows about caching
+  strategies, or handles retry logic instead of delegating those concerns to
+  orchestration. Presentation should call orchestration and receive results —
+  it shouldn't know how orchestration coordinates infrastructure.
+- **Are there domain concepts that only exist because of an infrastructure
+  choice?** A `PaginatedResult` type in the domain layer exists because the
+  database returns paginated results — that's infrastructure leaking into domain
+  vocabulary. The domain might need "a bounded subset of results" but shouldn't
+  know that the bound comes from database cursor limits.
+
+The test for clean layer separation: can you describe the domain logic without
+mentioning any infrastructure technology? If explaining a business rule requires
+saying "database," "HTTP," "cache," or "queue," the rule has infrastructure
+dependencies that should live in orchestration instead.
+
+"Check cohesion" asks whether things belong together within a type. This
+discipline asks a related but distinct question: do things belong together
+within a *layer*? A type can be internally cohesive but live in the wrong
+layer — a well-structured `UserService` that's cohesive in its
+responsibilities but mixes domain rules with database queries. Cohesion
+would call it fine (all methods serve "user management"); layer separation
+would flag the infrastructure
+dependency in domain logic.
+
+"Reason about ownership boundaries" draws the line between framework and user.
+This discipline draws lines within the user's code. The two work at different
+scales but share a principle: clear boundaries make it obvious where each
+concern lives and prevent responsibilities from migrating to the wrong side.
+
+When this discipline pushes toward extracting infrastructure from domain types
+and the skeptic questions whether the indirection is worth it, surface the
+tension. For small applications or early-stage code, the cost of clean
+separation may exceed the benefit — the answer depends on the scale and
+expected evolution of the application. But be honest about the tradeoff:
+coupling that's cheap
+today gets expensive as the application grows, and untangling it later costs
+more than separating it now. The skeptic's role here is to prevent ceremony —
+extracting an interface that has exactly one implementation and no prospect of a
+second is indirection without value. The discipline's role is to prevent
+entanglement — domain logic that can't be tested, reused, or understood without
+its infrastructure context. When both concerns are real, that's a tension worth
+presenting to the human.
+
 ### Map state explicitly
 
 State is where most design complexity hides. Boolean flags, nullable fields,
@@ -761,6 +858,9 @@ correct but fails silently or in non-obvious ways:
 - Is the design expensive to extend in a direction the domain naturally varies?
   If so, revisit "Surface the grain" — the design's cheap-to-extend directions
   may not align with where variation actually occurs.
+- Can a domain type only be used when specific infrastructure is available? If
+  so, revisit "Separate layers" — domain logic has acquired an infrastructure
+  dependency.
 - Is any outcome implicit (success by silence, failure by absence)?
 - Can the user receive an error and not know what to do with it? If so,
   revisit "Design error vocabularies" — the error types may be too coarse or
@@ -979,6 +1079,14 @@ grain; ignoring the grain means discovering the tradeoff only when you need to
 go against it, at which point the cost is high and the decision is baked in.
 The result is designs where the expensive direction turns out to be the one the
 domain actually needs, and nobody knew until the first extension attempt.
+
+**Embedding infrastructure in domain types.** When a domain type directly uses
+database clients, HTTP types, cache interfaces, or other infrastructure. The
+domain type might be correct about the business logic, but it can't be tested
+without the infrastructure, can't be reused in a different deployment context,
+and can't survive an infrastructure swap. This is distinct from "accumulating
+unrelated responsibilities" — the type may be cohesive in purpose but coupled to
+the wrong layer.
 
 **Accumulating unrelated responsibilities in a type.** When a type grows by
 accretion — each new responsibility is too small to extract on its own, so it
