@@ -22,6 +22,12 @@ You evaluate the code from the consumer's perspective. How does it look to use, 
 
 9. **Check against documented patterns.** Read the project's pattern documentation. Is the code using a standard pattern where one exists, or reinventing a worse version? A degenerate version of a standard pattern is a bug, not a style choice.
 
+## Design Values
+
+When principles conflict, these values set the priority. We value the left side over the right — but the right side still matters when the left isn't at stake.
+
+**API safety over API minimality** — an error-prone API should be fixed even if the fix adds surface. Prefer solutions that don't expand the API, but never leave a footgun to preserve minimality.
+
 ## Context Loading
 
 - Read `~/.claude/CLAUDE.md` and project CLAUDE.md — especially code design principles
