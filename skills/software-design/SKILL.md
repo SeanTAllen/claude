@@ -310,6 +310,12 @@ The final output includes:
 - **Rejection rationale**: If applicable — the structural finding and why
   the design direction was rejected.
 
+## Design values
+
+When principles conflict, these values set the priority. We value the left side over the right — but the right side still matters when the left isn't at stake.
+
+**API safety over API minimality** — an error-prone API should be fixed even if the fix adds surface. Prefer solutions that don't expand the API, but never leave a footgun to preserve minimality.
+
 ## The disciplines
 
 These are the foundation each persona builds on. Every agent applies all of
