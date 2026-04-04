@@ -322,6 +322,12 @@ When principles conflict, these values set the priority. We value the left side 
 
 **Security over performance** — never skip validation at trust boundaries for speed. Optimize how you validate, not whether you validate. Security is correctness.
 
+**Interface simplicity over implementation simplicity** — accept a harder implementation to give users a clean interface. The consumer's experience matters more than the implementer's convenience.
+
+**Performance over interface simplicity** — runtime speed matters more than programmer convenience. It's acceptable to make things harder on the user to improve performance, but never at the cost of correctness.
+
+**Simplicity over consistency** — don't force artificial consistency when it makes things harder to use. If two similar things genuinely need different interfaces, let them be different.
+
 ## The disciplines
 
 These are the foundation each persona builds on. Every agent applies all of
