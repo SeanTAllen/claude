@@ -661,6 +661,81 @@ resistance may also signal that the pieces genuinely belong together and the
 cohesion check is being too aggressive. The design process should make the
 tension visible.
 
+### Surface the grain
+
+Every design has directions that are cheap to extend and directions that are
+expensive to change. When you decide "variants are types implementing a trait"
+or "data flows through a pipeline of transforms" or "each handler owns its own
+state," you create a grain. Adding another type to the trait family is with the
+grain. Changing the data flow from push to pull is against it. Neither
+direction is inherently right — what matters is knowing which is which so the
+tradeoff is deliberate.
+
+This is not speculation about future needs. It's understanding the shape of
+what you're building now. A design where adding a new output format requires
+touching every handler is fine — if the team knows that and decided the
+tradeoff was worth it. A design where that same coupling exists but nobody
+noticed it is a future surprise.
+
+At each design step, ask:
+
+- **What's easy to add?** If this design needed one more variant, handler, or
+  type in the family, where does it slot in? How much existing code needs to
+  change to accommodate it? If the answer is "add a new file and implement the
+  trait" — that's with the grain. If the answer is "touch five existing types to
+  thread the new thing through" — the grain doesn't run that way.
+- **What's expensive to change?** If a fundamental assumption changed — data
+  flow direction, ownership boundary, concurrency model, storage strategy — how
+  much of the design survives? Understanding how deep each assumption is
+  embedded lets you make informed decisions about which assumptions to commit to.
+- **Does the grain align with the domain's natural variation?** If the design
+  makes it cheap to add new data formats but expensive to add new data sources,
+  and the domain naturally acquires new sources more often than new formats, the
+  grain runs the wrong way.
+
+The consumer-first discipline naturally reveals grain: sketching what "add one
+more variant" looks like as consumer code shows whether the grain runs in a
+useful direction. If the sketch for a new variant is clean and minimal — just
+implement the trait, register it, done — the grain is favorable. If the sketch
+requires the consumer to understand and modify internals scattered across the
+codebase, it isn't. When applying grain awareness, extend the consumer sketch
+beyond just current usage to include at least one "what would adding X look
+like?" scenario. Pick the most mundane addition — one more variant of the same
+kind the design already handles, not a fundamentally different kind of thing.
+If even mundane additions are expensive, the grain is genuinely misaligned. If
+only exotic additions are expensive, that's usually the correct tradeoff —
+designs can't be cheap in every direction.
+
+The test for whether you've surfaced the grain: can you state, for each major
+structural decision, what it makes cheap and what it makes expensive? If you
+can't answer that for a decision, you don't yet understand its consequences.
+
+"Check cohesion" asks whether things belong together. This discipline asks what
+the grouping makes cheap or expensive. A cohesive type can still have grain
+that's misaligned with the domain — the grouping is right, but the extension
+point runs in the wrong direction. Conversely, grain analysis might reveal that
+a type with good cohesion should be structured differently to align extension
+costs with the domain's variation points — which feeds back into whether the
+current grouping is actually the right one.
+
+"Map state explicitly" makes grain decisions concrete. A choice between a flat
+enum and a trait-based state machine is fundamentally a grain choice: the enum
+makes adding transitions cheap (one match in each method) but adding states
+expensive (touch every match site); the trait-based machine makes adding states
+cheap (new class, implement the trait) but adding transitions expensive (new
+method on every state class). Neither is better in the abstract — the right
+choice depends on whether the domain's variation is in new states or new
+transitions.
+
+When grain analysis and the skeptic point in different directions, surface the
+tension — don't silently rework the design. The misalignment may be an
+acceptable tradeoff given other constraints. The distinction between the two
+lenses: grain awareness observes the structural consequences of decisions
+already made; the skeptic guards against acting on predicted needs that haven't
+materialized. If the tension forces you to articulate why the grain observation
+matters independent of any specific prediction, that's the process working
+correctly.
+
 ### Look for footguns
 
 After sketching a design, look for ways a user could do something that *looks*
@@ -683,6 +758,9 @@ correct but fails silently or in non-obvious ways:
 - Does a type do multiple unrelated things, making it unclear which part of its
   API applies to the user's current need? If so, revisit "Check cohesion" — the
   type may be a grab-bag of responsibilities.
+- Is the design expensive to extend in a direction the domain naturally varies?
+  If so, revisit "Surface the grain" — the design's cheap-to-extend directions
+  may not align with where variation actually occurs.
 - Is any outcome implicit (success by silence, failure by absence)?
 - Can the user receive an error and not know what to do with it? If so,
   revisit "Design error vocabularies" — the error types may be too coarse or
@@ -892,6 +970,15 @@ callers depend on them, implementations preserve them, and future changes break
 them. The difference between a stated invariant and an unstated one is that
 when the stated one breaks, you know what went wrong and why. When the unstated
 one breaks, you get symptoms far from the cause and no trail to follow.
+
+**Committing to structure without understanding its grain.** Making structural
+decisions — "variants are enum cases," "handlers are registered at startup,"
+"data flows through a transform pipeline" — without asking what those decisions
+make cheap and what they make expensive. Every structural choice creates a
+grain; ignoring the grain means discovering the tradeoff only when you need to
+go against it, at which point the cost is high and the decision is baked in.
+The result is designs where the expensive direction turns out to be the one the
+domain actually needs, and nobody knew until the first extension attempt.
 
 **Accumulating unrelated responsibilities in a type.** When a type grows by
 accretion — each new responsibility is too small to extract on its own, so it
