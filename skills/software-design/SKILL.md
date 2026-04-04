@@ -866,6 +866,25 @@ correct but fails silently or in non-obvious ways:
   revisit "Design error vocabularies" — the error types may be too coarse or
   missing context.
 
+The questions above target specific failure modes — things that go wrong. But
+a design can also fail by requiring knowledge it doesn't encode. Implicit
+mechanisms — setup ordering, required conventions, context-dependent behavior —
+create knowledge that exists only in the designer's head. After checking for
+concrete footguns, probe for implicit design knowledge:
+
+- What does a user need to know about this design that isn't encoded in the
+  types or API?
+- Does any behavior depend on context that isn't visible at the call site?
+- Are there conventions the user must follow that aren't enforced by the type
+  system?
+- If a user read only the type signatures (no docs, no examples), what would
+  they get wrong?
+
+The last question is a forcing function — it surfaces every piece of implicit
+knowledge the design depends on. Each answer is either an acceptable
+documentation requirement or a design problem to fix. If the list is long, the
+design is too implicit.
+
 A candy-machine interface is one where the user can put the money in the slot
 and push the button and get something other than what they expected. Good design
 makes the right thing easy and the wrong thing impossible (or at least loud).
