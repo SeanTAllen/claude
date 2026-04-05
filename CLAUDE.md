@@ -25,6 +25,8 @@
    - **Lightweight mode**: No re-review loop. Fix the findings and proceed. If finding density is unexpectedly high, the orchestrator presents this to the human — the change may warrant full mode.
    - Open the PR with parked items listed for Sean to weigh in on.
 
+**Surface parked items in every status update**: Whenever reporting status to Sean — mid-work checkpoint, completion summary, PR opened, blocker hit — include outstanding parked items as part of that update. Parked items are decisions awaiting Sean's input; he shouldn't have to go find them in a PR description or comment thread. They should also go in the PR description/comments for the written record, but the conversation is where Sean sees them first.
+
 The only exception: if you believe a change is truly trivial (a typo fix, a one-line config change), ask Sean for permission to skip the review. Do not decide on your own that something is trivial enough to skip. When in doubt, run the review.
 
 **Discuss important decisions before acting**: When encountering an important decision point — architectural choices, tradeoffs between approaches, anything that could meaningfully change the direction of work — stop and discuss it with Sean first. Don't pick a path silently.
