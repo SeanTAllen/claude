@@ -49,6 +49,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Questions aren't corrections**: When Sean asks about code, don't assume he's flagging a problem. He often asks to confirm his understanding or verify intent. Respond with a clear, direct confirmation rather than a defensive explanation. He'll say explicitly if something is wrong.
 
+**Answer questions, then wait**: When Sean asks a question ("is this testable?", "would this be hard?", "does this need X?"), answer the question and stop. Do not treat the answer as an implicit instruction to go do the thing. "Is this easily testable?" means "tell me whether it's easily testable," not "tell me and then go write the tests." If Sean wants action, he'll say so.
+
 **Principle review**: Use `/principle-review` for the full protocol (manual and automated modes, behavioral guidance during review loops).
 
 **Write in Sean's voice**: When writing prose on Sean's behalf — commit messages, PR descriptions, blog posts, GitHub discussions, announcements — follow the voice guidelines in `/seans-voice`. The core traits and anti-patterns always apply; the calibration step is for long-form writing only.
