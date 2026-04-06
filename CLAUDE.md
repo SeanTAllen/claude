@@ -131,6 +131,8 @@ Use `/zulip` when Sean shares a Zulip link.
 
 13. **It is easier to give than take away**: When deciding whether to include something in an API (a callback, a parameter, a feature), lean toward omitting it. You can always add it later if needed, but removing it is a breaking change. Start minimal; expand based on demonstrated need.
 
+14. **Don't patch around architectural problems**: When a remaining gap can't be fixed cleanly at the current layer, say so and stop. Don't write special-case workarounds for problems that need deeper fixes. If a fix requires assumptions about the internal structure of a different layer, it belongs in that layer. The bias toward producing a visible result ("I fixed this too!") leads to fragile code that papers over the real issue and makes the eventual proper fix harder to reason about.
+
 ## Code Change Discipline
 
 **Evaluate copied patterns, don't cargo-cult them**: When reusing a pattern from existing code, copy the *intent*, not the *incidental choices*. Ask: "Does the new usage actually need each piece of this?" Strip it down to what's required, then add back only what's justified. Conventions (legal headers, naming schemes, file organization) should be followed for consistency. Technical patterns (error handling, data structures) should be evaluated on merit. The presence of a pattern across *all* files suggests convention.
