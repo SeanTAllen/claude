@@ -201,11 +201,19 @@ blog posts benefit from two additional passes before opening the PR:
 7. **Docs review (lightweight mode).** Accuracy, completeness, and
    principles personas. Apply findings.
 
-8. **Voice review and narrative review.** The two extra passes
+8. **Re-evaluate the outline.** After review passes, assess whether
+   findings indicate a problem with the outline or approach, not
+   just the prose. If the outline's structure is wrong, go back to
+   step 4 rather than patching forward.
+
+9. **Voice review and narrative review.** The two extra passes
    described above.
 
-9. **Build verification.** Run whatever the project requires to
-   verify the post renders (project CLAUDE.md has the specifics).
+10. **Build verification.** Run whatever the project requires to
+    verify the post renders (project CLAUDE.md has the specifics).
+    Re-read the rendered output — issues visible in rendered form
+    (broken layout, missing images, formatting that doesn't land)
+    aren't always visible in source.
 
-10. **Open the PR.** Feature branch, squashed commit, `Closes #N`
+11. **Open the PR.** Feature branch, squashed commit, `Closes #N`
     in the body if there's an associated issue.
