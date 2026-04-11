@@ -73,7 +73,8 @@ An OODA violation is any instruction that:
 
 1. Read `~/.claude/CLAUDE.md` in full.
 2. Read the project CLAUDE.md (if in a project directory).
-3. Read every skill file in `~/.claude/skills/*/SKILL.md`.
+3. Discover skill files with `find -L ~/.claude/skills/ -name "SKILL.md"` (Glob
+   doesn't follow symlinks) and read each one.
 4. For each file, evaluate every instruction against the violation categories
    above.
 5. Report findings grouped by file, with:
