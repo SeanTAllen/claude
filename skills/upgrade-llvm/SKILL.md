@@ -74,7 +74,9 @@ make                                              # Build ponyc
 make test-full-programs-release                   # Run full-program tests
 ```
 
-If the build finds additional errors, fix and amend the commit.
+If the build finds additional errors, assess whether they're the same
+class of API change already handled (fix and amend) or indicate a
+different migration pattern is needed (revisit step 5).
 
 ## Common Migration Patterns
 
