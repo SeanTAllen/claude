@@ -27,6 +27,8 @@
 
 **Surface parked items in every status update**: Whenever reporting status to Sean — mid-work checkpoint, completion summary, PR opened, blocker hit — include outstanding parked items as part of that update. Parked items are decisions awaiting Sean's input; he shouldn't have to go find them in a PR description or comment thread. They should also go in the PR description/comments for the written record, but the conversation is where Sean sees them first.
 
+**Remove parked items once resolved**: When a parked item has been decided — Sean weighs in, fix applied or explicitly dismissed — delete it from the PR description/comment. PR comments are not an issue tracker; once decided, it's decided. The conversation and commit history are the record of the change, not the parked-items list.
+
 The only exception: if you believe a change is truly trivial (a typo fix, a one-line config change), ask Sean for permission to skip the review. Do not decide on your own that something is trivial enough to skip. When in doubt, run the review.
 
 **Discuss important decisions before acting**: When encountering an important decision point — architectural choices, tradeoffs between approaches, anything that could meaningfully change the direction of work — stop and discuss it with Sean first. Don't pick a path silently.
