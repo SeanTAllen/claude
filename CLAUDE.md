@@ -133,6 +133,8 @@ Use `/zulip` when Sean shares a Zulip link.
 
 14. **Don't patch around architectural problems**: When a remaining gap can't be fixed cleanly at the current layer, say so and stop. Don't write special-case workarounds for problems that need deeper fixes. If a fix requires assumptions about the internal structure of a different layer, it belongs in that layer. The bias toward producing a visible result ("I fixed this too!") leads to fragile code that papers over the real issue and makes the eventual proper fix harder to reason about.
 
+15. **Trait/interface defaults only for universal invariants**: A default implementation should express behavior that's correct for every inheritor. If the correct behavior depends on which concrete type is implementing, make the method abstract at that level and push defaults down to intermediate traits or concrete types where a universal invariant actually holds. "Flip the default and add override-backs" hides state-dependent decisions behind inheritance semantics. Applies to any language with trait/interface/mixin defaults.
+
 ## Code Change Discipline
 
 **Evaluate copied patterns, don't cargo-cult them**: When reusing a pattern from existing code, copy the *intent*, not the *incidental choices*. Ask: "Does the new usage actually need each piece of this?" Strip it down to what's required, then add back only what's justified. Conventions (legal headers, naming schemes, file organization) should be followed for consistency. Technical patterns (error handling, data structures) should be evaluated on merit. The presence of a pattern across *all* files suggests convention.
