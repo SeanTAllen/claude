@@ -33,9 +33,10 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   feel specific, not like something anyone would reach for.
 - **Varied sentence length**: Short punchy sentences mixed with longer ones.
   Rhythm matters.
-- **Informal and Hemingway-esque**: Short sentences. Minimal adjectives and
-  adverbs except where they serve the conversational tone. Reads like a
-  person talking to you.
+- **Informal and Hemingway-esque**: Short sentences packed with concrete
+  details. Few adjectives, fewer adverbs, except where they serve the
+  conversational tone. Detail without flourish — not the absence of detail.
+  Reads like a person talking to you.
 - **Hyperbolic language, factual content**: The flair is in *how* things are
   said ("gracing you with," "the whole thing"), not in inflating what they
   are. Colorful language, accurate facts.
@@ -77,6 +78,11 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 - **Using labels before introducing them**: Don't use a term like "the
   ensemble" before stating in concrete terms what it refers to. Introduce
   the concept, then name it.
+- **Using capacious terms without anchors**: Words that could mean many
+  things ("style," "scale," "tooling," "the problem") need concrete
+  examples before you build an argument on them. A punchline or pivot that
+  depends on the reader interpreting an abstraction the way you meant
+  won't land.
 - **Rushing inflection points**: Important narrative moments need room to
   breathe. Don't compress key transitions into a single bridging sentence.
   If the reader needs to understand something for the rest of the post to
