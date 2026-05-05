@@ -137,6 +137,25 @@ the other post for context" tells the reader you're not giving them
 what they need here. Bring the relevant context forward and explain it
 inline.
 
+## Compressed recaps of prior posts can strip framing
+
+When the post references an earlier piece, the natural one-sentence
+recap is the place where careful framing gets dropped. The original
+may have been explicit that an analogy is a metaphor, drawn a
+distinction, or stepped around a trap with surrounding context. The
+shorthand collapses all of that into a verb phrase.
+
+Example: a post that says "I treated Claude like a junior developer
+with no memory" frames the analogy as a deliberate metaphor. The
+shorthand "mentor it like a junior developer" presents the same
+analogy as a literal claim and reintroduces the trap the original
+sidestepped.
+
+Before writing a recap, identify what the original was *careful
+about* — the qualifications it made, the traps it stepped around,
+the distinctions it drew. The recap has to preserve those, even when
+compressing. If you can't preserve them in one sentence, use two.
+
 ## Grammar: intros and lists
 
 When an intro sentence ends with a colon and sets up a list, the
