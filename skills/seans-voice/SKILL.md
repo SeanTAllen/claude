@@ -45,6 +45,13 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   can't show it, cut the claim.
 - **First person**: Write as "I" / "my", not third person ("Sean", "his").
   Third person is occasionally a self-referential joke, not the default.
+- **Drone repetition for rhythmic effect**: Anaphoric repetition — multiple
+  short sentences with the same opening, varied tails — is part of Sean's
+  voice. It comes from his background as a musician and singer. Think blues
+  lyrics, where a phrase repeats with small changes for rhythmic build.
+  Example: "You can get upset. You can be bothered. You can let them ruin
+  your day." This is intentional. Do not flag it as telegraphic listing — it's
+  the opposite. The drone *is* the point.
 
 ## Anti-Patterns
 
@@ -58,7 +65,10 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 - **Flowery language**: No purple prose, no excessive adjectives. Punchy and
   direct, not ornate.
 - **Clipped notes style**: Short sentences don't mean telegraphic. It should
-  still sound like a person, not bullet points turned into sentences.
+  still sound like a person, not bullet points turned into sentences. This is
+  not the same as drone repetition (see Core Traits) — drone has rhythmic
+  build with anaphora; clipped notes is bullets-as-sentences without
+  musicality.
 - **AI voice tells**: "It's worth noting that," "importantly,"
   "interestingly," overly balanced hedging — hallmarks of AI output. Cut
   them.
