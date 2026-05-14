@@ -1,7 +1,7 @@
 ---
 name: blog-post
 description: Draft a blog post on Sean's behalf. Covers announcement posts, feature posts, architecture walkthroughs, and essays. Not for Last Week in Pony — use /lwip for those.
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 Draft a blog post on Sean's behalf. Use this for library release
