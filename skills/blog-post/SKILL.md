@@ -108,6 +108,60 @@ technical detail with no bridge. End the contextual section with a
 handoff; start the technical section with something that lands the
 topic before diving into specifics.
 
+**Headers name the subject, not the position.** "After Tarjan",
+"Meet X", "What I built" telegraph where you are in the post without
+describing what the section is about. A header should answer "what
+is this section about?", not "where am I in the post?".
+
+**Don't leave a single H3 in a section.** A solitary subheading reads
+as a structural mistake. Either promote it to its peer level or fold
+the content into the parent section's flow.
+
+## Pair concept with its implementation
+
+When a post has rules + their algorithmic checks (or properties + their
+verification, or invariants + the code that enforces them), deliver each
+rule with its check inline rather than putting all the rules upfront and
+the checks much later. Otherwise the reader has to carry the rules
+across many sections before seeing them applied.
+
+The pattern that's wrong: state every rule, then walk through every
+example, then introduce the algorithm. The pattern that works: rule
+one, its check, its failure examples; then rule two, its check, its
+failure examples.
+
+This applies anywhere a post states a property at one abstraction and
+shows how to verify it at another. Deliver them together.
+
+## Teaching technical material
+
+**Pair contrast in pedagogical diagrams.** A single legal-case diagram
+just shows "here's a graph with some labels." The teaching happens in
+the comparison. When introducing a rule, show both a legal example and
+an illegal one. Same diagram type, different verdict. Reader sees the
+rule in action.
+
+**Make state snapshots visually distinct in algorithm traces.** When
+walking through an algorithm, the snapshots of state (a stack, a heap,
+a set of variables) are the things the reader needs to track between
+steps. Inline backticks in prose are skimmable. Code blocks make state
+changes scannable and visually anchor each step.
+
+## Temporal honesty for in-flight work
+
+When writing about work that isn't yet finished — a PR in review, a
+library not released, a deployment pending — be honest about state.
+Don't write past tense as if it's done.
+
+Honesty alone reads as hedge ("This isn't merged yet"). Pair it with
+a confidence statement about what does hold:
+
+> Details may shift before it does, but everything in this post is
+> foundational. It should all hold.
+
+The reader gets both the truth about state and a sense of what's
+load-bearing.
+
 ## Writing about gaps
 
 A "what's missing" or "limitations" section is honest and welcome.
@@ -155,6 +209,11 @@ Before writing a recap, identify what the original was *careful
 about* — the qualifications it made, the traps it stepped around,
 the distinctions it drew. The recap has to preserve those, even when
 compressing. If you can't preserve them in one sentence, use two.
+
+For series posts, the same principle applies in reverse: a one-line
+teaser of what the prior post covered is enough. Don't open the
+current post with a verbose recap. The current post is doing its own
+work; the prior post's content doesn't need to be repeated.
 
 ## Grammar: intros and lists
 

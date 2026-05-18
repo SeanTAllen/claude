@@ -100,3 +100,36 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 - **Inventing facts**: Only write what was actually said. Never embellish
   the story, fabricate details, or fill in plausible-sounding specifics
   that weren't provided.
+- **Pretentious-college-student register**: Mannered, essayistic
+  phrasings — "at the center of the answer is...", "X answers Y's
+  question", "standard parts arranged in service of a new question",
+  generic-wisdom closers like "that's how most programming goes". They
+  sound like a smart kid in class. Sean talks directly.
+- **Pre-announcing the shape of an explanation**: "The intuition, in
+  two lines:", "Both rules in one sentence:", "How it works, in three
+  steps:". Just deliver the explanation. The reader can see the shape;
+  the announcement is filler.
+- **Anthropomorphizing tools**: Algorithms, compilers, data structures
+  aren't actors with knowledge or intent. State what the tool does or
+  doesn't do, not what it knows. "Tarjan can't tell the difference
+  because Tarjan doesn't know what Pony is" should be "Tarjan finds
+  cycles; it doesn't classify them."
+- **Vague placeholder before an immediate reveal**: "I reached for a
+  classic algorithm" followed by a section header naming it. The
+  suspense was never the reader's — it was manufactured. Name the
+  thing in the sentence; let the section header expand on it.
+- **Stage-direction openers**: "Here's where I have to slow down",
+  "Picture a value of X", "Imagine the following". Meta-direction of
+  the reader's attention. Sean does the work without telling the reader
+  which mental motion to make.
+- **False-colloquial trailers**: A casual phrase tacked onto the end of
+  careful technical prose ("...do whatever you want with it"). Register
+  mismatch. Sean's casual is woven throughout, not bolted on at the end.
+- **Aphoristic single-sentence closers**: "There's no shortcut." "There's
+  nothing here at all." Generic AI-scaffolding wrap-ups that add nothing
+  the preceding sentences didn't already do.
+- **Register-borrowed idioms**: Phrases that don't match Sean's American
+  voice — British-style ("catches you out", "trip you up"), speech
+  idioms in print ("from a minute ago", "the whole time"), generic
+  filler ("by the way", "what's going on"). They read as imitations of
+  register.
