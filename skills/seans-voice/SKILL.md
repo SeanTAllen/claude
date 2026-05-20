@@ -109,11 +109,16 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   two lines:", "Both rules in one sentence:", "How it works, in three
   steps:". Just deliver the explanation. The reader can see the shape;
   the announcement is filler.
-- **Anthropomorphizing tools**: Algorithms, compilers, data structures
-  aren't actors with knowledge or intent. State what the tool does or
-  doesn't do, not what it knows. "Tarjan can't tell the difference
-  because Tarjan doesn't know what Pony is" should be "Tarjan finds
-  cycles; it doesn't classify them."
+- **Anthropomorphizing tools**: Sean's voice does not give objects —
+  algorithms, compilers, functions, data structures — knowledge,
+  intent, or a job, except as a deliberate leg-pull (an obvious joke,
+  used once). Replace cognition/intent verbs (asks, answers, wants,
+  knows, remembers, decides, tries, sees, "its job is to") with what
+  the thing mechanically does (runs, compares, returns, finds, walks,
+  computes, records). The most common sneak-in is framing a check as a
+  question the system "asks" and "answers"; reframe it as a computation.
+  "Tarjan doesn't know what Pony is" → "Tarjan finds cycles; it doesn't
+  classify them."
 - **Vague placeholder before an immediate reveal**: "I reached for a
   classic algorithm" followed by a section header naming it. The
   suspense was never the reader's — it was manufactured. Name the
@@ -133,3 +138,20 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   idioms in print ("from a minute ago", "the whole time"), generic
   filler ("by the way", "what's going on"). They read as imitations of
   register.
+
+## Self-review
+
+The anti-patterns above don't get applied just by being read before you
+write — a draft comes out in your default register no matter what's loaded.
+They get applied by a review pass afterward, and the pass only works when
+it's narrow. Reading the whole draft for "voice, generally" catches almost
+nothing. Reading it for one anti-pattern at a time catches that one every
+time.
+
+So after drafting any substantial prose, review it one anti-pattern at a
+time. The ones that recur and most need their own pass: anthropomorphizing,
+unclear antecedents, rushing inflection points, inflated claims (hyperbolic
+in *what* instead of *how*), and AI tells. For each, read the whole draft
+for that one thing and produce concrete evidence — the instances and their
+rewrites, or an explicit "none." Not "I considered it." If a pass turns up
+a lot, the piece needs rework, not line edits.
