@@ -227,6 +227,41 @@ fragments that describe topics but don't state a status.
 Fixed: an intro that promises noun phrases ("what you won't find")
 followed by noun phrases that complete the sentence.
 
+## First-draft self-audit
+
+A draft is not ready for review until it has passed this audit, run on your
+own draft before any reviewer sees it. Drafting spends its attention on what
+to say; voice and craft slip because they compete with content for the same
+budget. The audit recovers them with focused passes, each reading the whole
+draft for one thing with nothing else to weigh.
+
+Start with the **seans-voice self-review** — the single-anti-pattern passes
+described in `/seans-voice`. That covers the voice failures:
+anthropomorphizing, unclear antecedents, rushing past a concept the reader
+doesn't yet hold, inflated claims, AI tells. Produce concrete evidence for
+each, not "I considered it."
+
+Then the passes specific to a blog post, the same way — one focus each:
+
+1. **Framing / offloading.** Prose that talks about the writing instead of the
+   subject — "this post," "the second post walked X," "as I mentioned." Body
+   prose stands on its own legs, in the present, about the subject; the intro's
+   navigation links are the only place to name other posts. Also catch "go read
+   X for context" where the context belongs inline (see "Don't offload
+   context").
+
+2. **Ghosts.** The sweep from "Sweep for ghosts after cutting prior-version
+   framing" — *still* / *new* / *now* / *no longer* / *instead of* left hanging.
+
+3. **Narrative, not enumeration.** Each section: a story (a problem the reader
+   hits, its answer, then the next problem) or a list of "also, feature N"? If
+   every paragraph reduces to "here's another thing," the section is
+   enumeration.
+
+The audit is the first line of defense. The review pipeline below is the
+second. If a reviewer is still catching anthropomorphizing or rushing, the
+audit was skipped or rushed.
+
 ## Review passes
 
 Beyond the standard `principle-review` and `docs-review` pipeline,
@@ -273,25 +308,29 @@ blog posts benefit from two additional passes before opening the PR:
    Don't inflate. Don't extend metaphors. Watch for ghosts. Keep
    sections narrative, not enumerative.
 
-6. **Self-review loop.** Lightweight single-agent `principle-review`.
+6. **First-draft self-audit.** Run every pass in "First-draft
+   self-audit" above on your own draft, producing the concrete evidence
+   for each. This is the gate before any reviewer sees the draft.
+
+7. **Self-review loop.** Lightweight single-agent `principle-review`.
    Iterate until clean.
 
-7. **Docs review (lightweight mode).** Accuracy, completeness, and
+8. **Docs review (lightweight mode).** Accuracy, completeness, and
    principles personas. Apply findings.
 
-8. **Re-evaluate the outline.** After review passes, assess whether
+9. **Re-evaluate the outline.** After review passes, assess whether
    findings indicate a problem with the outline or approach, not
    just the prose. If the outline's structure is wrong, go back to
    step 4 rather than patching forward.
 
-9. **Voice review and narrative review.** The two extra passes
-   described above.
+10. **Voice review and narrative review.** The two extra passes
+    described above.
 
-10. **Build verification.** Run whatever the project requires to
+11. **Build verification.** Run whatever the project requires to
     verify the post renders (project CLAUDE.md has the specifics).
     Re-read the rendered output — issues visible in rendered form
     (broken layout, missing images, formatting that doesn't land)
     aren't always visible in source.
 
-11. **Open the PR.** Feature branch, squashed commit, `Closes #N`
+12. **Open the PR.** Feature branch, squashed commit, `Closes #N`
     in the body if there's an associated issue.
