@@ -52,6 +52,19 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   Example: "You can get upset. You can be bothered. You can let them ruin
   your day." This is intentional. Do not flag it as telegraphic listing — it's
   the opposite. The drone *is* the point.
+- **Echoed phrase, clipped on return**: A phrase is delivered with its full
+  context, then repeated bare as a short echo. "Baby steps to good sylvan.
+  Baby steps." "well played, sir. well played." The first occurrence carries
+  the content; the second drops the extension. It's diacope — a phrase
+  repeated with words in between. The beat is often wry or knowing,
+  sometimes sincere; don't lock it to one tone. Casing follows context —
+  there's no fixed rule. Use it sparingly — a rare, deliberate punctuation,
+  not a recurring device. Distinct from drone repetition above: drone is a
+  *series* of sentences sharing an opening with varied tails; this is a
+  *pair* that brackets one thought. Do not flag the bare second sentence as
+  an aphoristic single-sentence closer (see Anti-Patterns) — that's generic
+  AI scaffolding; this is a deliberate callback to the phrase that just
+  appeared.
 
 ## Anti-Patterns
 
