@@ -65,6 +65,24 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   an aphoristic single-sentence closer (see Anti-Patterns) — that's generic
   AI scaffolding; this is a deliberate callback to the phrase that just
   appeared.
+- **Restated from the opposite side, for deadpan**: The same point stated
+  several ways to drive it home: a fix, then a flat label, then the
+  underlying problem stated from the reverse angle. "you should make his
+  plane go faster. that is the root cause. his plane is too slow." The
+  first sentence and the last are the same fact two ways, as the fix and
+  as the problem; the middle is a deadpan label. It's commoratio: dwelling
+  on a point by restating it in different words. The humor is the engine.
+  The reductive bluntness of the final restatement, landing right after the
+  formal "that is the root cause," is the joke, so this is pretty much
+  always played for laughs. That sets it apart from the echoed phrase
+  above, which isn't locked to one tone. Use it sparingly: a deliberate
+  beat, not a tic. Distinct from drone repetition (a *series* sharing one
+  opening) and from the echoed phrase (the same phrase returning *bare*);
+  here no phrase returns intact the way diacope does; the point returns
+  reframed. Do not flag the short restatements as choppy fact sequences
+  or clipped notes, nor the bare final sentence as an aphoristic
+  single-sentence closer (see Anti-Patterns); the closing restatement is
+  the device, not a generic wrap-up.
 
 ## Anti-Patterns
 
