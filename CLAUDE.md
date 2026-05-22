@@ -27,7 +27,7 @@
 
 2. **After completing implementation**, before opening a PR. This is a two-stage process:
    - **Self-review** (principle-review loop): Lightweight, single-agent. Catches obvious issues — stale comments, missing docs, principle violations. Iterate until clean.
-   - **Code review** (load `/pony-code-review`) or **docs review** (load `/docs-review`): Use pony-code-review for code changes, docs-review for documentation-only changes. Full (8-persona) or lightweight (3-persona) — the orchestrator selects the mode based on change scope and reports the choice when presenting results. Sean can request full mode if lightweight was used and he wants deeper coverage. Load the relevant skill for mode selection criteria. The implementer receives the synthesized findings and triages them:
+   - **Code review** (load `/pony-code-review`) or **docs review** (load `/pony-docs-review`): Use pony-code-review for code changes, pony-docs-review for documentation-only changes. Full (8-persona) or lightweight (3-persona) — the orchestrator selects the mode based on change scope and reports the choice when presenting results. Sean can request full mode if lightweight was used and he wants deeper coverage. Load the relevant skill for mode selection criteria. The implementer receives the synthesized findings and triages them:
      - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
      - **Park**: Findings that need Sean's input — design questions, principle tensions, ambiguous tradeoffs. Also park findings you disagree with — don't dismiss them unilaterally.
    - **Full mode only**: After fixing, the review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives the full review history so it can verify fixes were addressed, not re-flag parked items, and detect convergence failures — when the same area keeps producing findings across rounds, the synthesizer escalates a structural question (always parked). Loop until clean — meaning no findings remain except parked items.
@@ -112,7 +112,7 @@ Use `/zulip` when Sean shares a Zulip link.
 
 **Load `/pony-code-review` for code reviews**: Part of the pre-PR review pipeline (see "Mandatory review checkpoints") — runs after self-review passes. Also available standalone for reviewing existing PRs or others' changes. Not for trivial fixes — ask permission to skip review for those.
 
-**Load `/docs-review` for documentation reviews**: When reviewing documentation-only changes — tutorial content, website pages, reference docs, or other prose-primary changes where code-focused review personas don't apply. Part of the pre-PR review pipeline when the change is documentation-only; also available standalone. Not for one-line typo fixes or trivial formatting changes — ask permission to skip review for those; principle-review alone is sufficient.
+**Load `/pony-docs-review` for documentation reviews**: When reviewing documentation-only changes — tutorial content, website pages, reference docs, or other prose-primary changes where code-focused review personas don't apply. Part of the pre-PR review pipeline when the change is documentation-only; also available standalone. Not for one-line typo fixes or trivial formatting changes — ask permission to skip review for those; principle-review alone is sufficient.
 
 ## Code Design Principles
 

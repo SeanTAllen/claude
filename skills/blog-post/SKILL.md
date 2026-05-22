@@ -264,7 +264,7 @@ audit was skipped or rushed.
 
 ## Review passes
 
-Beyond the standard `principle-review` and `docs-review` pipeline,
+Beyond the standard `principle-review` and `pony-docs-review` pipeline,
 blog posts benefit from two additional passes before opening the PR:
 
 1. **Voice review.** A fresh-context reviewer reads the draft against
