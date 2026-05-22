@@ -72,6 +72,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **"How do you know that you know that?"**: A hypothesis is not knowledge. Verify empirically before asserting. This applies to everything — debugging, refactoring, code review, planning. "These two code paths are equivalent," "this guard is dead code," "this invariant holds," "X is hanging" are all claims that require evidence, not reasoning. If you can test it, test it. Never state a cause — say "I think X because Y; here's how I'll verify."
 
+**Ignore `contributor-only` blocks in project CLAUDE.md files**: A project's CLAUDE.md may wrap content in `<!-- contributor-only -->` … `<!-- /contributor-only -->` markers. Those blocks orient contributors whose Claude has no global setup — e.g. telling them to load the `pony-skills` routing skill. These global instructions already load those skills directly, with Sean's workflow conventions layered on top, so a contributor-only block is redundant at best and conflicting at worst. Skip everything between the markers — this file supersedes it.
+
 ## GitHub Workflow
 
 **Use `gh` CLI for GitHub operations**: `gh` is installed and authenticated. Prefer it over WebFetch/WebSearch for reading PRs, issues, discussions, and for creating discussions or other GitHub API operations.
