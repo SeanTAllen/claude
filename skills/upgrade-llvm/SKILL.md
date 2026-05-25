@@ -109,11 +109,29 @@ make_binop(c, left, right, NULL, NULL, LLVMBuildFAdd, LLVMBuildAdd);
 
 ### Deprecated → newer API variants (LLVM 22+)
 
+ponyc's C files build with `-Werror`, so a deprecated C-API function fails the build **only if** its declaration carries `LLVM_ATTRIBUTE_C_DEPRECATED` (an actual compiler warning). A doc-comment `@deprecated` with no attribute compiles clean and forces nothing, so check the header before migrating. Of the list below, in LLVM 22.1.6 only `LLVMGetMDKindID` carries the attribute and is forced; the rest are doc-comment only, so leave them until a later LLVM adds the attribute or removes them.
+
 ```c
 LLVMArrayType(elemTy, count)          → LLVMArrayType2(elemTy, count)        // uint64_t
 LLVMConstArray(elemTy, vals, count)   → LLVMConstArray2(elemTy, vals, count)  // uint64_t
 LLVMConstStringInContext(ctx, s, len) → LLVMConstStringInContext2(ctx, s, len) // size_t
 LLVMGetMDKindID(name, len)           → LLVMGetMDKindIDInContext(ctx, name, len)
+```
+
+### Intrinsic signature changes
+
+LLVM occasionally changes an intrinsic's signature. These don't show up as compile errors; ponyc builds clean. They surface as a module verification failure when ponyc compiles a Pony program (`Incorrect number of arguments passed to called function!`), so only the test suite catches them, never the build. This is why step 7 runs the full-program tests and not just the build.
+
+- **LLVM 22**: `llvm.lifetime.start`/`llvm.lifetime.end` dropped their leading `i64 size` argument and now take a single pointer. ponyc emits these in `gencall_lifetime_start`/`gencall_lifetime_end` (`gencall.c`); drop the size operand and the now-unused `type` parameter that computed it, and call with one argument:
+
+```c
+// Before (2 args: size, ptr):
+LLVMValueRef args[2];
+args[0] = LLVMConstInt(c->i64, size, false);
+args[1] = ptr;
+LLVMBuildCall2(c->builder, func_type, func, args, 2, "");
+// After (1 arg: ptr):
+LLVMBuildCall2(c->builder, func_type, func, &ptr, 1, "");
 ```
 
 ### C++ API changes
@@ -149,3 +167,4 @@ APIs used in ponyc that may break in future LLVM versions. Check during each upg
 - `src/libponyc/codegen/gendesc.c` — array/descriptor construction
 - `src/libponyc/codegen/codegen.c` — core codegen types and helpers
 - `src/libponyc/codegen/gencontrol.c` — metadata APIs
+- `src/libponyc/codegen/gencall.c` — intrinsic emission (lifetime markers, memcpy/memmove)
