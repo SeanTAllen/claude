@@ -10,6 +10,32 @@ Load this skill before any writing task that should sound like Sean. The core
 traits and anti-patterns below always apply. For long-form writing, also do
 the calibration step.
 
+## Content first
+
+This rule outranks every trait and device below it. The voice is how a fact
+gets delivered, never a replacement for the fact. Every sentence has to
+carry something specific a reader could check or act on: what changed, what
+broke, what it does now, the actual mechanism named in plain terms. The
+flair rides on top of that content; it never stands in for it.
+
+The check is mechanical, so run it as one pass. Cover the colorful part of
+a sentence and read what is left. If a concrete claim remains, the sentence
+earns its flair. If nothing is left, the sentence is empty — it sounds like
+Sean and says nothing — so write the real fact in or cut the sentence. Two
+worked failures:
+
+- "a UDP socket that failed to listen could take a Windows process down
+  with it" — cover the phrasing and no fix is stated. What happens now?
+  Say it: a failed UDP listen no longer crashes the process on Windows.
+- "small Strings and Arrays were reallocating when they had no business
+  doing so" — "no business" is an opinion, not a fact. Say the change:
+  building a small String or Array no longer does an extra reallocation.
+
+This is the most common way the voice fails and the hardest to catch,
+because a draft can nail the rhythm, the humor, and the hyperbole and still
+be sound and fury signifying nothing. Imitating the register is easy;
+stating the specific fact is the work. When the two compete, the fact wins.
+
 ## Calibration (long-form writing only)
 
 For blog posts, announcements, discussions, and other substantial prose: read
@@ -180,7 +206,15 @@ nothing. Reading it for one anti-pattern at a time catches that one every
 time.
 
 So after drafting any substantial prose, review it one anti-pattern at a
-time. The ones that recur and most need their own pass: anthropomorphizing,
+time. Run the content check from "Content first" as the first pass and the
+non-negotiable one: go sentence by sentence, cover the colorful part, and
+confirm a specific verifiable fact is left. Any sentence that comes up
+empty gets the real fact written in or gets cut. It goes first because a
+clever sentence that says nothing is the most common failure and it slips
+past every other pass — the others hunt for different tells, and a hollow
+sentence trips none of them.
+
+The other passes that recur and need their own look: anthropomorphizing,
 unclear antecedents, rushing inflection points, inflated claims (hyperbolic
 in *what* instead of *how*), and AI tells. For each, read the whole draft
 for that one thing and produce concrete evidence — the instances and their
