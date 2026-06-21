@@ -262,25 +262,21 @@ The audit is the first line of defense. The review pipeline below is the
 second. If a reviewer is still catching anthropomorphizing or rushing, the
 audit was skipped or rushed.
 
-## Review passes
+## Review pass
 
-Beyond the standard `principle-review` and `pony-docs-review` pipeline,
-blog posts benefit from two additional passes before opening the PR:
-
-1. **Voice review.** A fresh-context reviewer reads the draft against
-   Sean's actual writing — his personal blog at
-   `~/code/seantallen/seantallen.com/content/posts/` and recent posts
-   on whatever blog the post targets. The question is whether the
-   draft sounds like Sean talking or like a careful imitation. The
-   reviewer looks for sentence rhythm, repeated tics, generic
-   metaphors where Sean would use a specific image, forced
-   colloquialisms, openers and closers that don't land like his, and
-   anything that sets off a "this sounds AI" alarm.
-
-2. **Narrative review.** A fresh-context reviewer walks each section
-   and asks: "Is this telling a story or enumerating features?" An
-   enumeration feels mechanical even when each sentence is fine on its
-   own. A story has problem hooks tying features together.
+Beyond the standard `principle-review` pipeline, a blog post gets the
+voice/craft review before the PR. Run `review-for-seans-voice` (full mode — a
+post is always more than two paragraphs). It runs the voice, narrative,
+reader-orientation, tightness, and content-honesty lenses as parallel
+fresh-context personas — plus a conditional accuracy lens when the post has
+code or technical claims — checks the draft against `seans-voice` and the
+craft rules with the post's source bundle (linked posts, release notes, the
+originating issue/discussion) in hand, and returns Fix items (apply them) and
+Park items (surface for Sean). This replaces both the older hand-rolled voice
+and narrative passes and the separate `pony-docs-review` accuracy pass: the
+voice and narrative checks are now two of its lenses, and the technical
+accuracy check is its conditional accuracy lens — all run together against a
+maintained rulebook rather than re-described each time.
 
 ## Workflow steps
 
@@ -315,22 +311,22 @@ blog posts benefit from two additional passes before opening the PR:
 7. **Self-review loop.** Lightweight single-agent `principle-review`.
    Iterate until clean.
 
-8. **Docs review (lightweight mode).** Accuracy, completeness, and
-   principles personas. Apply findings.
-
-9. **Re-evaluate the outline.** After review passes, assess whether
+8. **Re-evaluate the outline.** After the self-review, assess whether
    findings indicate a problem with the outline or approach, not
    just the prose. If the outline's structure is wrong, go back to
    step 4 rather than patching forward.
 
-10. **Voice review and narrative review.** The two extra passes
-    described above.
+9. **Voice/craft review.** Run `review-for-seans-voice` (the pass
+   described above). Apply the Fix findings; surface the Park findings
+   for Sean. For a post with code or technical claims, its conditional
+   accuracy lens verifies them against the source — the technical-accuracy
+   check the old separate docs-review pass used to provide now lives here.
 
-11. **Build verification.** Run whatever the project requires to
+10. **Build verification.** Run whatever the project requires to
     verify the post renders (project CLAUDE.md has the specifics).
     Re-read the rendered output — issues visible in rendered form
     (broken layout, missing images, formatting that doesn't land)
     aren't always visible in source.
 
-12. **Open the PR.** Feature branch, squashed commit, `Closes #N`
+11. **Open the PR.** Feature branch, squashed commit, `Closes #N`
     in the body if there's an associated issue.

@@ -195,6 +195,24 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   idioms in print ("from a minute ago", "the whole time"), generic
   filler ("by the way", "what's going on"). They read as imitations of
   register.
+- **Mathematical-symmetry framings**: "the dual of X," "the inverse of,"
+  "isomorphic to" used for "the reverse/opposite of X." Math/LLM register,
+  not Sean's. Say it plainly — it does the reverse — or, if the reverse was
+  already established, cut the appositive.
+- **Definitional label-parallels**: "X is the A, Y the B" balanced clauses
+  that state what things *are* and convey nothing about why the reader
+  should care ("stallion is the HTTP server, hobby the web framework").
+  Say what the thing *does* or why it matters right here instead.
+- **Clipped-imperative cadence**: Repeatedly opening sentences with a
+  command (Drop / Put / Run / Set / Wrap a `.c`…) reads like telling
+  someone what to do, not chatting with them. One for punch is fine; a
+  cadence of them is a tic. Vary with declaratives that breathe ("Now you
+  can…"). The problem is the command cadence, not the word "you."
+- **Explaining the nod**: Glossing a cultural allusion ("this is a
+  reference to…," "those are the opening lines of a 1984 metal song")
+  kills it. The best nods are the ones almost no one catches; the line
+  must read straight for anyone who misses it. Put the allusion in and let
+  it stand.
 
 ## Self-review
 
