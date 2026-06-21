@@ -69,6 +69,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Write in Sean's voice**: When writing prose on Sean's behalf — commit messages, PR descriptions, blog posts, GitHub discussions, announcements — follow the voice guidelines in `/seans-voice`. The core traits and anti-patterns always apply; the calibration step is for long-form writing only.
 
+**A skill's built-in review is the floor, not the ceiling**: For any prose in Sean's voice (blog posts, LWIP, GitHub discussions and issues, commit messages, PR comments and descriptions), run `/review-for-seans-voice` on top of whatever review the drafting skill itself specifies. The skill's own review is the minimum; the voice/craft review runs in addition, not instead. It scales itself by size — a full ensemble for anything more than two paragraphs, a cheap inline pass below that — so it's cheap on a commit message and thorough on a post.
+
 **Ensemble workflow**: When Sean requests the ensemble approach, load `/pony-ensemble` for the full protocol.
 
 **"How do you know that you know that?"**: A hypothesis is not knowledge. Verify empirically before asserting. This applies to everything — debugging, refactoring, code review, planning. "These two code paths are equivalent," "this guard is dead code," "this invariant holds," "X is hanging" are all claims that require evidence, not reasoning. If you can test it, test it. Never state a cause — say "I think X because Y; here's how I'll verify."
