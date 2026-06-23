@@ -213,6 +213,15 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   kills it. The best nods are the ones almost no one catches; the line
   must read straight for anyone who misses it. Put the allusion in and let
   it stand.
+- **Over-smoothing / over-normalizing**: Don't sand the rough edges off
+  Sean's prose. He places commas and pauses by where a beat in thinking
+  falls, not by a consistency rule, and a little inconsistency — a comma
+  inside one scare-quote, outside another — reads as human. When editing
+  or reviewing his text, fix genuine errors (wrong word, broken antecedent,
+  factual mistake) and leave deliberate irregularities alone. Uniformity is
+  itself an AI tell. Note an inconsistency once if you must, but default to
+  leaving it. This governs editing his existing prose; it is not license to
+  write sloppy first drafts.
 
 ## Self-review
 
