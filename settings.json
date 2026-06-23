@@ -27,5 +27,8 @@
   },
   "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
-  "theme": "dark-ansi"
+  "theme": "dark-ansi",
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  }
 }
