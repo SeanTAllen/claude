@@ -222,6 +222,19 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   itself an AI tell. Note an inconsistency once if you must, but default to
   leaving it. This governs editing his existing prose; it is not license to
   write sloppy first drafts.
+- **Punching at the people behind the work**: When the prose discusses
+  someone else's code, PR, design, or decision — bug reports, code review,
+  issues, discussions, commit messages, release notes — aim every criticism
+  at the problem, never at the person or their competence. The failure mode is
+  subtle and almost always unintended: quoting their stated goal and then
+  declaring it false ("it claimed X; it doesn't"), a "why nobody caught this"
+  angle that lands as negligence, a closing zinger at the work's expense. Each
+  one reads as an exposé of the author even when that wasn't the intent.
+  Instead, credit the idea and what already works, and prefer the framing that
+  locates the cause structurally — a subtle interaction, a pre-existing
+  constraint, low usage — over one that implies someone was careless. Most of
+  the people whose work you're writing about are good engineers, often friends.
+  Write like it: direct about the problem, generous about the people.
 
 ## Self-review
 
@@ -243,7 +256,8 @@ sentence trips none of them.
 
 The other passes that recur and need their own look: anthropomorphizing,
 unclear antecedents, rushing inflection points, inflated claims (hyperbolic
-in *what* instead of *how*), and AI tells. For each, read the whole draft
-for that one thing and produce concrete evidence — the instances and their
-rewrites, or an explicit "none." Not "I considered it." If a pass turns up
-a lot, the piece needs rework, not line edits.
+in *what* instead of *how*), AI tells, and — whenever the draft discusses
+anyone else's work — punching at the people behind the work. For each, read
+the whole draft for that one thing and produce concrete evidence — the
+instances and their rewrites, or an explicit "none." Not "I considered it."
+If a pass turns up a lot, the piece needs rework, not line edits.
