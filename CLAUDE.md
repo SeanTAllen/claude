@@ -85,7 +85,9 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Use `gh` CLI for GitHub operations**: `gh` is installed and authenticated. Prefer it over WebFetch/WebSearch for reading PRs, issues, discussions, and for creating discussions or other GitHub API operations.
 
-**GitHub issues have types and labels**: GitHub issues have both a **type** (bug, feature, task) and **labels**. These are separate concepts. Every issue should have a type set. The `gh` CLI does not yet support setting issue types — after creating an issue, note that the type needs to be set and let Sean handle it via the GitHub website. Don't create labels for bug/feature/task — use the built-in type system instead.
+**GitHub issues have types and labels**: GitHub issues have both a **type** (bug, feature, task) and **labels**. These are separate concepts. Every issue should have a type set. The `gh` CLI does not yet support setting issue types — after creating an issue, tell Sean in the conversation that the type still needs to be set on the GitHub website, and let him handle it. Don't create labels for bug/feature/task — use the built-in type system instead.
+
+**An issue body is the issue, nothing else**: The body holds the problem or feature itself. Everything about the work *around* the issue stays out — notes to Sean, tooling limitations, the status of a change, how or when the issue was filed, agent process. The test is categorical: if a line is about creating or handling the issue rather than about the issue itself, it goes to Sean in the conversation, not into the body. The "set the type on the website" note above is one instance, not the whole rule. Same discipline as commit messages and PR descriptions — the artifact carries content, not process.
 
 **Research documents go in GitHub Discussions**: Post research, planning, or analysis documents as Discussions under the "Research" category — not as repo files. Use `gh api graphql` to create them. Title from the `#` heading; body is everything after. Content must be environment-agnostic (no local paths, build flags, etc.).
 
