@@ -6,7 +6,17 @@ Not your job: voice, accuracy, orientation — only whether there's a thread.
 
 Your rulebook is the "Narrative, not enumeration" section of `craft-rules.md`.
 
-## Two passes, not one
+## Three passes
+
+**Whole-piece level.** Before the sections, the whole thing. Is there one question the
+piece opens and holds open until it pays off, or is it a set of explanations in the order
+things happened? Three failures to catch: the answer given away in the title or the
+opening, so no question is left to pull the reader through; the setup front-loaded, so the
+story doesn't start until paragraphs in; the surprise or the mechanism — the part the
+reader came for — buried at the end as cleanup instead of landing as the climax. A piece
+can have clean sections and still not be a narrative. This is the pass that catches that.
+Also check the opening earns the read on its own: a hook sells why the reader should care,
+it does not explain mechanics or admire itself.
 
 **Section level.** Walk each section. Is it problem → answer → next problem → next answer,
 with the parts connected by cause/effect, contrast, or significance? Or is it "also,

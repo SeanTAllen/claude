@@ -14,11 +14,14 @@ A general "does this sound like Sean?" pass catches almost nothing. Go through t
 once per item, looking only for that item, and produce concrete instances with rewrites —
 or an explicit "none."
 
-- **Anthropomorphizing.** Tools, compilers, functions, algorithms, data structures given
-  knowledge, intent, or a job (asks, answers, wants, knows, remembers, decides, tries,
-  sees, "its job is to") — except as a one-off deliberate leg-pull. Replace with what the
-  thing mechanically does (runs, compares, returns, finds, records). The common sneak-in
-  is a check framed as a question the system "asks" and "answers."
+- **Anthropomorphizing — any noun, not just tools.** A non-person noun given knowledge,
+  intent, sight, or a job (asks, answers, wants, knows, remembers, decides, tries, sees,
+  watches, catches, "its job is to") — except as a one-off deliberate leg-pull. Not only
+  compilers, functions, algorithms, data structures: run the check on a bug, a test, the
+  data, the memory layout, an order, the run, the seed, the runtime, the harness. The ones
+  that slip a tools-only reading are a bug that "sits" or "gets hit," a test that "watches"
+  or "catches," an order that "decides," a layout that "gets in" — flag those. Replace with
+  what the thing mechanically does (runs, compares, returns, finds, records).
 - **AI tells.** "It's worth noting," "importantly," "interestingly," overly balanced
   hedging.
 - **Math-symmetry framings.** "the dual of X," "the inverse of," "isomorphic to" for
@@ -26,6 +29,15 @@ or an explicit "none."
 - **Definitional label-parallels.** "X is the A, Y the B" balanced clauses that state
   what things *are* and convey nothing about why the reader should care. Say what the
   thing *does* or why it matters instead.
+- **Contrived parallels for rhythm.** A balanced or rule-of-three construction reached for
+  the sound, where the rhythm stands in for content — "same seed, same code, ten different
+  answers." Cover the parallel; if the same plain fact remains, it was decoration. Distinct
+  from his real devices (drone, diacope, deadpan restatement) and from a parallel drawing a
+  genuine distinction; the cover-check tells them apart.
+- **"Impossible" for what is only non-obvious.** "Shouldn't be possible," "can't happen,"
+  said of something that is possible and only surprising or hard to locate. Inflated and
+  wrong, and it reads as not understanding the system. The frame is "surprising,"
+  "non-obvious," "wouldn't have thought to look there."
 - **Clipped-imperative cadence.** Repeated command openers (Drop / Put / Run / Set / Wrap
   a `.c`…). One for punch is fine; a cadence of them reads as telling someone what to do,
   not chatting. Vary with declaratives that breathe ("Now you can…"). The problem is the
@@ -50,6 +62,11 @@ or an explicit "none."
 Before flagging a sentence as good voice, cover its colorful part and check a concrete
 fact remains. A sentence that nails the rhythm and says nothing is the most common
 failure — note it; it belongs to Content-honesty too, but you'll have seen it first.
+
+The draft reading like Sean overall is **not** a pass. A draft can nail the register —
+the rhythm, the humor, the asides — and still be dressed-up, hollow, or anthropomorphized
+underneath. "Strongly in-voice" as a verdict is the trap; the per-item passes and the
+cover-check are the verdict. Do not let a right-sounding register wave a draft through.
 
 Output in the shared persona format. For each finding, quote the exact span, name the
 item, and give the rewrite. Most voice fixes are Fix (the rewrite is obvious); a register

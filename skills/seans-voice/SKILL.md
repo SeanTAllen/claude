@@ -142,6 +142,14 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 - **Assuming what readers know**: "Obvious," "not what you'd expect,"
   "counterintuitive" all editorialize about the reader's knowledge level.
   Just present the information and let the reader react.
+- **"Impossible" for what is only non-obvious**: Don't write that
+  something "shouldn't be possible" or "can't happen" when it is
+  possible and only non-obvious — surprising, or hard to know where to
+  look. The inflated version is wrong, and claiming your own system does
+  the impossible reads as not understanding it. The honest frame is
+  "surprising," "non-obvious," "I wouldn't have thought to look there,"
+  not "impossible." A specific case of being hyperbolic in *what*
+  instead of in *how*.
 - **Using labels before introducing them**: Don't use a term like "the
   ensemble" before stating in concrete terms what it refers to. Introduce
   the concept, then name it.
@@ -166,16 +174,22 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   two lines:", "Both rules in one sentence:", "How it works, in three
   steps:". Just deliver the explanation. The reader can see the shape;
   the announcement is filler.
-- **Anthropomorphizing tools**: Sean's voice does not give objects —
-  algorithms, compilers, functions, data structures — knowledge,
-  intent, or a job, except as a deliberate leg-pull (an obvious joke,
-  used once). Replace cognition/intent verbs (asks, answers, wants,
-  knows, remembers, decides, tries, sees, "its job is to") with what
-  the thing mechanically does (runs, compares, returns, finds, walks,
-  computes, records). The most common sneak-in is framing a check as a
-  question the system "asks" and "answers"; reframe it as a computation.
-  "Tarjan doesn't know what Pony is" → "Tarjan finds cycles; it doesn't
-  classify them."
+- **Anthropomorphizing**: Sean's voice does not give a non-person noun
+  knowledge, intent, sight, or a job, except as a deliberate leg-pull
+  (an obvious joke, used once). This is not only about code objects like
+  algorithms, compilers, functions, and data structures. Run the check
+  on *every* noun: a bug, a test, the data, the memory layout, an order,
+  the run, the seed, the runtime, the harness. Replace cognition/intent
+  verbs (asks, answers, wants, knows, remembers, decides, tries, sees,
+  watches, catches, "its job is to") with what the thing mechanically
+  does (runs, compares, returns, finds, walks, computes, records). The
+  common sneak-ins: a check framed as a question the system "asks" and
+  "answers" (reframe it as a computation); a bug that "sits" somewhere
+  or "gets hit"; a test that "watches" for failures or "catches" bugs;
+  an order that "decides" what runs next; a layout that "gets in." The
+  one that slips past a tools-only reading is the bug, the test, and the
+  layout — check those too. "Tarjan doesn't know what Pony is" → "Tarjan
+  finds cycles; it doesn't classify them."
 - **Vague placeholder before an immediate reveal**: "I reached for a
   classic algorithm" followed by a section header naming it. The
   suspense was never the reader's — it was manufactured. Name the
@@ -203,6 +217,16 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   that state what things *are* and convey nothing about why the reader
   should care ("stallion is the HTTP server, hobby the web framework").
   Say what the thing *does* or why it matters right here instead.
+- **Contrived parallels for rhythm**: A balanced or rule-of-three
+  construction reached for because it sounds good, where the rhythm
+  stands in for the content — "same seed, same code, ten different
+  answers." Cover the parallel and read what's left: if the same plain
+  fact remains, the structure was decoration, so say the fact plainly.
+  This is distinct from the deliberate devices in Core Traits (drone
+  repetition, the echoed phrase, the deadpan restatement), which carry
+  real content or land a real beat, and from a parallel that draws a
+  genuine distinction ("the old tests bring the load but never replay").
+  The cover-check tells them apart.
 - **Clipped-imperative cadence**: Repeatedly opening sentences with a
   command (Drop / Put / Run / Set / Wrap a `.c`…) reads like telling
   someone what to do, not chatting with them. One for punch is fine; a

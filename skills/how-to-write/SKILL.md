@@ -1,0 +1,119 @@
+---
+name: how-to-write
+description: "A process for how to go about writing anything: outline the narrative, write it plain, fix the structure, give the important parts weight, then add flourish last, on top of the plain. Form-agnostic; the core under blog-post, lwip, commit messages, and the rest. Load before any writing task."
+disable-model-invocation: false
+---
+
+# How to Write
+
+Writing fails the same way every time: it comes out fluent and hollow. The
+sentences sound right, the rhythm is there, and nothing underneath is true,
+structured, or worth the reader's time. The cure is not a longer list of things
+to check. It is a process — an order of operations that forces the real content
+and the structure first and treats flourish as the last, optional move.
+
+This is that process. It is the same for anything you write: a blog post, a Last
+Week in Pony entry, a discussion, an issue, a commit message. Each form has its
+own shape. How you go about writing is one thing.
+
+## The process
+
+1. **Outline the narrative.** Decide the story before you write a sentence of
+   it. What question does the piece open, and what is the payoff that answers it?
+   For an argument: what is the claim, and what carries it? You are not writing
+   yet. You are deciding the shape.
+
+2. **Write it simply and plainly.** Get the true thing down with no decoration.
+   Short, direct sentences. State each fact as plainly as you can. No flourish
+   yet. You have not earned it, and reaching for it here is how plain never
+   happens.
+
+3. **Examine the narrative structure.** A real draft exists now, so read it for
+   structure, not words. Does the question stay open and pull the reader
+   through? Does the payoff land where it should? Is anything given away too
+   early, or buried too late? If the structure is wrong, fix the structure
+   before you touch a sentence.
+
+4. **Identify the important parts.** Find the few places that carry the piece:
+   the hook that sets up the payoff, the payoff itself, the turn, the reveal.
+   Most of a piece is connective tissue. A few parts are load-bearing.
+
+5. **Put more weight there. Let it breathe.** Spend words at the load-bearing
+   parts. Add concrete detail and color — real specifics, not filler. Slow down.
+   The tools are concrete detail, short flat lines used as pauses, and slow
+   builds to the reveal. A good piece takes its time where it matters and moves
+   quickly where it doesn't.
+
+6. **Add flourish, only on top of the plain.** Now you may add rhetorical
+   flourish. It sits alongside the plain fact, never in place of it. It
+   augments. It never replaces. Cover the flourish and the plain fact has to
+   still be there underneath. If covering it leaves nothing, the flourish is
+   doing the work the fact should do. Cut it, or write the fact in.
+
+## The order is the discipline
+
+The steps are not interchangeable. The order is what does the work.
+
+- **Plain before flourish.** You write the true thing plainly first, so you
+  cannot skip plain and go straight to sounding good. Sounding good with no
+  plain fact underneath is the single most common failure, and the hardest to
+  catch after the fact, because it reads well.
+- **Structure on a real draft, not an outline.** You examine structure in step 3,
+  after a plain draft exists, so you are looking at the real thing instead of an
+  idea of it.
+- **Weight on purpose.** You add weight in step 5, deliberately, at the parts you
+  identified. Not evenly, and not everywhere. Even weight is no weight.
+
+Do it out of order and you get the thing this process exists to prevent: fluent
+prose with no spine.
+
+## The same process, any form
+
+This is form-agnostic. A blog post, a Last Week in Pony entry, a GitHub
+discussion, an issue, a PR description, a commit message — each one runs this
+same process. What changes is the form laid on top:
+
+- the form's structure (a commit message's subject and body is not a blog post's
+  arc),
+- what counts as "important," and how much room it gets (a commit message
+  breathes in a sentence; a blog post breathes in a section),
+- the form's own conventions.
+
+Load the skill for the form you are writing (`/blog-post`, `/lwip`, and so on)
+for the form. This skill is the process underneath all of them.
+
+## What to check at each step
+
+The steps tell you what to do. These are what to check while you do it. Most of
+them live in `/seans-voice` (the full rulebook) and `/review-for-seans-voice`
+(the after-the-fact review). Here is which check belongs to which step.
+
+- **Outline / examine structure (1, 3):** Is it an actual narrative — a question
+  that stays open and a payoff that answers it — or a set of explanations in the
+  order things happened? Don't give the answer away in the title or the opening.
+  The hook sells why the reader should care; it is not for explaining mechanics
+  or admiring itself. Don't reach for section headers a short piece doesn't need;
+  a short narrative flows.
+- **Write it plain (2):** State the plain fact; never dress it up (`/seans-voice`
+  "Content first"). No anthropomorphizing, and not just of tools — of any noun: a
+  bug, the data, a test, the layout, an order, the runtime, the seed. Don't
+  inflate "non-obvious" into "impossible." Don't assert a cause you can't
+  support. Don't invent specifics; if you don't know one, state the idea and flag
+  it.
+- **Let it breathe (5):** Concrete detail, not filler. The setup has to set up
+  the payoff — what you plant early pays off at the end.
+- **Flourish (6):** Augment, never replace. This is the content-first rule,
+  applied as the last move.
+
+Honesty runs across all of it: no overreach, no invented facts, and don't claim
+a draft was reviewed when it wasn't.
+
+## Where this sits
+
+- `/seans-voice` is what the writing should sound like.
+- `/review-for-seans-voice` checks a finished draft against that.
+- This skill is how you produce the draft in the first place.
+
+Load order: this skill first, then the form skill for the form, then
+`/seans-voice` for the sound from step 2 onward, and `/review-for-seans-voice` at
+the end, before it ships.

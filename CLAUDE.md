@@ -67,9 +67,13 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Principle review**: Use `/principle-review` for the full protocol (manual and automated modes, behavioral guidance during review loops).
 
+**How to write anything**: Before writing prose on Sean's behalf — a blog post, a discussion, an issue, a PR description, a commit message — load `/how-to-write`. It is the process, and the process comes first: outline the narrative, write it plain, examine the structure on the real draft, give the important parts weight, and only then add flourish, on top of the plain and never in place of it. It is form-agnostic; the form skills (`/blog-post`, `/lwip`) lay their shape on top. `/seans-voice` is what it should sound like; `/review-for-seans-voice` checks the finished draft.
+
 **Write in Sean's voice**: When writing prose on Sean's behalf — commit messages, PR descriptions, blog posts, GitHub discussions, announcements — follow the voice guidelines in `/seans-voice`. The core traits and anti-patterns always apply; the calibration step is for long-form writing only.
 
 **A skill's built-in review is the floor, not the ceiling**: For any prose in Sean's voice (blog posts, LWIP, GitHub discussions and issues, commit messages, PR comments and descriptions), run `/review-for-seans-voice` on top of whatever review the drafting skill itself specifies. The skill's own review is the minimum; the voice/craft review runs in addition, not instead. It scales itself by size — a full ensemble for anything more than two paragraphs, a cheap inline pass below that — so it's cheap on a commit message and thorough on a post.
+
+**Plain in conversation, too**: The plainness `/how-to-write` and `/seans-voice` ask for is not only for the artifact. When talking to Sean — explaining, proposing, summarizing — state things plainly. No clever or twee phrasing, no balanced turn reached for the sound, no cute framing. The plain version is what he wants in the prose and in the conversation.
 
 **Ensemble workflow**: When Sean requests the ensemble approach, load `/pony-ensemble` for the full protocol.
 
@@ -99,7 +103,7 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Update project CLAUDE.md in the PR**: When changes affect anything documented in the project's CLAUDE.md (conventions, build steps, dependencies, architecture, API patterns, etc.), include the CLAUDE.md updates in the same PR. Stale instructions are worse than no instructions — they actively mislead.
 
-**Commit messages are for "why", not "what"**: The diff shows what changed — the message should explain *why*. A subject line alone is sufficient for small changes. If a body is warranted, add context or rationale not obvious from the code.
+**Commit messages are for "why", not "what"**: The diff shows what changed — the message should explain *why*. A subject line alone is sufficient for small changes. If a body is warranted, add context or rationale not obvious from the code. Cut anything visible in the diff or in the PR's own checks: don't restate what the change does ("adds X to the dictionary"), and don't report process or status ("cspell and the build pass," "CI green," "ready to merge"). Those are zero-signal — the diff and the checks already show them. Keep only the why and the non-obvious context. Same for PR descriptions.
 
 **Link issues in commit messages**: Include `Closes #N` when a PR addresses an Issue. For work originating from a Discussion, use `Design: #N` instead (no auto-close). Place control lines at the end of the commit body.
 
