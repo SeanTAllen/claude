@@ -8,6 +8,16 @@ Draft a blog post on Sean's behalf. Use this for library release
 announcements, feature posts, architecture walkthroughs, and essays.
 For Last Week in Pony posts, use `/lwip` instead.
 
+## Process foundation
+
+Load `/how-to-write` first. It is the process under every form of
+writing: outline the narrative, write it plain, examine the structure on
+the real draft, give the important parts weight, then add flourish last,
+on top of the plain and never in place of it. This skill is the
+blog-post form on that process. The workflow steps below are that
+process run for a post, and the principles are the blog-specific
+concerns that ride on top of it.
+
 ## Voice foundation
 
 Load `/seans-voice` before writing. It has the core voice principles:
