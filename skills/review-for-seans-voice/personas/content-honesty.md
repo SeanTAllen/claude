@@ -14,6 +14,12 @@ Your rulebook is the "Content honesty and source fidelity" section of `craft-rul
   or frequency. Check it against the source bundle. If the source doesn't support it,
   flag it. Apply the content-first test to every flair sentence: cover the colorful part —
   if no checkable fact remains, it's empty.
+- **Unsupported causal claim.** An assertion of *why* — a cause, reason, or explanation
+  the source doesn't establish ("that isn't the runtime being perfect," "they passed
+  because the tests were good enough"). These slip through because they read as setup, not
+  as claims. They are claims, and they need a basis: the source, or the author's first-hand
+  standing. Where neither supports the cause, flag it or cut to the bare fact (the tests are
+  quiet — not why they're quiet).
 - **Invented quantitative characterization.** "Smaller crowd than usual," "a larger
   turnout," "more than usual," "rarely." Verify against the source or flag for flattening
   to a plain statement.
