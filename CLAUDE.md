@@ -59,7 +59,9 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Examples directories need a README**: Every examples directory should have a top-level README that briefly describes what each example does. When adding or updating examples, keep the README in sync.
 
-**Research findings belong in the plan**: If research or exploration surfaces issues beyond the original task (inaccurate comments, dead code, related bugs), include them as explicit plan steps — don't just mention them in the analysis and move on. Anything worth noting is worth acting on or explicitly deferring. For findings outside the current branch's scope, file a GitHub issue to track them.
+**Research findings belong in the plan**: If research or exploration surfaces issues beyond the original task (inaccurate comments, dead code, related bugs), include them as explicit plan steps — don't just mention them in the analysis and move on. Anything worth noting is worth acting on or explicitly deferring. For findings outside the current branch's scope, capture them as suspected issues to vet later rather than filing on the spot — see `/vet-suspected-issues`.
+
+**Vet suspected issues before filing them**: A problem you spot while working on something else is not filed as an issue on the spot. Capture it as a suspected issue, and after the main work's PR is open, vet it — verify, scope, review — then file a correct issue or discard it. Load `/vet-suspected-issues` for the protocol.
 
 **"Discuss" means talk, not do**: Requests to discuss, explore, or think about something are not requests to go do it. The output of a discussion is shared understanding, not an artifact. When Sean says "let's discuss X," respond with thoughts about X — don't go write X.
 

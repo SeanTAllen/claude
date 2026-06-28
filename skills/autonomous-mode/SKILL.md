@@ -27,7 +27,7 @@ The recording bar, in Sean's words: **record anything you would have stopped to 
 Decisions and actions are handled differently:
 
 - **Decisions** — which approach to take, which tradeoff to accept, what to name something. You make the call and log it.
-- **Irreversible or outward-facing actions** — deleting things, force-pushing over someone else's work, posting or sending anything outside the repo. These are not decisions to log; they still wait for Sean. The one exception is the named endpoint itself: if the goal is "get to PR," opening the PR — and the ordinary steps to reach it, like pushing your own branch — is authorized. Anything destructive or external beyond reaching that endpoint waits, same as always.
+- **Irreversible or outward-facing actions** — deleting things, force-pushing over someone else's work, posting or sending anything outside the repo. These are not decisions to log; they still wait for Sean. The one exception is the named endpoint itself: if the goal is "get to PR," opening the PR — and the ordinary steps to reach it, like pushing your own branch — is authorized. Likewise, when the work turned up suspected issues, the closing vetting that follows the PR may file the issues it produces — that closeout is part of finishing the goal, not a new external action beyond it (see `/vet-suspected-issues`). Anything destructive or external beyond reaching that endpoint waits, same as always.
 
 ## What does not change
 
