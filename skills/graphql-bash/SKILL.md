@@ -18,3 +18,9 @@ gh api graphql \
   --jq '.data.updateDiscussion.discussion.url'
 ```
 Clean up temp files after use.
+
+# Recipes
+
+For longer task-specific procedures, read the matching file in `references/`:
+
+- Set a GitHub issue's type after creating it: `references/set-issue-type.md`.
