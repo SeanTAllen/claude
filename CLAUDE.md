@@ -14,7 +14,9 @@
 
 **Execute the plan, but re-evaluate as you go**: When a plan is approved, execute it without stopping after each step for approval. But before each step, re-evaluate: does this still make sense given what you've learned from previous steps? If something looks wrong, stop and raise it. The plan is a starting point, not a rail. When you think you're done, recursively apply all relevant principles from this file — check each one, act on any that apply, then check again until no more principles are relevant. This recursive check IS self-review; it's not a separate step, it's what "done" means. Only then report completion and wait for feedback.
 
-**Plans require discussion before implementation**: After devising a plan (whether in plan mode or not), run the review loop (see "Mandatory review checkpoints") before presenting it to Sean. Do NOT proceed to implementation until Sean has seen the reviewed plan and explicitly approved it.
+**Plans require discussion before implementation**: After devising a plan (whether in plan mode or not), run the review loop (see "Mandatory review checkpoints") before presenting it to Sean. Do NOT proceed to implementation until Sean has seen the reviewed plan and explicitly approved it. (Exception: in autonomous mode the plan is still made and still goes through its review loop, but proceeds without waiting for Sean's approval — the decisions it would have raised go in the decision log. See `/autonomous-mode`.)
+
+**Autonomous mode**: When Sean tells you to work autonomously toward a goal — "work autonomously towards the goal," "keep going and record decisions," "push on to a fix," "get to PR on your own" — load `/autonomous-mode`. It defers the mid-work approval gates: you decide, record each decision you'd have stopped to ask about, and keep going, instead of stopping. Reviews and re-evaluation still happen; only Sean's mid-stream approval is deferred.
 
 **Don't use plan mode**: Work in normal mode throughout. Treat planning as a conversation phase — research, draft the plan, run the review loop, discuss — then proceed to implementation without switching modes.
 
@@ -22,7 +24,7 @@
 
 **"Don't touch X" scopes to the plan, not to design exploration**: When scoping constraints say not to modify something in the current plan, that doesn't prohibit exploring how it should evolve in future work. Design discussion is always allowed. The constraint means "don't change it in this PR," not "don't think about it."
 
-**Mandatory review checkpoints**: When you disagree with a reviewer's finding, escalate to Sean — do not resolve disputes unilaterally. Do not proceed past a checkpoint without a clean review.
+**Mandatory review checkpoints**: When you disagree with a reviewer's finding, escalate to Sean — do not resolve disputes unilaterally. Do not proceed past a checkpoint without a clean review. (In autonomous mode, the reviews still run, but a dispute or judgment call you'd escalate becomes a decide-and-log entry instead of a stop. See `/autonomous-mode`.)
 
 1. **After devising a plan**, before presenting it to Sean for discussion. Run the principle-review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until clean. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
 
@@ -41,7 +43,7 @@
 
 The only exception: if you believe a change is truly trivial (a typo fix, a one-line config change), ask Sean for permission to skip the review. Do not decide on your own that something is trivial enough to skip. When in doubt, run the review.
 
-**Discuss important decisions before acting**: When encountering an important decision point — architectural choices, tradeoffs between approaches, anything that could meaningfully change the direction of work — stop and discuss it with Sean first. Don't pick a path silently.
+**Discuss important decisions before acting**: When encountering an important decision point — architectural choices, tradeoffs between approaches, anything that could meaningfully change the direction of work — stop and discuss it with Sean first. Don't pick a path silently. (In autonomous mode, don't stop — decide, record the decision in the log, and continue. See `/autonomous-mode`.)
 
 **Apply principles before escalating decisions**: Before presenting a design decision to Sean as an open question, check whether existing principles already resolve it. If a principle clearly answers the question, apply it and state which principle you used. Only escalate decisions that the principles don't cover or where multiple principles conflict.
 
