@@ -67,6 +67,16 @@ The steps are not interchangeable. The order is what does the work.
 Do it out of order and you get the thing this process exists to prevent: fluent
 prose with no spine.
 
+Going back is not going out of order. The order is the first pass. A later step
+often shows an earlier one was wrong — you weight the load-bearing parts and see
+that the structure you settled in step 3 no longer holds, or you reach for
+flourish and find the plain fact under it was never there. When that happens, go
+back to the earlier step and redo it from what you now know. Out of order means
+reaching forward for a step you have not earned — flourish before plain. Looping
+back to a step you already did, because the draft taught you something, is the
+process working, not a break from it. The `/blog-post` form names this loop as a
+step; the same move applies to every form.
+
 ## The same process, any form
 
 This is form-agnostic. A blog post, a Last Week in Pony entry, a GitHub
