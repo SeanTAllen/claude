@@ -171,6 +171,8 @@ Use `/zulip` when Sean shares a Zulip link.
 
 **Document public API elements**: Every public-facing API element (primitives, classes, actors, traits, interfaces, and their public methods) should have a docstring. This is part of "done" — don't wait for a reviewer to ask. Internal/private elements don't need docstrings unless the logic is non-obvious.
 
+**Comments explain; they never coin jargon**: A comment's only job is to make the code clearer to the next reader. Never invent a term for what the code does — no coined compounds ("green-skip," "main miss"), private codenames, or pseudo-technical labels that sound established but mean something mundane. They read like real vocabulary but the reader can't decode them, so they cost effort and return nothing — worse than no comment. Write what actually happens in plain words ("stop processing but don't fail CI"). Established domain terms and terms the codebase already defines are fine; inventing new ones is not. A comment that doesn't clearly explain should not be written.
+
 **Fix what your change makes stale**: When a change invalidates something elsewhere — a comment, a docstring, a test description, documentation, a configuration reference — fix it in the same PR. Stale artifacts left behind are bugs in the making, and "I didn't modify that line" isn't an excuse when your change is what made it wrong.
 
 **Bulk renaming: verify substring safety before `replace_all`**: Check whether the target string appears as a substring of other identifiers in the file (e.g., `JsonConverter` inside `RepositoryJsonConverter`). Use contextual patterns that include surrounding syntax so the match is unambiguous. Only use `replace_all` for identifiers that don't appear as substrings of any other name in scope.
