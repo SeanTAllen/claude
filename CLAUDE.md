@@ -121,6 +121,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 ## Docker
 
+**Reach for Docker before concluding a tool is unavailable**: When a CLI tool the task needs isn't installed locally (mkdocs, actionlint, ruff, and the like), don't report it as a limitation and stop — most such tools have an official Docker image. Run it via Docker. Only call the tool genuinely unavailable after confirming there's no usable image.
+
 **Never touch Docker credential state**: Don't run `docker login` or `docker logout` — Docker credentials are user-managed. If a push fails with a permissions error, report it and let Sean handle authentication. Running `docker logout` to "fix" a bad login destroys existing working credentials.
 
 ## Zulip
