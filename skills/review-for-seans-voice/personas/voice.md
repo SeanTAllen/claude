@@ -14,14 +14,12 @@ A general "does this sound like Sean?" pass catches almost nothing. Go through t
 once per item, looking only for that item, and produce concrete instances with rewrites —
 or an explicit "none."
 
-- **Anthropomorphizing — any noun, not just tools.** A non-person noun given knowledge,
-  intent, sight, or a job (asks, answers, wants, knows, remembers, decides, tries, sees,
-  watches, catches, "its job is to") — except as a one-off deliberate leg-pull. Not only
-  compilers, functions, algorithms, data structures: run the check on a bug, a test, the
-  data, the memory layout, an order, the run, the seed, the runtime, the harness. The ones
-  that slip a tools-only reading are a bug that "sits" or "gets hit," a test that "watches"
-  or "catches," an order that "decides," a layout that "gets in" — flag those. Replace with
-  what the thing mechanically does (runs, compares, returns, finds, records).
+- **Anthropomorphizing — the `agency.md` lens owns the exhaustive pass.** A non-person
+  given a will or a job it can't have (a library that "picks up," a change that "reaches,"
+  a test that "watches"). The dedicated agency lens tables every subject in the draft, so
+  the exhaustive hunt lives there, not here. Flag any obvious one you trip over — but do
+  not treat "nothing jumped out" as clearance. That clearance is the agency table's to
+  give, never a holistic read's.
 - **AI tells.** "It's worth noting," "importantly," "interestingly," overly balanced
   hedging.
 - **Math-symmetry framings.** "the dual of X," "the inverse of," "isomorphic to" for

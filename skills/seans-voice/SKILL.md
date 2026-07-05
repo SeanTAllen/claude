@@ -189,7 +189,14 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
   an order that "decides" what runs next; a layout that "gets in." The
   one that slips past a tools-only reading is the bug, the test, and the
   layout — check those too. "Tarjan doesn't know what Pony is" → "Tarjan
-  finds cycles; it doesn't classify them."
+  finds cycles; it doesn't classify them." A second class slips
+  past even that: a static thing given an action it can't take. A
+  library, a release, a version, a change, a switch, a policy —
+  these don't act at all. "the libraries picked up the change" →
+  "we shipped new versions." "the change reaches every library" →
+  "change lori and you rebuild all of them." "0.66.0 dropped
+  Alpine" → "we dropped Alpine in 0.66.0." The action always
+  belongs to a person; put it there.
 - **Vague placeholder before an immediate reveal**: "I reached for a
   classic algorithm" followed by a section header naming it. The
   suspense was never the reader's — it was manufactured. Name the
@@ -284,4 +291,11 @@ in *what* instead of *how*), AI tells, and — whenever the draft discusses
 anyone else's work — punching at the people behind the work. For each, read
 the whole draft for that one thing and produce concrete evidence — the
 instances and their rewrites, or an explicit "none." Not "I considered it."
+For anthropomorphizing, "an explicit none" is not a sentence — it is a table.
+List every clause in the draft whose subject is not a person, with its verb,
+and mark each one a machine's literal operation or an action a static thing
+can't take. Only that table earns "none." A holistic "reads like Sean, nothing
+jumped out" is the exact failure this guards against: a whole post once cleared
+that way while every library "picked up," every change "reached," and a release
+"dropped" a platform. The table catches what the feel waves through.
 If a pass turns up a lot, the piece needs rework, not line edits.
