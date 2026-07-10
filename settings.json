@@ -29,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"PLAINNESS CHECK before responding: reread your draft as Sean reads it. If any sentence would make him ask what does that mean, it is too jargon-heavy or too twee; rewrite it plain. Say the thing first, then the mechanism, in plain words. No clever phrasing, no balanced turn reached for the sound, no abstract verdict standing in for the actual point. Plain is the whole answer, not the fallback for when he pushes back.\"}}'"
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"PLAINNESS CHECK before you send: the first sentence is the direct answer to what Sean asked. Assume he has seen nothing but this message — not scrollback, not files you changed. Anything you point at, put in front of him here: quote the text or state the change, do not just name it. Every sentence states a fact he can check or act on — cover the wording, and if no fact is left, cut the sentence. No coined terms, no clever phrasing, no headers or lists he did not ask for. Shorter wins.\"}}'"
           }
         ]
       }
