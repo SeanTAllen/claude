@@ -45,6 +45,8 @@ One entry per decision you would have stopped to ask about. Each entry:
 - **The options** — what you considered.
 - **The call** — what you chose, and why.
 
+What earns an entry is a genuine fork: more than one option was defensible, and Sean might have chosen differently. A step with only one defensible path is not a decision, no matter how much work it took or how much rode on it. Neither is anything that follows automatically from a decision already in the log: those consequences belong to the entry they came from, not to entries of their own.
+
 Keep the log in the order you made the decisions, start to finish. Each one was made standing on the ones before it, so the order is what shows Sean how you got where you got. A log sorted any other way hides that — he cannot see which later calls rest on an earlier one he disagrees with.
 
 The log is not a list of parked items. Parking means "I'm not doing this, it's waiting on Sean." This is the opposite: the decision is made and acted on; the entry is the record. In this mode you decide and log; you don't park.
