@@ -44,7 +44,8 @@ One entry per decision you would have stopped to ask about. Each entry:
 - **The decision** — what was in front of you.
 - **The options** — what you considered.
 - **The call** — what you chose, and why.
-- **Reversibility** — easy to undo, or not. This lets Sean scan for the expensive ones first.
+
+Keep the log in the order you made the decisions, start to finish. Each one was made standing on the ones before it, so the order is what shows Sean how you got where you got. A log sorted any other way hides that — he cannot see which later calls rest on an earlier one he disagrees with.
 
 The log is not a list of parked items. Parking means "I'm not doing this, it's waiting on Sean." This is the opposite: the decision is made and acted on; the entry is the record. In this mode you decide and log; you don't park.
 
@@ -64,4 +65,4 @@ Stop only when:
 
 ## At the end
 
-When the goal is reached, report: the outcome first, then the decision log with the reversibility flags. Sean ratifies the calls or redirects them; a redirected decision gets unwound where it can be. The reversibility flags are what let him spot the calls that can't be cleanly undone and weigh in on those first.
+When the goal is reached, report: the outcome first, then the decision log, in the order the decisions were made. Sean reads it start to finish and ratifies the calls or redirects them; a redirected decision gets unwound where it can be, along with whatever was built on top of it.
