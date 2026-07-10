@@ -12,9 +12,14 @@ structured, or worth the reader's time. The cure is not a longer list of things
 to check. It is a process — an order of operations that forces the real content
 and the structure first and treats flourish as the last, optional move.
 
-This is that process. It is the same for anything you write: a blog post, a Last
-Week in Pony entry, a discussion, an issue, a commit message. Each form has its
-own shape. How you go about writing is one thing.
+This is that process. It is the same for prose that carries a narrative: a blog
+post, a Last Week in Pony entry, a discussion, an issue, a commit message. Each
+form has its own shape. How you go about writing is one thing.
+
+It does not run for prose that only has to be plain — a comment, a docstring, a
+release note, a README. There is no narrative to outline and no flourish to add;
+plain is the whole job, and it is the finished state, not a step on the way to
+one. Those forms have their own rulebook, and CLAUDE.md says which.
 
 ## The process
 
@@ -79,9 +84,9 @@ step; the same move applies to every form.
 
 ## The same process, any form
 
-This is form-agnostic. A blog post, a Last Week in Pony entry, a GitHub
-discussion, an issue, a PR description, a commit message — each one runs this
-same process. What changes is the form laid on top:
+This is form-agnostic across the narrative forms. A blog post, a Last Week in
+Pony entry, a GitHub discussion, an issue, a PR description, a commit message —
+each one runs this same process. What changes is the form laid on top:
 
 - the form's structure (a commit message's subject and body is not a blog post's
   arc),

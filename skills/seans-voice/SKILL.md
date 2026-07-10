@@ -153,6 +153,13 @@ Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 - **Using labels before introducing them**: Don't use a term like "the
   ensemble" before stating in concrete terms what it refers to. Introduce
   the concept, then name it.
+- **Coining jargon**: Don't name a thing in shorthand you minted on the
+  spot — invented compounds ("green-skip," "main miss"), pseudo-technical
+  labels. The tell is that the term reads like real vocabulary but nobody
+  can decode it, because it means something mundane. Say what happens in
+  plain words. Established terms, and terms the piece itself defines, are
+  fine. Distinct from using a label before introducing it: there the term
+  is real and you skipped the introduction; here the term isn't real at all.
 - **Using capacious terms without anchors**: Words that could mean many
   things ("style," "scale," "tooling," "the problem") need concrete
   examples before you build an argument on them. A punchline or pivot that
