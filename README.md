@@ -43,6 +43,6 @@ To add a new environment, create a file in `environments/` and add a detection r
 
 ## Hooks
 
-Session hooks live in `hooks/`. Currently:
+Context-injection hooks live in `hooks/`. Currently:
 
-- `session-init.py` — Injects platform-specific environment config on all session starts, and re-injects CLAUDE.md after context compaction.
+- `session-init.py` — Injects platform-specific environment config on all session starts, and re-injects CLAUDE.md after context compaction. It also runs on every prompt to name the checks to run against a draft reply, reading their names from the `pre-send-checks` block in CLAUDE.md so it can never name a check that isn't there.
