@@ -130,6 +130,10 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Squash merge is the only merge strategy**: Repos under the `ponylang` and `seantallen-org` GitHub organizations only allow squash merges. After a PR is merged, use `git branch -D` (not `-d`) to delete local branches, since git won't recognize squash-merged branches as "fully merged".
 
+**Never merge with CI failures without explicit permission**: Before merging, review all check results — not just whether `gh pr checks` exits 0. If any check fails, stop and flag it to Sean; don't rationalize a failure as "unrelated" or "non-required." Merge past a failure only when Sean OKs that specific case. Ponylang repos have no required checks, which is not a licence to merge red.
+
+**Merge your own green PRs — don't leave them for Sean**: When the work is a batch of PRs you own (e.g. the same change across many repos), merging the green ones is part of the job: open a batch, wait for green, squash-merge, then start the next. "Don't do more than N at a time" is the open→green→merge batch size, not a count of PRs parked for Sean to merge.
+
 **Update project CLAUDE.md in the PR**: When changes affect anything documented in the project's CLAUDE.md (conventions, build steps, dependencies, architecture, API patterns, etc.), include the CLAUDE.md updates in the same PR. Stale instructions are worse than no instructions — they actively mislead.
 
 **Commit messages are for "why", not "what"**: The diff shows what changed — the message should explain *why*. A subject line alone is sufficient for small changes. If a body is warranted, add context or rationale not obvious from the code. Cut anything visible in the diff or in the PR's own checks: don't restate what the change does ("adds X to the dictionary"), and don't report process or status ("cspell and the build pass," "CI green," "ready to merge"). Those are zero-signal — the diff and the checks already show them. Keep only the why and the non-obvious context. Same for PR descriptions.
@@ -199,6 +203,8 @@ Use `/zulip` when Sean shares a Zulip link.
 **Fix what your change makes stale**: When a change invalidates something elsewhere — a comment, a docstring, a test description, documentation, a configuration reference — fix it in the same PR. Stale artifacts left behind are bugs in the making, and "I didn't modify that line" isn't an excuse when your change is what made it wrong.
 
 **Bulk renaming: verify substring safety before `replace_all`**: Check whether the target string appears as a substring of other identifiers in the file (e.g., `JsonConverter` inside `RepositoryJsonConverter`). Use contextual patterns that include surrounding syntax so the match is unambiguous. Only use `replace_all` for identifiers that don't appear as substrings of any other name in scope.
+
+**Do the work directly instead of writing a script**: For a bulk change across many repos, making the edits by hand repo-by-repo usually beats writing a Python/bash script. The script introduces its own bugs — string-replacement mistakes, docstring corruption, CRLF conversion — and debugging it costs more than the manual work would have.
 
 ## Testing
 
