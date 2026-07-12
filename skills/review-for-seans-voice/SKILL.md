@@ -131,6 +131,8 @@ artifact:
 6. **Synthesize** (inlined below — no external synthesizer skill).
 7. **Triage into Fix / Park** and act (below).
 
+**Freeze the draft during a round.** The lens personas read the draft in parallel; if you edit it while they run, each reads a different version, no two personas review the same text, and the round's agreement is worthless. Apply Fix items after synthesis, never as a persona returns one. A finding urgent enough to fix at once is a reason to stop the round, not to edit under it.
+
 ## Shared persona output format
 
 Include in every persona prompt. Each persona produces two artifacts.
