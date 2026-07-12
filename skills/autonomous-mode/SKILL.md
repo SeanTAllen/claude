@@ -51,7 +51,7 @@ Keep the log in the order you made the decisions, start to finish. Each one was 
 
 The log is not a list of parked items. Parking means "I'm not doing this, it's waiting on Sean." This is the opposite: the decision is made and acted on; the entry is the record. In this mode you decide and log; you don't park.
 
-It is also not a log of mistakes you caught and fixed. A command that misfired, a bug in your own work — you would never have stopped to ask Sean whether to fix these, so they aren't decisions and don't go in the log. A mistake has a right answer; it isn't a fork Sean would weigh in on. That's what separates it from a backtrack (see "When you get stuck"), where the path you abandon is itself defensible — a real option, not an error — so you do log the switch. If a mistake is worth Sean knowing about, tell him when you report — a heads-up in the conversation, not a log entry.
+It is also not a log of mistakes you caught and fixed. A command that misfired, a bug in your own work — you would never have stopped to ask Sean whether to fix these, so they aren't decisions and don't go in the log. They don't go in the report either — see "A mistake you already fixed is not a load-bearing fact" in CLAUDE.md. A mistake has a right answer; it isn't a fork Sean would weigh in on. That's what separates it from a backtrack (see "When you get stuck"), where the path you abandon is itself defensible — a real option, not an error — so you do log the switch.
 
 Surface the log when you report to Sean — in the conversation, where he reviews and ratifies it. It stays in the conversation; it's the record of the decisions, not part of the PR.
 
