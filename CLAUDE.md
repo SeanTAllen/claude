@@ -122,6 +122,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Squash before PR**: Squash all branch commits into one before opening a PR (use `git reset --soft`, then `--force-with-lease`). **After a PR is open**, push additional changes as separate commits — don't squash unless asked.
 
+**Follow-up work stays on the current branch**: When asked to "make commits", "land the fix", "commit and push", "iterate", or "investigate" on in-progress work, stack the commits on the current branch — don't create a new branch for follow-up unless explicitly told to. Round-N follow-ups to a PR in flight default to that PR's branch. If the work is genuinely unrelated to the active PR and a new branch seems right, ask directly rather than assuming.
+
 **Squash merge is the only merge strategy**: Repos under the `ponylang` and `seantallen-org` GitHub organizations only allow squash merges. After a PR is merged, use `git branch -D` (not `-d`) to delete local branches, since git won't recognize squash-merged branches as "fully merged".
 
 **Update project CLAUDE.md in the PR**: When changes affect anything documented in the project's CLAUDE.md (conventions, build steps, dependencies, architecture, API patterns, etc.), include the CLAUDE.md updates in the same PR. Stale instructions are worse than no instructions — they actively mislead.
