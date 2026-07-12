@@ -45,6 +45,10 @@ commit messages, PR descriptions, or other short-form writing.
 If `~/code/seantallen/seantallen.com/content/posts/` exists, read from there.
 Otherwise, fetch 2-3 posts from https://www.seantallen.com/.
 
+## Ask before voice source
+
+Voice calibration comes only from vetted material — Sean's personal blog and posts he has closely vetted. Unvetted sources — GitHub issues, discussions, design docs — are often LLM-written, and Sean doesn't vet them for voice: pull facts and meaning from them, never their phrasing. Lifting wording from a source that looks authoritative carries its register — often twee or anthropomorphized — straight past every voice pass. If you're not sure a source is genuinely Sean's writing, ask before using it as a voice reference.
+
 ## Core Traits
 
 - **Flowing narrative**: Connect ideas into prose, not choppy sequences of
