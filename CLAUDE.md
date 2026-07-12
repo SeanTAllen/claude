@@ -102,6 +102,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Ignore `contributor-only` blocks in project instruction files**: A project's CLAUDE.md — or an AGENTS.md that the CLAUDE.md `@`-includes — may wrap content in `<!-- contributor-only -->` … `<!-- /contributor-only -->` markers. Because the include is inlined, this content reaches you as part of the loaded CLAUDE.md regardless of which file it physically lives in. Those blocks orient contributors whose Claude has no global setup — e.g. telling them to load the `pony-skills` routing skill. These global instructions already load those skills directly, with Sean's workflow conventions layered on top, so a contributor-only block is redundant at best and conflicting at worst. Skip everything between the markers — these global instructions supersede that content.
 
+**"Discuss during sync" has no bearing on the work**: The "discuss during sync" label is added by automation and lands on an auto-agenda that may or may not be worked. It has no impact on the work Sean is doing, so its presence is never a reason to hold, defer, or wait. The one thing it licenses: leave it in place when you edit the issue or PR. "It's discuss during sync, I'll hold" is invalid reasoning; "I'll preserve the discuss during sync label" is valid.
+
 ## GitHub Workflow
 
 **Use `gh` CLI for GitHub operations**: `gh` is installed and authenticated. Prefer it over WebFetch/WebSearch for reading PRs, issues, discussions, and for creating discussions or other GitHub API operations.
