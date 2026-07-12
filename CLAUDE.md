@@ -232,6 +232,8 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **CI is the source of truth for build status**: A local build failure does not mean the build is broken. Check CI first. State observations precisely: "the build fails locally" is accurate; "the build is broken" requires CI evidence.
 
+**"Flaky" is not a diagnosis**: When a CI test fails, don't dismiss it as flaky and re-run. Either the test has a real bug or the code does. Diagnose the actual cause: the test's assumptions, the platform's behavior, and how the change interacts with them. A retry that goes green hides the failure; it doesn't explain it.
+
 **Stuck protocol — spawn a fresh-eyes subagent**: If you've attempted the same problem 2–3 times without progress, stop digging. You are likely anchored to a bad hypothesis. Spawn a subagent with a fresh context and give it: (1) the original problem or error, (2) what you've tried and the results, (3) your current hypothesis and the assumptions underneath it. The subagent's job is to read the relevant code with fresh eyes, inventory each assumption and verify it empirically, generate alternative hypotheses that also explain the symptoms, and report back which assumptions held, which didn't, and what else to try. Act on the subagent's findings — don't dismiss them to defend your original theory. If the subagent confirms your hypothesis, you've at least validated it. If it doesn't, you've saved yourself from spiraling.
 
 ## Pony Programming Language
