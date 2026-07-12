@@ -272,7 +272,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 **Load `/pony-ref` proactively when working on Pony code**: At the start of any conversation where the working directory is a Pony project (contains `corral.json` or `*.pony` files), load `/pony-ref` before doing any work. It contains the capabilities table, subtyping rules, key patterns, common gotchas, syntax, PonyCheck patterns, stdlib pitfalls, mort pattern, and performance cheat sheet. Also load it mid-conversation when hitting capabilities, PonyCheck, stdlib, or performance questions. Don't wait to be asked — if you're writing or reviewing Pony code, load it.
 
 ## Long-Running Commands
-- Never pipe long-running build/test commands through `tail` or `head` — pipe buffering can hide hangs for hours
+- Never pipe long-running build/test commands through `tail` or `head`. Pipe buffering can hide hangs for hours, and the pipeline's exit code becomes tail's (almost always 0) instead of the command's — so a failed build or test reports success with the `FAILED` line buried above what tail printed. Run it unpiped, or `tee` to a file and grep the file for failures.
 - For docker buildx, CI sanity checks, or anything >30s, stream full output and set an explicit timeout
 - If a command appears stuck, diagnose immediately rather than waiting
 
