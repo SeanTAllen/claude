@@ -120,7 +120,7 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Don't disturb an active checkout**: Don't switch branches in — or make commits into — a repo checkout you're actively using when it's parked on a branch holding work. Before any branch or commit work, run `git rev-parse --abbrev-ref HEAD`; if the checkout is not on `main` and not already on your own branch, don't switch it. Make an isolated `git worktree` (or a separate clone) for the new branch instead — the Agent tool's `isolation: "worktree"` also gives an isolated copy.
 
-**Squash before PR**: Squash all branch commits into one before opening a PR (use `git reset --soft`, then `--force-with-lease`). **After a PR is open**, push additional changes as separate commits — don't squash unless asked.
+**Squash before PR**: Squash all branch commits into one before opening a PR (`git add -A` first so working-tree edits made after your last commit aren't dropped, then `git reset --soft`, `git commit`, `--force-with-lease`). Verify the squash against the committed tree — `git diff <base>..HEAD`, and run lint on `git show HEAD:<file>` — not the dirty working tree, which can hold uncommitted fixes that mask the problem. **After a PR is open**, push additional changes as separate commits — don't squash unless asked.
 
 **Squash merge is the only merge strategy**: Repos under the `ponylang` and `seantallen-org` GitHub organizations only allow squash merges. After a PR is merged, use `git branch -D` (not `-d`) to delete local branches, since git won't recognize squash-merged branches as "fully merged".
 
