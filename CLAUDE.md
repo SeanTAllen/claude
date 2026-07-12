@@ -196,6 +196,8 @@ Use `/zulip` when Sean shares a Zulip link.
 
 **Load `/pony-test-design` when writing tests**: Before writing tests for new features or reviewing test quality, load the pony-test-design skill. It counters the tendency to write tests that exercise the stdlib instead of your code.
 
+**Never remove a failing test to get to green**: When a test fails because of a real bug — not a stale assertion — removing it, weakening it, or skipping it hides the bug from the next person to run the suite. There are two honest responses to a failing test: if the assertion is stale because behavior intentionally changed, update it and say why in the commit; if the code is wrong, fix the code. Deleting a test that fails on a real bug is never the third option. If the real fix is large or out of scope, leave the test in, mark it known-failing if there's a mechanism, and surface the gap to Sean — never quietly drop it.
+
 ### Counterfactual Testing
 
 After writing new tests, temporarily break each assertion to confirm it fires. A counterfactual that passes (assertion doesn't fire) means the assertion is weak — treat this as a bug found, not just a confidence check. Always assert on the *specific dimension* being tested, not the whole output. For property tests, also verify the generator covers the relevant range before concluding the assertion is weak.
