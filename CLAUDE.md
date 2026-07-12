@@ -122,7 +122,7 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Don't disturb an active checkout**: Don't switch branches in — or make commits into — a repo checkout you're actively using when it's parked on a branch holding work. Before any branch or commit work, run `git rev-parse --abbrev-ref HEAD`; if the checkout is not on `main` and not already on your own branch, don't switch it. Make an isolated `git worktree` (or a separate clone) for the new branch instead — the Agent tool's `isolation: "worktree"` also gives an isolated copy.
 
-**Squash before PR**: Squash all branch commits into one before opening a PR (use `git reset --soft`, then `--force-with-lease`). **After a PR is open**, push additional changes as separate commits — don't squash unless asked.
+**Squash before PR**: Squash all branch commits into one before opening a PR (`git add -A` first so working-tree edits made after your last commit aren't dropped, then `git reset --soft`, `git commit`, `--force-with-lease`). Verify the squash against the committed tree — `git diff <base>..HEAD`, and run lint on `git show HEAD:<file>` — not the dirty working tree, which can hold uncommitted fixes that mask the problem. **After a PR is open**, push additional changes as separate commits — don't squash unless asked.
 
 **Follow-up work stays on the current branch**: When asked to "make commits", "land the fix", "commit and push", "iterate", or "investigate" on in-progress work, stack the commits on the current branch — don't create a new branch for follow-up unless explicitly told to. Round-N follow-ups to a PR in flight default to that PR's branch. If the work is genuinely unrelated to the active PR and a new branch seems right, ask directly rather than assuming.
 
