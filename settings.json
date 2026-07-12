@@ -36,6 +36,7 @@
     ]
   },
   "effortLevel": "xhigh",
+  "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
   "permissions": {
