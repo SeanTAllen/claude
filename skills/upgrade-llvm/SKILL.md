@@ -41,7 +41,7 @@ If a patch has been upstreamed (apply fails because the changes are already pres
 
 ### 4. Update `PATCHES_DESIRED_HASH`
 
-The CMake patch hash computation (lines ~93-100 of `lib/CMakeLists.txt`):
+The CMake patch hash computation (lines ~165-172 of `lib/CMakeLists.txt`):
 - Initializes with seed string `"needed_if_no_patches"`
 - Iterates over patch files, computing SHA256 of each and concatenating
 - Takes final SHA256 of the concatenated result
@@ -69,9 +69,11 @@ git commit -m "Upgrade LLVM XX.Y.Z → XX.Y.Z"
 ### 7. Build and test
 
 ```bash
-make cleanlibs && make libs build_flags="-j12"   # Build LLVM (~30-60 min)
-make                                              # Build ponyc
-make test-full-programs-release                   # Run full-program tests
+rm -rf build                                       # Drop the old LLVM build so the new submodule rebuilds
+cmake -DJOBS=12 -P lib/build-libs.cmake            # Build LLVM (~30-60 min)
+cmake --preset release                             # Configure the ponyc build
+cmake --build --preset release                     # Build ponyc
+ctest --preset release -R full-programs-release    # Run full-program tests
 ```
 
 If the build finds additional errors, assess whether they're the same

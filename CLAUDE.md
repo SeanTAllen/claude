@@ -228,7 +228,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **Package docstrings should guide, not just describe**: The package-level docstring (in the file named after the package, e.g., `msgpack.pony` for the `msgpack` package) is the user's entry point. It should steer users toward the right API choices, not just enumerate what exists. This is especially important when multiple APIs serve overlapping purposes and some are safer or more appropriate for common use cases — say so explicitly, with reasoning.
 
-**Building**: For ponyc itself, use `make` commands as documented in BUILD.md. For other Pony projects with a Makefile, always use `make` instead of running `ponyc` directly. These Makefiles typically use `corral` to fetch dependencies before compiling. Common targets: `make` (build and test), `make test` (run tests), `make clean` (clean build artifacts).
+**Building**: For ponyc itself, follow BUILD.md — the build uses CMake presets, not `make`. For other Pony projects with a Makefile, always use `make` instead of running `ponyc` directly. These Makefiles typically use `corral` to fetch dependencies before compiling. Common targets: `make` (build and test), `make test` (run tests), `make clean` (clean build artifacts).
 
 **Corral needs `clean` when dependencies remove files between versions**: If compile errors reference APIs that should no longer exist, `corral fetch` likely left stale files in `_corral/`. Fix with `make clean` before rebuilding.
 
