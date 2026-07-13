@@ -7,3 +7,7 @@
 ## Running Tests
 
 **WSL holds the ports lori tests need**: Don't run lori's test binaries on this machine without checking with Sean first. When WSL is running it holds the TCP ports lori's tests bind to, and they fail with "Unable to open listener." Confirm WSL is shut down before running them — don't assume it is.
+
+## Debugging
+
+**Local lldb for the stress harness**: To run the runtime stress harness under lldb on this machine, use the msys2 lldb (`C:\msys64\mingw64\bin\lldb.exe`), not the standalone `C:\Program Files\LLVM\bin\lldb.exe` — the standalone one is broken (missing `python311.dll`). A `0xC0000374` (heap corruption) exit at lldb *teardown*, after the engine has already printed its result, is a teardown artifact on this setup, not an engine bug — CI doesn't hit it; don't chase it.
