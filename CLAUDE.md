@@ -128,6 +128,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **GraphQL via Bash**: Load `/graphql-bash` when using `gh api graphql`.
 
+**Use `--body-file` for `gh` bodies with backticks**: Write the markdown to a file and pass `--body-file` rather than inlining — it sidesteps the shell quoting that otherwise mangles backticks.
+
 ## Git
 
 **Always work on a branch**: Create a feature branch for all changes unless explicitly told to work on main. Never commit directly to main.
