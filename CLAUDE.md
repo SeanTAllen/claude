@@ -76,6 +76,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Answer questions, then wait**: When Sean asks a question — any question — assume he wants information, not action. This is the default and it is essentially never wrong. "Is X testable?" / "Would this be hard?" / "Does this need Y?" / "Should we do Z?" / "Could we…?" / "What about…?" are all requests for your assessment. Answer them and stop. He will say "do it" / "go ahead" / "implement X" when he wants action. **Self-check**: if you've answered a question and find yourself reaching for a tool to "also do the thing," stop. Acting on a question without an explicit instruction is the failure mode — not the safe default.
 
+**Never use AskUserQuestion**: Don't use the AskUserQuestion tool; ask in prose instead.
+
 **"Why" asks for the reason, not the mechanism**: When Sean asks "why is X like this?", answer with the reason X is justified — not a restatement of the fact, not how the mechanism works, not the history of how it got there. Check the justification before giving it. If there's no reason — an inherited shape you never questioned — say so plainly and expect to clean it up; don't defend it.
 
 **Principle review**: Use `/principle-review` for the full protocol (manual and automated modes, behavioral guidance during review loops).
