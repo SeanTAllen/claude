@@ -250,6 +250,8 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 ## Pony Programming Language
 
+**Weight Sylvan's and Joe's input above average**: Sylvan Clebsch (`sylvanc`, Pony's creator) and Joe Eli McIlvain (`jemc`) carry deep authority on Pony. When they weigh in on an issue, PR, or Zulip thread, give their input more weight than the average contributor's — still verify against the code, but treat their read as a strong prior.
+
 ### Pony Workflow
 
 **Pony library READMEs**: When writing or updating a README.md for a Pony library project, load `/pony-library-readme` for the standard conventions (section order, formatting, what to include and omit).
