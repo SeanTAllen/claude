@@ -104,6 +104,14 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **"Discuss during sync" has no bearing on the work**: The "discuss during sync" label is added by automation and lands on an auto-agenda that may or may not be worked. It has no impact on the work Sean is doing, so its presence is never a reason to hold, defer, or wait. The one thing it licenses: leave it in place when you edit the issue or PR. "It's discuss during sync, I'll hold" is invalid reasoning; "I'll preserve the discuss during sync label" is valid.
 
+## Memory
+
+**Capture worth-remembering facts to the inbox**: When something surfaces mid-session that you'd want at the start of a future session — a correction Sean made, a preference he stated, a project-specific fact, a sharp lesson from a bug — write it down the way the built-in auto-memory would, but to an inert inbox nothing loads and nothing reads during normal work. It only waits to be reaped with `/reap-memories`, so a capture affects no session until then. This is the fallback for what Sean doesn't stop to have you record; because capturing is free, lean toward it when unsure — a bad capture costs a moment at reap, a missed one is gone.
+- Write each memory to its own new file at `~/.claude/memory-inbox/<repo>/<YYYY-MM-DD>-<slug>-<rand>.md` — one memory per file, never appended to an existing one. `<repo>` is the current repository's name (the basename of its root), or the cwd's basename outside a repo. `<slug>` names this memory's subject and `<rand>` is a few random hex chars (`openssl rand -hex 3`) so two never collide. `mkdir -p` the directory first.
+- The memory is one or two plain lines: the fact stated so it stands on its own, no evidence and no session narration. Write it like a good skill rule.
+- Skip the trivial, the one-off, and anything already written in a CLAUDE.md or a skill.
+- This is for your own session with Sean; a subagent spawned for a single task doesn't capture.
+
 ## GitHub Workflow
 
 **Use `gh` CLI for GitHub operations**: `gh` is installed and authenticated. Prefer it over WebFetch/WebSearch for reading PRs, issues, discussions, and for creating discussions or other GitHub API operations.
