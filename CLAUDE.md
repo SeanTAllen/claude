@@ -274,8 +274,6 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **Pony `where` keyword has no preceding comma**: At call sites, named arguments use `where` without a comma before it: `Foo(a, b where c' = x)`, not `Foo(a, b, where c' = x)`. The `where` replaces the comma.
 
-**Pony float equality does not follow IEEE 754 for NaN**: `F32.nan() == F32.nan()` returns `true` in Pony (verified empirically on ponyc 0.60.6). This differs from IEEE 754 where NaN != NaN. Pony's `Equatable` interface requires reflexivity, so float equality treats NaN as equal to itself. Don't write docstrings or tests assuming IEEE 754 NaN semantics for Pony float comparisons.
-
 **State machines must be complete**: When using a trait-based state machine, route all events through the state classes — even when the behavior is identical across states. The state machine should be the single place to look to understand what happens in each state. Bypassing it for "simple" events fragments that understanding.
 
 
