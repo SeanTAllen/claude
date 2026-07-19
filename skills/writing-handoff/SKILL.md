@@ -31,12 +31,18 @@ whether the content is right. So the division is not a workaround; it is the poi
    Iterating here is the process working. It is cheap, and everything downstream is
    built on it.
 
-   Ugly prose is fine at this stage; gaps are not, because a fresh writer fills a
-   gap by guessing, and guessing is inventing. Get every fact, every caveat, and
-   the load-bearing structure down. **This is where content correctness is
-   checked** — by whatever review the work warrants (a technical review, a
-   principle review, running the thing). Do not hand off until the content is right,
-   because the check in step 3 does not catch content errors (see Guardrails).
+   **The artifact carries facts with their sources, not sentences for the reader.**
+   Quote each fact from wherever it came from, or mark it as something Sean said.
+   Write a sentence meant to appear in the piece and you are the author again: the
+   writer adopts it whole, because a locked draft is exactly what it must not
+   change. Your paraphrase then ships looking as sourced as everything around it.
+
+   Gaps are still fatal, because a fresh writer fills a gap by guessing and guessing
+   is inventing, so get every fact, every caveat, and the load-bearing structure
+   down. **This is where content correctness is checked** — by whatever review the
+   work warrants (a technical review, a principle review, running the thing). Do not
+   hand off until the content is right, because the check in step 3 does not catch
+   content errors (see Guardrails).
 
    The design iterates with Sean; the handoff does not. Once he agrees on the
    direction and the content is right, it is locked for the writer — no fact
@@ -106,6 +112,12 @@ two paragraphs, cheap inline pass under).
 - **The writer changes no fact, drops no caveat, invents nothing.** Reshaping for
   plainness is allowed and wanted; changing meaning is not. The step-3 check enforces
   this.
+- **Your prose in the artifact becomes the piece's defects.** A fact with a citation
+  is checkable, and the writer renders it in its own words. A sentence you drafted is
+  unverified, and the writer adopts it whole. Decisions still have to be recorded, or
+  they get lost on any restart — but record them as constraints the writer applies
+  ("treat these two absences as one", "no cognition verbs on that function"), never
+  as sentences it can lift.
 - **Reviews test the implementation; they cannot validate the design.** A clean
   step-3 review means the prose matches the facts and follows the rules. It says
   nothing about whether the audience, the narrative, or the selection were right.
