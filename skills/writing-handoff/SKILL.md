@@ -1,6 +1,6 @@
 ---
 name: writing-handoff
-description: "The process for producing any writing on Sean's behalf: the agent holding the context locks the shape and content, a fresh agent writes the words, and the context-holding agent checks the result for fidelity. Load before writing anything for Sean — comments, commit messages, issues, discussions, blog posts, LWIP, all of it."
+description: "The process for producing any writing on Sean's behalf: the agent holding the context designs the piece with Sean, a fresh agent writes the words, and the context-holding agent checks the result for fidelity. Load before writing anything for Sean — comments, commit messages, issues, discussions, blog posts, LWIP, all of it."
 disable-model-invocation: false
 ---
 
@@ -24,13 +24,23 @@ whether the content is right. So the division is not a workaround; it is the poi
 
 ## The three steps
 
-1. **Lock the shape and content — the context-holding agent.** Produce a complete,
-   correct draft. Ugly prose is fine; gaps are not, because a fresh writer fills a
+1. **Design the piece with Sean — the context-holding agent.** The audience, the
+   narrative, and what goes in and stays out are design choices, so this step is a
+   conversation and not a deliverable. Produce the audience, the narrative, and the
+   facts, show them to Sean before any prose exists, and expect to revise.
+   Iterating here is the process working. It is cheap, and everything downstream is
+   built on it.
+
+   Ugly prose is fine at this stage; gaps are not, because a fresh writer fills a
    gap by guessing, and guessing is inventing. Get every fact, every caveat, and
    the load-bearing structure down. **This is where content correctness is
    checked** — by whatever review the work warrants (a technical review, a
    principle review, running the thing). Do not hand off until the content is right,
    because the check in step 3 does not catch content errors (see Guardrails).
+
+   The design iterates with Sean; the handoff does not. Once he agrees on the
+   direction and the content is right, it is locked for the writer — no fact
+   changes from there.
 
 2. **Write it — a fresh agent.** Spawn a fresh-context sub-agent. Give it the
    locked draft, the rulebook for the form (below), and, for voice forms, two or
@@ -96,6 +106,12 @@ two paragraphs, cheap inline pass under).
 - **The writer changes no fact, drops no caveat, invents nothing.** Reshaping for
   plainness is allowed and wanted; changing meaning is not. The step-3 check enforces
   this.
+- **Reviews test the implementation; they cannot validate the design.** A clean
+  step-3 review means the prose matches the facts and follows the rules. It says
+  nothing about whether the audience, the narrative, or the selection were right.
+  Those get settled in step 1, with Sean, or not at all. Running more review passes
+  on a piece whose design is wrong produces clean reports and a piece he rejects on
+  sight.
 - **Adherence is the weak point.** Nothing forces the handoff — it runs because the
   agent follows this process. On any writing task for Sean, run it; do not let the
   context-holding agent talk itself into writing the final words directly, which is
