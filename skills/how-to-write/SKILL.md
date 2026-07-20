@@ -30,6 +30,13 @@ one. Those forms have their own rulebook, and CLAUDE.md says which.
    Writing shows you where the answers were too loose, and any later step can
    send you back to sharpen them.
 
+   The example you reached for and the point you spent the most words on were
+   picked in the conversation that produced the piece. The reader has the piece
+   and nothing else, so pick both again for this reader. Coined vocabulary
+   carries over the same way, and `/seans-voice` covers that. A carried-over
+   example is hard to catch because the words all look fine — nothing
+   misspelled, nothing unclear. It is just the wrong example for this reader.
+
 2. **Outline the narrative.** Decide the story before you write a sentence of
    it. What question does the piece open, and what is the payoff that answers it?
    For an argument: what is the claim, and what carries it? You are not writing
@@ -45,6 +52,13 @@ one. Those forms have their own rulebook, and CLAUDE.md says which.
    through? Does the payoff land where it should? Is anything given away too
    early, or buried too late? If the structure is wrong, fix the structure
    before you touch a sentence.
+
+   Then walk the draft one sentence at a time, in order, and state what the
+   reader is thinking at that sentence. This is still a structural pass, not a
+   line edit. You just told them one thing, so they are now expecting something
+   — is that what the next sentence gives them? Where the walk turns up a
+   confusion, the fix is in the content: move what resolves it earlier, cut what
+   raised it, or write in what was never there.
 
 5. **Identify the important parts.** Find the few places that carry the piece:
    the hook that sets up the payoff, the payoff itself, the turn, the reveal.
@@ -131,7 +145,13 @@ them live in `/seans-voice` (the full rulebook) and `/review-for-seans-voice`
   bug, the data, a test, the layout, an order, the runtime, the seed. Don't
   inflate "non-obvious" into "impossible." Don't assert a cause you can't
   support. Don't invent specifics; if you don't know one, state the idea and flag
-  it.
+  it. Ground each factual claim where the reader can see it — the issue, PR,
+  release notes, or git log behind it, or, when it rests on you instead, what was
+  done and what came out (`/review-for-seans-voice`, "Every claim traces to a
+  source" and the content-honesty persona's "the source, or the author's
+  first-hand standing"). How much of that grounding shows depends on the form: an
+  issue or a PR description takes the reference inline, a blog post mostly
+  doesn't.
 - **Let it breathe (6):** Concrete detail, not filler. The setup has to set up
   the payoff — what you plant early pays off at the end.
 - **Flourish (7):** Augment, never replace. This is the content-first rule,
