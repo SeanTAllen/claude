@@ -54,7 +54,9 @@ one. Those forms have their own rulebook, and CLAUDE.md says which.
    parts. Add concrete detail and color — real specifics, not filler. Slow down.
    The tools are concrete detail, short flat lines used as pauses, and slow
    builds to the reveal. A good piece takes its time where it matters and moves
-   quickly where it doesn't.
+   quickly where it doesn't. The unit is a paragraph, not a sentence: state the
+   fact, show what it means, let it land. Spacing facts further apart is not
+   breathing — one fact per paragraph is a list with the bullets taken out.
 
 7. **Add flourish, only on top of the plain.** Now you may add rhetorical
    flourish. It sits alongside the plain fact, never in place of it. It
