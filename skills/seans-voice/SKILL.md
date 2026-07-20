@@ -185,6 +185,18 @@ Voice calibration comes only from vetted material — Sean's personal blog and p
   two lines:", "Both rules in one sentence:", "How it works, in three
   steps:". Just deliver the explanation. The reader can see the shape;
   the announcement is filler.
+- **Sentences about the piece instead of the subject**: "That second one
+  is where it falls apart." "X is the other thing I have open." "All of
+  it gets the full write-up in the release notes when it ships." The
+  subject of each is the piece — a section's position, a shift of topic,
+  where detail lives — rather than the thing being written about. They
+  get written because they read as helping the reader find their way,
+  which is also why they don't look like defects. Ask what a sentence's
+  subject is; if it is the piece rather than what the piece is about, cut
+  it. The pull to write them is strongest while trying to make prose
+  flow, because connective tissue is exactly what flow feels like it
+  needs. Distinct from pre-announcing above: there the sentence describes
+  the explanation that follows, here it describes where the reader is.
 - **Anthropomorphizing**: Sean's voice does not give a non-person noun
   knowledge, intent, sight, or a job, except as a deliberate leg-pull
   (an obvious joke, used once). This is not only about code objects like
