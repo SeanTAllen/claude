@@ -46,7 +46,9 @@ whether the content is right. So the division is not a workaround; it is the poi
 
    The design iterates with Sean; the handoff does not. Once he agrees on the
    direction and the content is right, it is locked for the writer — no fact
-   changes from there.
+   changes from there. The lock is on the writer, not on the design itself: if a
+   later step shows the design was wrong, the context-holding agent reopens step
+   1 with Sean rather than patching it downstream (see Guardrails).
 
 2. **Write it — a fresh agent.** Spawn a fresh-context sub-agent. Give it the
    locked draft, the rulebook for the form (below), and, for voice forms, two or
@@ -124,6 +126,13 @@ two paragraphs, cheap inline pass under).
   Those get settled in step 1, with Sean, or not at all. Running more review passes
   on a piece whose design is wrong produces clean reports and a piece he rejects on
   sight.
+- **A design problem sends it back, not around.** A design error usually surfaces
+  in the writing or the check — the arc doesn't carry once it's drafted, the payoff
+  doesn't land. When it does, stop and reopen step 1 with Sean. Don't hand it to the
+  writer to patch, and don't run it around the review loop again — that only
+  produces the clean report on a rejected piece from the bullet above. Going back to
+  the design is the process working, not a break from it, the same move
+  `how-to-write` names.
 - **Adherence is the weak point.** Nothing forces the handoff — it runs because the
   agent follows this process. On any writing task for Sean, run it; do not let the
   context-holding agent talk itself into writing the final words directly, which is
