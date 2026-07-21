@@ -96,7 +96,7 @@ wired in — across the handoff, the content gate, the check, and every correcti
 
 ## Routing: the rulebooks and the order they load
 
-The form decides how the writer writes. Hand it the matching rulebook:
+The rulebook depends on the form. Hand the writer the matching one:
 
 - **Voice forms** — blog posts, LWIP, discussions, issues, PR descriptions, commit
   messages, announcements: `how-to-write` for the process, `seans-voice` for the

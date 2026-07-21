@@ -146,4 +146,4 @@ a draft was reviewed when it wasn't.
 - `/review-for-seans-voice` checks a finished draft against that.
 - This skill is how you produce the draft in the first place.
 
-`/writing-handoff` holds the load order — which rulebooks a form loads, and when.
+`/writing-handoff` holds the load order — which rulebooks load for a form, and when.
