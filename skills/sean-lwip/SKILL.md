@@ -37,6 +37,17 @@ is how an LWIP comes out sounding like someone gussied up Sean's words.
    on Sean's posts, not the repo. Let `/lwip`'s own review (`ponylang-prose-review`)
    cover the rest: format, accuracy, link sanity, the mechanical pre-check.
 
+## Handoff shape
+
+When `/writing-handoff` hands a section to a fresh writer, the handoff
+describes each section's **narrative thread** — the story shape the section
+tells — not a list of facts to include. A fact list produces enumeration: the
+writer turns each bullet into a paragraph and the result is the same list in
+paragraph form. A narrative thread ("open with the upgrade recommendation,
+then the three highlights as cause-and-consequence, close with the
+twelve-entry note") gives the writer a shape to write into. Facts go in the
+handoff too, but organized under the thread, not as the structure itself.
+
 ## Why this exists
 
 Nothing was missing the last time it went wrong. `/how-to-write` already had
