@@ -77,7 +77,7 @@ def pre_send_context():
             "checks. Tell Sean; do not work around it."
         )
 
-    return "Before you send, run these checks from CLAUDE.md against your draft. " + " ".join(
+    return "Before you send, run the following from CLAUDE.md against your draft. " + " ".join(
         f"{name}." for name in names
     )
 
