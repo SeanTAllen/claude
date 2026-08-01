@@ -25,8 +25,8 @@ whole skill.
 
 Writing is also a loop, not a line. You re-evaluate where you are as you go, and
 when a later step shows an earlier one was weak, you return to it and do it
-again. A dropped or distorted fact goes back to the writing, where a fresh writer
-re-writes the passage. A design the writing showed wrong goes back to step 1, and
+again. A distorted or invented fact goes back to the writing, where a fresh
+writer re-writes the passage. A design the writing showed wrong goes back to step 1, and
 to Sean. Going back is not failure; it is the process working.
 
 Because writing loops, the split is not held once. Every return is a fresh chance
@@ -70,21 +70,24 @@ wired in — across the handoff, the content gate, the check, and every correcti
    three of Sean's real posts for calibration. It has no accumulated context, so it
    has to make the words carry the meaning; it can't lean on a backstory it doesn't
    have. Let it reshape for plainness and flow — that latitude is what produces a
-   clear draft — but bind it hard: change no fact, drop no caveat, invent nothing.
-   It returns the rewritten draft to the context-holder; it takes no external action.
+   clear draft — but bind it hard: distort no fact and invent nothing. Omitting a
+   fact is editorial judgment, not a violation — the material shapes what the
+   writer says, but not every fact needs to appear explicitly. It returns the
+   rewritten draft to the context-holder; it takes no external action.
 
 3. **Check the result — the context-holder.** For a **voice form**, run
    `/review-for-seans-voice` on the fresh draft. It is the full voice-and-craft
    ensemble, and it does two jobs at once: its content-honesty and accuracy lenses
-   are the fidelity check (did the draft keep every fact and caveat, and invent
-   nothing), and its other lenses — voice, agency, narrative, orientation,
+   are the fidelity check (did the draft distort any fact or invent something
+   the material doesn't support), and its other lenses — voice, agency,
+   narrative, orientation,
    tightness — catch the register drift and anthropomorphizing a fresh writer can
    introduce. For a **plain form** taken through the full handoff, run a lighter
    fidelity check by hand: did the draft keep the fact and describe the code
    correctly. Either way, the context-holder is the right judge of fidelity —
    it knows the ground truth — and the wrong judge of whether the prose reads
    plainly, for the same reason it couldn't write plainly. When the check finds a
-   dropped or distorted fact, correct the locked draft and give it to a fresh
+   distorted or invented fact, correct the locked draft and give it to a fresh
    writer to re-write the passage — not the writer who wrote it, and not as a
    patch. A resumed writer wedges the fact into the prose it already has; an agent
    patches where a human would reconsider, and a patch reads as bolted on. A fresh
@@ -136,9 +139,10 @@ two paragraphs, cheap inline pass under).
 - **The context-holder must not rewrite the wording in step 3.** Its context
   is why it writes badly; using it to "fix" the fresh draft's wording undoes the
   handoff.
-- **The writer changes no fact, drops no caveat, invents nothing.** Reshaping for
-  plainness is allowed and wanted; changing meaning is not. The step-3 check enforces
-  this.
+- **The writer distorts no fact and invents nothing.** Reshaping for plainness is
+  allowed and wanted; changing meaning is not. Omitting a fact is editorial
+  judgment — the material shapes the piece, but not every fact needs to appear.
+  The step-3 check enforces distortion and invention, not completeness.
 - **Your prose in the artifact becomes the piece's defects.** A fact with a citation
   is checkable, and the writer renders it in its own words. A sentence you drafted is
   unverified, and the writer adopts it whole. Decisions still have to be recorded, or
