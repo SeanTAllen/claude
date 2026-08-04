@@ -65,7 +65,7 @@ wired in — across the handoff, the content gate, the check, and every correcti
    later step shows the design was wrong, the context-holder reopens step
    1 with Sean rather than patching it downstream (see Guardrails).
 
-2. **Write it — a fresh writer.** Spawn a fresh-context sub-agent. Give it the
+2. **Write it — a fresh writer.** Spawn a fresh-context sub-agent, using `claude-opus-4-6` if the session uses an Anthropic model, otherwise your most capable available model. Give it the
    locked draft, the rulebook for the form (below), and, for voice forms, two or
    three of Sean's real posts for calibration. It has no accumulated context, so it
    has to make the words carry the meaning; it can't lean on a backstory it doesn't
