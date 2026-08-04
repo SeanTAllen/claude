@@ -97,8 +97,7 @@ artifact:
 2. **Run the mechanical pre-check.** Capture results.
 3. **Make an evidence dir:** `~/tmp/voice-review-<timestamp>/`. Each persona writes its
    detailed evidence to a file there; pass the path in the prompt.
-4. **Spawn the lens personas in parallel**, each a fresh-context subagent on your most
-   capable model. Six always run: Voice, Agency, Narrative, Orientation, Tightness,
+4. **Spawn the lens personas in parallel**, each a fresh-context subagent using `claude-opus-4-6` if the session uses an Anthropic model, otherwise your most capable available model. Six always run: Voice, Agency, Narrative, Orientation, Tightness,
    Content-honesty. A seventh, **Accuracy**, joins **only when the draft has code or makes
    technical/behavioral claims about a system** (a feature post, an architecture
    walkthrough); skip it for an essay or opinion piece with nothing to verify. Each prompt
