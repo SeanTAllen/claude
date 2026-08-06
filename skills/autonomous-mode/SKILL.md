@@ -29,6 +29,8 @@ Decisions and actions are handled differently:
 - **Decisions** — which approach to take, which tradeoff to accept, what to name something. You make the call and log it.
 - **Irreversible or outward-facing actions** — deleting things, force-pushing over someone else's work, posting or sending anything outside the repo. These are not decisions to log; they still wait for Sean. The one exception is the named endpoint itself: if the goal is "get to PR," opening the PR — and the ordinary steps to reach it, like pushing your own branch — is authorized. Likewise, when the work turned up suspected issues, the closing vetting that follows the PR may file the issues it produces — that closeout is part of finishing the goal, not a new external action beyond it (see `/vet-suspected-issues`). Anything destructive or external beyond reaching that endpoint waits, same as always.
 
+Keep copious working notes in files as you go — the plan, findings, intermediate state, anything you'd need to pick up where you left off. Context compaction is likely during autonomous work, and what's in your context is not a reliable record. Files survive compaction; your memory of what you read three phases ago does not.
+
 ## What does not change
 
 Removing the approval gate does not remove anything else.
