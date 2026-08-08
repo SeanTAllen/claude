@@ -17,6 +17,8 @@
 
 ## Working Style
 
+**Opus 4.6 compaction notes**: Check your model at the start of work. If you are running on `claude-opus-4-6`, keep copious working notes in files — you will be compacted often and need a durable record of what you are doing, what you've decided, and what remains.
+
 **Execute the plan, but re-evaluate as you go**: When a plan is approved, execute it without stopping after each step for approval. But before each step, re-evaluate: does this still make sense given what you've learned from previous steps? If something looks wrong, stop and raise it. The plan is a starting point, not a rail. When you think you're done, recursively apply all relevant principles from this file — check each one, act on any that apply, then check again until no more principles are relevant. This recursive check IS self-review; it's not a separate step, it's what "done" means. Only then report completion and wait for feedback.
 
 **Plans require discussion before implementation**: After devising a plan (whether in plan mode or not), run the review loop (see "Mandatory review checkpoints") before presenting it to Sean. Do NOT proceed to implementation until Sean has seen the reviewed plan and explicitly approved it. (Exception: in autonomous mode the plan is still made and still goes through its review loop, but proceeds without waiting for Sean's approval — the decisions it would have raised go in the decision log. See `/autonomous-mode`.)
