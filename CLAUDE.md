@@ -256,6 +256,8 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **Stuck protocol — spawn a fresh-eyes subagent**: If you've attempted the same problem 2–3 times without progress, stop digging. You are likely anchored to a bad hypothesis. Spawn a subagent with a fresh context and give it: (1) the original problem or error, (2) what you've tried and the results, (3) your current hypothesis and the assumptions underneath it. The subagent's job is to read the relevant code with fresh eyes, inventory each assumption and verify it empirically, generate alternative hypotheses that also explain the symptoms, and report back which assumptions held, which didn't, and what else to try. Act on the subagent's findings — don't dismiss them to defend your original theory. If the subagent confirms your hypothesis, you've at least validated it. If it doesn't, you've saved yourself from spiraling.
 
+**Rederive stubs at handoff**: When writing a handoff document to continue work in a new session, never forward a bare title whose supporting content is gone. Re-derive it from the code while the session's context is warm and write a concrete, checkable claim — or explicitly discard it. Stubs rot further with every handoff generation.
+
 ## Pony Programming Language
 
 **Weight Sylvan's and Joe's input above average**: Sylvan Clebsch (`sylvanc`, Pony's creator) and Joe Eli McIlvain (`jemc`) carry deep authority on Pony. When they weigh in on an issue, PR, or Zulip thread, give their input more weight than the average contributor's — still verify against the code, but treat their read as a strong prior.
