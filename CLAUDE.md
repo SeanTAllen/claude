@@ -92,6 +92,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Write in Sean's voice**: When writing prose on Sean's behalf — commit messages, PR descriptions, blog posts, GitHub discussions, announcements — follow the voice guidelines in `/seans-voice`. The core traits and anti-patterns always apply; the calibration step is for long-form writing only.
 
+**Don't solicit feedback unless told to**: When writing anything posted on Sean's behalf, never include "I want feedback," "let me know what you think," or any invitation to review unless Sean explicitly says to include it.
+
 **A skill's built-in review is the floor, not the ceiling**: For any prose in Sean's voice (blog posts, LWIP, GitHub discussions and issues, commit messages, PR comments and descriptions), run `/review-for-seans-voice` on top of whatever review the drafting skill itself specifies. The skill's own review is the minimum; the voice/craft review runs in addition, not instead. It scales itself by size — a full ensemble for anything more than two paragraphs, a cheap inline pass below that — so it's cheap on a commit message and thorough on a post.
 
 <!-- pre-send-checks -->
