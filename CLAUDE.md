@@ -148,6 +148,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Follow-up work stays on the current branch**: When asked to "make commits", "land the fix", "commit and push", "iterate", or "investigate" on in-progress work, stack the commits on the current branch — don't create a new branch for follow-up unless explicitly told to. Round-N follow-ups to a PR in flight default to that PR's branch. If the work is genuinely unrelated to the active PR and a new branch seems right, ask directly rather than assuming.
 
+**Never merge main into a feature branch**: Always rebase: `git rebase origin/main --no-gpg-sign`, resolve conflicts, then `git push --force-with-lease`. Don't merge main in to clear a conflict blocking CI — rebase instead.
+
 **Squash merge is the only merge strategy**: Repos under the `ponylang` and `seantallen-org` GitHub organizations only allow squash merges. After a PR is merged, use `git branch -D` (not `-d`) to delete local branches, since git won't recognize squash-merged branches as "fully merged".
 
 **Never merge with CI failures without explicit permission**: Before merging, review all check results — not just whether `gh pr checks` exits 0. If any check fails, stop and flag it to Sean; don't rationalize a failure as "unrelated" or "non-required." Merge past a failure only when Sean OKs that specific case. Ponylang repos have no required checks, which is not a licence to merge red.
