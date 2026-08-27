@@ -272,6 +272,8 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **Building**: For ponyc itself, follow BUILD.md — the build uses CMake presets, not `make`. For other Pony projects with a Makefile, always use `make` instead of running `ponyc` directly. These Makefiles typically use `corral` to fetch dependencies before compiling. Common targets: `make` (build and test), `make test` (run tests), `make clean` (clean build artifacts).
 
+**Match `--ponymaxthreads` to active actor count in benchmarks**: Never run a benchmark with more scheduler threads than the program has busy actors. Over-provisioned schedulers steal constantly, turning the numbers into placement luck.
+
 **Corral needs `clean` when dependencies remove files between versions**: If compile errors reference APIs that should no longer exist, `corral fetch` likely left stale files in `_corral/`. Fix with `make clean` before rebuilding.
 
 **Use Pony's pool allocator for FFI buffer allocation**: When Pony code needs to allocate raw buffers via FFI (e.g., for C functions that write into a caller-provided buffer), use `ponyint_pool_alloc_size`/`ponyint_pool_free_size` instead of `malloc`/`free`. This keeps allocation behavior consistent within the Pony runtime rather than mixing allocators.
