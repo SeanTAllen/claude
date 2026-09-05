@@ -21,7 +21,8 @@ or an explicit "none."
   not treat "nothing jumped out" as clearance. That clearance is the agency table's to
   give, never a holistic read's.
 - **AI tells.** "It's worth noting," "importantly," "interestingly," overly balanced
-  hedging.
+  hedging, clipped-imperative cadence (see its own item below). Sean is conversational;
+  clipped imperatives are the opposite of that.
 - **Math-symmetry framings.** "the dual of X," "the inverse of," "isomorphic to" for
   "the reverse/opposite of." Math/LLM register, not his. Say it plainly.
 - **Definitional label-parallels.** "X is the A, Y the B" balanced clauses that state

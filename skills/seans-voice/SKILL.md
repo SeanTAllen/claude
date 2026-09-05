@@ -131,8 +131,9 @@ Voice calibration comes only from vetted material — Sean's personal blog and p
   build with anaphora; clipped notes is bullets-as-sentences without
   musicality.
 - **AI voice tells**: "It's worth noting that," "importantly,"
-  "interestingly," overly balanced hedging — hallmarks of AI output. Cut
-  them.
+  "interestingly," overly balanced hedging, clipped-imperative cadence
+  (see below) — hallmarks of AI output. Sean's voice is conversational;
+  clipped imperatives are the opposite of that. Cut them.
 - **Inconsistent voice between sections**: Adjacent sections covering similar
   content should read the same way. Don't shift register mid-piece.
 - **Unclear antecedents**: Every "it", "this", "that" needs an immediately
