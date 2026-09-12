@@ -297,7 +297,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 ### Pony Reference
 
-**Load `/pony-ref` proactively when working on Pony code**: At the start of any conversation where the working directory is a Pony project (contains `corral.json` or `*.pony` files), load `/pony-ref` before doing any work. It contains the capabilities table, subtyping rules, key patterns, common gotchas, syntax, PonyCheck patterns, stdlib pitfalls, mort pattern, and performance cheat sheet. Also load it mid-conversation when hitting capabilities, PonyCheck, stdlib, or performance questions. Don't wait to be asked — if you're writing or reviewing Pony code, load it.
+**Load `/pony-ref` proactively when working on Pony code**: When a task requires Pony language knowledge — writing, modifying, or reviewing `.pony` files, or writing documentation about Pony code — load `/pony-ref` before starting. Being in a Pony project directory is not enough — the task itself must need Pony language semantics. Editing CI configs, Makefiles, or non-Pony project files doesn't qualify. It contains the capabilities table, subtyping rules, key patterns, common gotchas, syntax, PonyCheck patterns, stdlib pitfalls, mort pattern, and performance cheat sheet. Also load it mid-conversation when hitting capabilities, PonyCheck, stdlib, or performance questions.
 
 ## Long-Running Commands
 - Never pipe long-running build/test commands through `tail` or `head`. Pipe buffering can hide hangs for hours, and the pipeline's exit code becomes tail's (almost always 0) instead of the command's — so a failed build or test reports success with the `FAILED` line buried above what tail printed. Run it unpiped, or `tee` to a file and grep the file for failures.
@@ -308,4 +308,4 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 ## Stop. Did you actually follow this file?
 
-Before doing anything else, go back to the top and verify you followed **every** instruction. These instructions exist because you routinely skip them. The most common failures: not loading `/pony-ref` for Pony projects, not running the review loop at mandatory checkpoints, and not asking about project conventions. If you skipped any of these, do them now before proceeding. Reading this file is not the same as following it.
+Before doing anything else, go back to the top and verify you followed **every** instruction. These instructions exist because you routinely skip them. The most common failures: not loading `/pony-ref` when working on Pony source code, not running the review loop at mandatory checkpoints, and not asking about project conventions. If you skipped any of these, do them now before proceeding. Reading this file is not the same as following it.
