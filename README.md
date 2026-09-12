@@ -1,6 +1,6 @@
-# Claude Code Configuration
+# LLM Agent Configuration
 
-My global CLAUDE.md, settings, skills, hooks, and environment-specific configuration for Claude Code.
+My global CLAUDE.md, settings, skills, hooks, and environment-specific configuration for Claude Code and Codex.
 
 ## Installation
 
@@ -10,7 +10,9 @@ Clone the repo, then run the install script:
 python install.py
 ```
 
-This creates symlinks from `~/.claude/` into the repo:
+With no flags, the script auto-detects which harnesses are installed (`~/.claude` for Claude Code, `~/.codex` or `~/.agents` for Codex) and installs for all of them. Use `--claude` and/or `--codex` to target specific harnesses.
+
+**Claude Code** gets the full configuration:
 
 - `~/.claude/CLAUDE.md` → repo's `CLAUDE.md`
 - `~/.claude/settings.json` → repo's `settings.json`
@@ -18,9 +20,16 @@ This creates symlinks from `~/.claude/` into the repo:
 - `~/.claude/hooks/` → repo's `hooks/`
 - Each skill directory in `skills/` → `~/.claude/skills/<name>/`
 
-Skills are symlinked individually so that skills from other repos can coexist in `~/.claude/skills/`.
+**Codex** gets skills only:
 
-Use `--dry-run` to preview what would be done without making changes.
+- Each skill directory in `skills/` → `~/.agents/skills/<name>/`
+
+Skills are symlinked individually so that skills from other repos can coexist.
+
+Other options:
+
+- `--dry-run` — preview what would be done without making changes
+- `--uninstall` — remove all symlinks pointing into this repo
 
 ### Prerequisites
 
@@ -29,7 +38,7 @@ Use `--dry-run` to preview what would be done without making changes.
 
 ### Existing files
 
-The script never overwrites files that aren't symlinks. If you have existing files in `~/.claude/` that conflict, remove them first, then re-run.
+The script never overwrites files that aren't symlinks. If you have existing files that conflict, remove them first, then re-run.
 
 ## Editing
 
