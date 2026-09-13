@@ -268,7 +268,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **Pony examples READMEs**: When working on examples in a Pony project (adding, updating, or reorganizing examples), load `/pony-examples-readme` for the standard README conventions and ensure the examples/README.md is updated to reflect any changes.
 
-**Release workflow**: During planning, classify each change — internal (CI, refactoring) or user-facing (fixed, added, or changed). For user-facing changes in released projects (VERSION is not `0.0.0`), load `/pony-release-notes` — the skill owns the release notes, label, and CHANGELOG mechanics. The test for user-facing: if a library user wouldn't notice a functional difference, it doesn't belong.
+**Release notes**: During planning, classify each change — internal (CI, refactoring) or user-facing (fixed, added, or changed). For user-facing changes in released projects (VERSION is not `0.0.0`), the skill owns the release notes, label, and CHANGELOG mechanics. The test for user-facing: if a library user wouldn't notice a functional difference, it doesn't belong.
 
 **Package docstrings should guide, not just describe**: The package-level docstring (in the file named after the package, e.g., `msgpack.pony` for the `msgpack` package) is the user's entry point. It should steer users toward the right API choices, not just enumerate what exists. This is especially important when multiple APIs serve overlapping purposes and some are safer or more appropriate for common use cases — say so explicitly, with reasoning.
 
