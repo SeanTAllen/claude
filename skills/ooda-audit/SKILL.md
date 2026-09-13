@@ -1,12 +1,12 @@
 ---
 name: ooda-audit
-description: Audit skills and CLAUDE.md for instructions that discourage continuous observation, orientation, and re-evaluation. Run manually to find OODA violations.
+description: Audit skills and the global instruction file for instructions that discourage continuous observation, orientation, and re-evaluation. Run manually to find OODA violations.
 disable-model-invocation: false
 ---
 
 # OODA Audit
 
-Audit `~/.claude/CLAUDE.md`, project CLAUDE.md files, and all skills for
+Audit `~/.agents/AGENTS.md`, project instruction files, and all skills for
 instructions that work against continuous observe-orient-decide-act cycles.
 
 Run this manually when you suspect instructions have drifted or after a session
@@ -71,9 +71,9 @@ An OODA violation is any instruction that:
 
 ## How to run the audit
 
-1. Read `~/.claude/CLAUDE.md` in full.
-2. Read the project CLAUDE.md (if in a project directory).
-3. Discover skill files with `find -L ~/.claude/skills/ -name "SKILL.md"` (Glob
+1. Read `~/.agents/AGENTS.md` in full.
+2. Read the project instruction file (if in a project directory).
+3. Discover skill files with `find -L ~/.agents/skills/ -name "SKILL.md"` (Glob
    doesn't follow symlinks) and read each one.
 4. For each file, evaluate every instruction against the violation categories
    above.

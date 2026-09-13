@@ -30,7 +30,7 @@ When you are adding a feature or reshaping code, the same question takes another
 
 - **You cannot yet say what your own change is responsible for** → you cannot answer this about anything, so settle that first. Whatever the work is, you cannot say what belongs in it until you can say what it is for. When the work is a bug, that means you have not found the cause; go find it (`/pony-debug`). When it is a feature, its shape hasn't settled; go settle it (`/pony-software-design`). Write down what you found while you go, so it doesn't get lost. The uncertainty is never about the thing you found.
 - **You cannot state any way it belongs** → suspected issue. Write it down and keep moving. Most of the time you cannot even begin the sentence — a stale comment three files away has nothing to do with what you are building, and seeing that costs nothing.
-- **You can state a way it belongs** → look. If it does belong, it is part of the current work, not a suspected issue — handle it as a plan step (see "Research findings belong in the plan" in CLAUDE.md). If it turns out not to, it goes on the list like anything else.
+- **You can state a way it belongs** → look. If it does belong, it is part of the current work, not a suspected issue — handle it as a plan step (see "Research findings belong in the plan" in the global instruction file). If it turns out not to, it goes on the list like anything else.
 
 Set the bar low. A wrong "this might belong" costs you a look. A wrong "this doesn't belong" costs you a change scoped to whatever somebody happened to notice, and nothing will tell you it happened. Nobody wrongly dismisses the stale comment. The wrong dismissals happen where a connection is plausible and passing on it is convenient.
 
@@ -69,7 +69,7 @@ Lock down each suspected issue. Default to the lightweight path; escalate when o
    - **Needs more information** — dig until you can confirm or discard.
 2. **Debug it.** Carry on through `/pony-debug`, as far as the fix, without writing one. That gives you the cause and every place it reaches. A premature issue describes one symptom; this is what finds the whole shape, and it is what stops issues from missing points.
 3. **Check for duplicates.** Search the existing issues so you do not file one that is already there.
-4. **Draft the issue** under the existing conventions — "An issue body is the issue, nothing else" and "GitHub issues have types and labels" in CLAUDE.md. Load `/how-to-write` for the writing.
+4. **Draft the issue** under the existing conventions — "An issue body is the issue, nothing else" and "GitHub issues have types and labels" in the global instruction file. Load `/how-to-write` for the writing.
 5. **Review the draft on two axes.**
    - **Correctness and completeness** — a fresh-context reviewer checks that the claim holds, the scope is right, and nothing is missing. This is the direct fix for issues that miss points.
    - **Voice and craft** — run `/review-for-seans-voice` over it; it scales to size (cheap on a short issue, an ensemble on a long one).

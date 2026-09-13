@@ -60,7 +60,7 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Present evidence before executing corrections**: When told to undo or change something, and you have concrete evidence for why it was done that way, share the evidence before acting. Execute the change after sharing, unless the user reconsiders.
 
-**Ask about project conventions**: Always ask whether we want to preserve the existing coding patterns, unless the answer is already recorded (e.g., in a project CLAUDE.md). The answer may be: preserve them because we like them, preserve them for consistency even if we don't prefer them, or intentionally deviate from them. Don't assume — the choice depends on context.
+**Ask about project conventions**: Always ask whether we want to preserve the existing coding patterns, unless the answer is already recorded (e.g., in a project instruction file). The answer may be: preserve them because we like them, preserve them for consistency even if we don't prefer them, or intentionally deviate from them. Don't assume — the choice depends on context.
 
 **Go slow to go fast**: Before starting implementation, identify and state which principles from this file are most relevant to the current task.
 
@@ -106,16 +106,16 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **"How do you know that you know that?"**: A hypothesis is not knowledge. Verify empirically before asserting. This applies to everything — debugging, refactoring, code review, planning. "These two code paths are equivalent," "this guard is dead code," "this invariant holds," "X is hanging" are all claims that require evidence, not reasoning. If you can test it, test it. Never state a cause — say "I think X because Y; here's how I'll verify."
 
-**Ignore `contributor-only` blocks in project instruction files**: A project's CLAUDE.md — or an AGENTS.md that the CLAUDE.md `@`-includes — may wrap content in `<!-- contributor-only -->` … `<!-- /contributor-only -->` markers. Because the include is inlined, this content reaches you as part of the loaded CLAUDE.md regardless of which file it physically lives in. Those blocks orient contributors whose Claude has no global setup — e.g. telling them to load the `pony-skills` routing skill. These global instructions already load those skills directly, with Sean's workflow conventions layered on top, so a contributor-only block is redundant at best and conflicting at worst. Skip everything between the markers — these global instructions supersede that content.
+**Ignore `contributor-only` blocks in project instruction files**: A project's instruction file — CLAUDE.md or AGENTS.md, or one that the other `@`-includes — may wrap content in `<!-- contributor-only -->` … `<!-- /contributor-only -->` markers. Because the include is inlined, this content reaches you as part of the loaded instructions regardless of which file it physically lives in. Those blocks orient contributors whose agent has no global setup — e.g. telling them to load the `pony-skills` routing skill. These global instructions already load those skills directly, with Sean's workflow conventions layered on top, so a contributor-only block is redundant at best and conflicting at worst. Skip everything between the markers — these global instructions supersede that content.
 
 **"Discuss during sync" has no bearing on the work**: The "discuss during sync" label is added by automation and lands on an auto-agenda that may or may not be worked. It has no impact on the work Sean is doing, so its presence is never a reason to hold, defer, or wait. The one thing it licenses: leave it in place when you edit the issue or PR. "It's discuss during sync, I'll hold" is invalid reasoning; "I'll preserve the discuss during sync label" is valid.
 
 ## Memory
 
 **Capture worth-remembering facts to the inbox**: When something surfaces mid-session that you'd want at the start of a future session — a correction Sean made, a preference he stated, a project-specific fact, a sharp lesson from a bug — write it down the way the built-in auto-memory would, but to an inert inbox nothing loads and nothing reads during normal work. It only waits to be reaped with `/reap-memories`, so a capture affects no session until then. This is the fallback for what Sean doesn't stop to have you record; because capturing is free, lean toward it when unsure — a bad capture costs a moment at reap, a missed one is gone.
-- Write each memory to its own new file at `~/.claude/memory-inbox/<repo>/<YYYY-MM-DD>-<slug>-<rand>.md` — one memory per file, never appended to an existing one. `<repo>` is the current repository's name (the basename of its root), or the cwd's basename outside a repo. `<slug>` names this memory's subject and `<rand>` is a few random hex chars (`openssl rand -hex 3`) so two never collide. `mkdir -p` the directory first.
+- Write each memory to its own new file at `~/.agents/memory-inbox/<repo>/<YYYY-MM-DD>-<slug>-<rand>.md` — one memory per file, never appended to an existing one. `<repo>` is the current repository's name (the basename of its root), or the cwd's basename outside a repo. `<slug>` names this memory's subject and `<rand>` is a few random hex chars (`openssl rand -hex 3`) so two never collide. `mkdir -p` the directory first.
 - The memory is one or two plain lines: the fact stated so it stands on its own, no evidence and no session narration. Write it like a good skill rule.
-- Skip the trivial, the one-off, and anything already written in a CLAUDE.md or a skill.
+- Skip the trivial, the one-off, and anything already written in an instruction file or a skill.
 - This is for your own session with Sean; a subagent spawned for a single task doesn't capture.
 
 ## GitHub Workflow
@@ -156,7 +156,7 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **Merge your own green PRs — don't leave them for Sean**: When the work is a batch of PRs you own (e.g. the same change across many repos), merging the green ones is part of the job: open a batch, wait for green, squash-merge, then start the next. "Don't do more than N at a time" is the open→green→merge batch size, not a count of PRs parked for Sean to merge.
 
-**Update project CLAUDE.md in the PR**: When changes affect anything documented in the project's CLAUDE.md (conventions, build steps, dependencies, architecture, API patterns, etc.), include the CLAUDE.md updates in the same PR. Stale instructions are worse than no instructions — they actively mislead.
+**Update the project instruction file in the PR**: When changes affect anything documented in the project's instruction file (conventions, build steps, dependencies, architecture, API patterns, etc.), include those updates in the same PR. Stale instructions are worse than no instructions — they actively mislead.
 
 **Commit messages are for "why", not "what"**: The diff shows what changed — the message should explain *why*. A subject line alone is sufficient for small changes. If a body is warranted, add context or rationale not obvious from the code. Cut anything visible in the diff or in the PR's own checks: don't restate what the change does ("adds X to the dictionary"), and don't report process or status ("cspell and the build pass," "CI green," "ready to merge"). Those are zero-signal — the diff and the checks already show them. Keep only the why and the non-obvious context. Same for PR descriptions.
 

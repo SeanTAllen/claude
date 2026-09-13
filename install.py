@@ -10,9 +10,12 @@ Usage:
     python install.py --dry-run    Show what would be done without doing it
 
 What it does:
-- Claude Code: symlinks CLAUDE.md, settings.json, environments/, hooks/,
-  and each skill directory into ~/.claude/.
-- Codex: symlinks each skill directory into ~/.agents/skills/.
+- Shared: symlinks AGENTS.md into ~/.agents/AGENTS.md (canonical path
+  for skills to read regardless of harness).
+- Claude Code: symlinks AGENTS.md as CLAUDE.md, claude/settings.json,
+  claude/hooks/, environments/, and each skill directory into ~/.claude/.
+- Codex: symlinks AGENTS.md into ~/.codex/AGENTS.md and each skill
+  directory into ~/.agents/skills/.
 
 Harness selection:
 - With no --claude/--codex flag, installs for every harness detected on this
@@ -117,22 +120,30 @@ def install_skills(repo, dst, dry_run, indent=""):
     remove_stale_symlinks(skills_src, dst, dry_run, indent)
 
 
+def install_shared(repo, home, dry_run):
+    """Install harness-neutral config: canonical AGENTS.md."""
+    agents_home = home / ".agents"
+    print("  AGENTS.md (canonical):")
+    print("  " + symlink(repo / "AGENTS.md", agents_home / "AGENTS.md", dry_run))
+
+
 def install_claude(repo, home, dry_run):
-    """Install Claude Code config: CLAUDE.md, settings.json, environments, hooks, skills."""
+    """Install Claude Code config: AGENTS.md as CLAUDE.md, settings, environments, hooks, skills."""
     claude_home = home / ".claude"
 
     print("  CLAUDE.md:")
-    print("  " + symlink(repo / "CLAUDE.md", claude_home / "CLAUDE.md", dry_run))
+    print("  " + symlink(repo / "AGENTS.md", claude_home / "CLAUDE.md", dry_run))
 
     print("  settings.json:")
-    print("  " + symlink(repo / "settings.json", claude_home / "settings.json", dry_run))
+    print("  " + symlink(repo / "claude" / "settings.json",
+                         claude_home / "settings.json", dry_run))
 
     envs_src = repo / "environments"
     if envs_src.exists():
         print("  environments/:")
         print("  " + symlink(envs_src, claude_home / "environments", dry_run))
 
-    hooks_src = repo / "hooks"
+    hooks_src = repo / "claude" / "hooks"
     if hooks_src.exists():
         print("  hooks/:")
         print("  " + symlink(hooks_src, claude_home / "hooks", dry_run))
@@ -142,7 +153,12 @@ def install_claude(repo, home, dry_run):
 
 
 def install_codex(repo, home, dry_run):
-    """Install Codex config: skills only."""
+    """Install Codex config: AGENTS.md and skills."""
+    codex_home = home / ".codex"
+
+    print("  AGENTS.md:")
+    print("  " + symlink(repo / "AGENTS.md", codex_home / "AGENTS.md", dry_run))
+
     print("  skills:")
     install_skills(repo, skills_dir(home, "codex"), dry_run, indent="  ")
 
@@ -188,11 +204,34 @@ def find_skill_symlinks(repo, dst):
     return found
 
 
+def find_repo_symlink(repo, path):
+    """Return path if it is a symlink pointing into repo, else None."""
+    if not path.is_symlink():
+        return None
+    target = path.resolve()
+    try:
+        target.relative_to(repo.resolve())
+    except ValueError:
+        return None
+    return path
+
+
 def remove_symlinks(entries, dry_run, indent="  "):
     for entry in entries:
         if not dry_run:
             entry.unlink()
         print(f"{indent}  {entry}")
+
+
+def uninstall_shared(repo, home, dry_run):
+    """Remove the canonical ~/.agents/AGENTS.md if it points into this repo."""
+    agents_md = home / ".agents" / "AGENTS.md"
+    found = find_repo_symlink(repo, agents_md)
+    if found:
+        print("  AGENTS.md (canonical):")
+        remove_symlinks([found], dry_run)
+    else:
+        print("  No canonical AGENTS.md symlink found.")
 
 
 def uninstall_claude(repo, home, dry_run):
@@ -210,14 +249,9 @@ def uninstall_claude(repo, home, dry_run):
     ]
     removed_config = []
     for item in config_items:
-        if not item.is_symlink():
-            continue
-        target = item.resolve()
-        try:
-            target.relative_to(repo.resolve())
-        except ValueError:
-            continue
-        removed_config.append(item)
+        found = find_repo_symlink(repo, item)
+        if found:
+            removed_config.append(found)
 
     removed_skills = find_skill_symlinks(repo, skills_dir(home, "claude"))
 
@@ -234,17 +268,29 @@ def uninstall_claude(repo, home, dry_run):
 
 
 def uninstall_codex(repo, home, dry_run):
-    """Remove all symlinks in ~/.agents/skills/ that point into this repo."""
+    """Remove all symlinks in ~/.codex/ and ~/.agents/skills/ that point into this repo."""
+    codex_home = home / ".codex"
+    removed_config = []
+
+    agents_md = codex_home / "AGENTS.md"
+    if codex_home.is_dir():
+        found = find_repo_symlink(repo, agents_md)
+        if found:
+            removed_config.append(found)
+
     dst = skills_dir(home, "codex")
-    if not dst.is_dir():
-        print("  Nothing to uninstall (~/.agents/skills does not exist).")
-        return
-    removed = find_skill_symlinks(repo, dst)
-    if not removed:
+    removed_skills = find_skill_symlinks(repo, dst) if dst.is_dir() else []
+
+    if not removed_config and not removed_skills:
         print("  No symlinks pointing into this repo found.")
         return
-    print("  skills:")
-    remove_symlinks(removed, dry_run)
+
+    if removed_config:
+        print("  config:")
+        remove_symlinks(removed_config, dry_run)
+    if removed_skills:
+        print("  skills:")
+        remove_symlinks(removed_skills, dry_run)
 
 
 INSTALLERS = {"claude": install_claude, "codex": install_codex}
@@ -283,6 +329,13 @@ def main():
         else:
             print("Pass --claude and/or --codex to install anyway.")
         return
+
+    print("Shared:")
+    if do_uninstall:
+        uninstall_shared(repo, home, dry_run)
+    else:
+        install_shared(repo, home, dry_run)
+    print()
 
     for name in targets:
         print(f"{HARNESSES[name]['label']}:")

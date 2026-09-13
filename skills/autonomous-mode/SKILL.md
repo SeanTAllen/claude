@@ -16,7 +16,7 @@ Sean picks this mode for different reasons — he's away, or he just wants the w
 
 The signal is Sean handing you a goal to carry to its endpoint on your own — telling you to keep going through the decisions instead of stopping at each one. He's usually said it by pairing the work ("work autonomously towards the goal," "keep going," "get to PR with this") with the record-keeping ("record any decisions you'd have stopped to ask me about," "record decisions we should review"). Both halves are the mode: pursue the goal yourself, and log the calls for Sean to review.
 
-It is an instruction, not a question. If Sean *asks* whether you could work this way, that's a question — answer it and wait (see "Answer questions, then wait" in CLAUDE.md). And if it's genuinely unclear whether he means this mode or just "keep going on this one step," ask before switching.
+It is an instruction, not a question. If Sean *asks* whether you could work this way, that's a question — answer it and wait (see "Answer questions, then wait" in the global instruction file). And if it's genuinely unclear whether he means this mode or just "keep going on this one step," ask before switching.
 
 ## What changes
 
@@ -37,7 +37,7 @@ Removing the approval gate does not remove anything else.
 
 - **Reviews still run.** The plan review loop and the pre-PR review loops still happen — they are quality gates, not approval gates. Where those loops normally tell you to stop and ask Sean — a disputed finding, a judgment call, escalating a disagreement with a reviewer — autonomous mode turns that into the same decide-and-log move: make the call, record it, keep going. Sean reviews it with the rest of the log. This mode removes Sean as a gatekeeper, not as a collaborator.
 - **Re-evaluation still happens.** "Don't stop for approval" is not "don't re-think." Keep observing and re-orienting as you learn. If the plan stops making sense, change it — and log that.
-- **Honesty rules apply in full.** The decision log records the real decisions and the real reasoning, not a tidy story told after the fact. Same standard as everything else in the global CLAUDE.md.
+- **Honesty rules apply in full.** The decision log records the real decisions and the real reasoning, not a tidy story told after the fact. Same standard as everything else in the global instruction file.
 
 ## The decision log
 
@@ -53,7 +53,7 @@ Keep the log in the order you made the decisions, start to finish. Each one was 
 
 The log is not a list of parked items. Parking means "I'm not doing this, it's waiting on Sean." This is the opposite: the decision is made and acted on; the entry is the record. In this mode you decide and log; you don't park.
 
-It is also not a log of mistakes you caught and fixed. A command that misfired, a bug in your own work — you would never have stopped to ask Sean whether to fix these, so they aren't decisions and don't go in the log. They don't go in the report either — see "A mistake you already fixed is not a load-bearing fact" in CLAUDE.md. A mistake has a right answer; it isn't a fork Sean would weigh in on. That's what separates it from a backtrack (see "When you get stuck"), where the path you abandon is itself defensible — a real option, not an error — so you do log the switch.
+It is also not a log of mistakes you caught and fixed. A command that misfired, a bug in your own work — you would never have stopped to ask Sean whether to fix these, so they aren't decisions and don't go in the log. They don't go in the report either — see "A mistake you already fixed is not a load-bearing fact" in the global instruction file. A mistake has a right answer; it isn't a fork Sean would weigh in on. That's what separates it from a backtrack (see "When you get stuck"), where the path you abandon is itself defensible — a real option, not an error — so you do log the switch.
 
 Surface the log when you report to Sean — in the conversation, where he reviews and ratifies it. It stays in the conversation; it's the record of the decisions, not part of the PR.
 
