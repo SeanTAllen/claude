@@ -19,7 +19,7 @@ form has its own shape. How you go about writing is one thing.
 It does not run for prose that only has to be plain — a comment, a docstring, a
 release note, a README. There is no narrative to outline and no flourish to add;
 plain is the whole job, and it is the finished state, not a step on the way to
-one. Those forms have their own rulebook, and CLAUDE.md says which.
+one. Those forms have their own rulebook, and the global instruction file says which.
 
 ## The process
 

@@ -333,7 +333,7 @@ maintained rulebook rather than re-described each time.
    check the old separate docs-review pass used to provide now lives here.
 
 10. **Build verification.** Run whatever the project requires to
-    verify the post renders (project CLAUDE.md has the specifics).
+    verify the post renders (the project instruction file has the specifics).
     Re-read the rendered output — issues visible in rendered form
     (broken layout, missing images, formatting that doesn't land)
     aren't always visible in source.

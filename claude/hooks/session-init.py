@@ -3,11 +3,12 @@
 
 SessionStart:
   environment   - Platform-specific environment configuration (all events)
-  claude-md     - Global CLAUDE.md re-injection (after compaction)
+  claude-md     - Global instruction file re-injection (after compaction)
 
 UserPromptSubmit:
   pre-send      - Names the checks to run against a draft reply, read from
-                  CLAUDE.md so the hook cannot name a check that isn't there
+                  the instruction file so the hook cannot name a check that
+                  isn't there
 """
 
 import json
@@ -38,7 +39,7 @@ def print_environment():
 
 
 def print_claude_md():
-    """Print global CLAUDE.md for re-injection after compaction."""
+    """Print global instruction file for re-injection after compaction."""
     claude_md = claude_home() / "CLAUDE.md"
     if claude_md.is_file():
         print(claude_md.read_text(), end="")
@@ -53,11 +54,11 @@ CHECK_HEADING = re.compile(r"^\*\*(.+?)\*\*:", re.MULTILINE)
 def pre_send_context():
     """Name the checks to run against a draft reply.
 
-    The names are read from the pre-send-checks block in CLAUDE.md rather than
-    kept here, so renaming a check cannot leave this hook pointing at one that
-    no longer exists. A missing block is reported instead of passing silently:
-    a hook that quietly stops naming the checks looks exactly like a hook that
-    is working.
+    The names are read from the pre-send-checks block in the instruction file
+    rather than kept here, so renaming a check cannot leave this hook pointing
+    at one that no longer exists. A missing block is reported instead of passing
+    silently: a hook that quietly stops naming the checks looks exactly like a
+    hook that is working.
     """
     claude_md = claude_home() / "CLAUDE.md"
     if not claude_md.is_file():
@@ -66,18 +67,18 @@ def pre_send_context():
     block = CHECKS_BLOCK.search(claude_md.read_text())
     if block is None:
         return (
-            "WARNING: pre-send checks unavailable. CLAUDE.md has no "
+            "WARNING: pre-send checks unavailable. The instruction file has no "
             "<!-- pre-send-checks --> block. Tell Sean; do not work around it."
         )
 
     names = CHECK_HEADING.findall(block.group(1))
     if not names:
         return (
-            "WARNING: the <!-- pre-send-checks --> block in CLAUDE.md holds no "
-            "checks. Tell Sean; do not work around it."
+            "WARNING: the <!-- pre-send-checks --> block in the instruction file "
+            "holds no checks. Tell Sean; do not work around it."
         )
 
-    return "Before you send, run the following from CLAUDE.md against your draft. " + " ".join(
+    return "Before you send, run the following from the global instruction file against your draft. " + " ".join(
         f"{name}." for name in names
     )
 
