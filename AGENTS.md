@@ -44,6 +44,7 @@
      - **Park**: Findings that need Sean's input — design questions, principle tensions, ambiguous tradeoffs. Also park findings you disagree with — don't dismiss them unilaterally.
    - **Full mode only**: After fixing, the review runs again. Personas run with fresh context (no knowledge of prior findings). The synthesis step receives the full review history so it can verify fixes were addressed, not re-flag parked items, and detect convergence failures — when the same area keeps producing findings across rounds, the synthesizer escalates a structural question (always parked). Loop until clean — meaning no findings remain except parked items.
    - **Lightweight mode**: No re-review loop. Fix the findings and proceed. If finding density is unexpectedly high, the orchestrator presents this to the human — the change may warrant full mode.
+   - **Release notes compliance**: Load `/pony-release-notes`. Determine whether the change requires release notes. If it does, follow the skill's process.
    - Open the PR with parked items listed for Sean to weigh in on.
 
 **Surface parked items in every status update**: Whenever reporting status to Sean — mid-work checkpoint, completion summary, PR opened, blocker hit — include outstanding parked items as part of that update. Parked items are decisions awaiting Sean's input; he shouldn't have to go find them in a PR description or comment thread. They should also go in the PR description/comments for the written record, but the conversation is where Sean sees them first.
