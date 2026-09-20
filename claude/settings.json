@@ -42,5 +42,6 @@
   "theme": "dark-ansi",
   "permissions": {
     "defaultMode": "bypassPermissions"
-  }
+  },
+  "remoteControlAtStartup": true
 }
