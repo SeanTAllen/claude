@@ -4,6 +4,9 @@
     "pr": "",
     "sessionUrl": false
   },
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
   "model": "claude-opus-4-6",
   "hooks": {
     "SessionStart": [
@@ -40,8 +43,6 @@
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
-  "permissions": {
-    "defaultMode": "bypassPermissions"
-  },
-  "remoteControlAtStartup": true
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
