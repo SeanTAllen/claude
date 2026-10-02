@@ -187,6 +187,24 @@ Required tokens:
 - **`.file-list`** — monospace list of file paths with stats.
 - **`.diagram-container`** — card wrapper for SVG diagrams.
 - **`.release-notes-content`** — card wrapper for release note text.
+- **`.type-link`** — inline link to a type definition within the report.
+
+### Type navigation
+
+Every `.type-block` gets an `id` of the form `type-TypeName` where
+`TypeName` is the bare type name (no type parameters, no `is` clause,
+no package prefix). After the page loads, a script builds an index of
+these anchors and walks the document's text nodes, wrapping each mention
+of a defined type name in an `<a class="type-link" href="#type-Name">`
+link. A type name inside its own `.type-block` is not linkified. Links
+inside `<pre>`, `<code>`, `<a>`, and `<svg>` elements are skipped.
+
+The clickability signals "this type is defined in this report" — types
+not in the report stay plain text.
+
+**Future direction**: a full symbol index that also linkifies type names
+in method signatures and field types. Not implemented yet — the
+straightforward type-to-type linking is the starting point.
 
 ### JavaScript
 
@@ -195,6 +213,8 @@ Required tokens:
 - **Keyboard navigation**: `j`/`k` move between sections, `Enter`
   expands all panels in the current section, `Esc` collapses all panels.
 - **Nav click handling**: smooth scroll to target section.
+- **Type linkification**: builds a type index from `.type-block[id]`
+  elements and wraps matching text nodes as anchor links.
 
 ## Hosting
 

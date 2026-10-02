@@ -279,6 +279,11 @@ svg text { font-family: 'Inter', sans-serif; fill: var(--fg); }
 .method-list li:first-child { border-top: none; }
 .method-kind { color: var(--accent); font-weight: 600; font-size: 11px; }
 
+/* --- Type navigation links --- */
+
+a.type-link { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+a.type-link:hover { border-bottom-style: solid; }
+
 /* --- Release notes --- */
 
 .release-notes-content { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; font-size: 14px; line-height: 1.6; }
@@ -384,7 +389,7 @@ svg text { font-family: 'Inter', sans-serif; fill: var(--fg); }
 
 <section id="surface">
   <h2>Public API Surface</h2>
-  <div class="type-block">
+  <div class="type-block" id="type-TypeName">
     <div class="type-block-header">
       <span class="badge badge-added">New</span>
       <span class="type-kind">class</span>
@@ -485,4 +490,63 @@ navLinks.forEach(a => {
     }
   });
 });
+
+// --- Type navigation ---
+// Build an index of type names from .type-block headers, then linkify
+// matching text nodes elsewhere in the document.
+(function() {
+  const typeIndex = new Map();
+  document.querySelectorAll('.type-block[id]').forEach(block => {
+    const nameEl = block.querySelector('.type-name');
+    if (!nameEl) return;
+    // Extract the bare type name (strip type params, "is" clauses, package prefixes)
+    const raw = nameEl.textContent.trim();
+    const bare = raw.replace(/\[.*/, '').replace(/\s+is\s+.*/, '').replace(/.*\./, '');
+    if (bare) typeIndex.set(bare, block.id);
+  });
+  if (typeIndex.size === 0) return;
+
+  // Sort longest-first so "ConnectedUDPSocket" matches before "UDPSocket"
+  const names = Array.from(typeIndex.keys()).sort((a, b) => b.length - a.length);
+  const pattern = new RegExp('\\b(' + names.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\b', 'g');
+
+  function walk(node) {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      // Skip: links, SVG, pre/code blocks, and the type-name span itself
+      const tag = node.tagName;
+      if (tag === 'A' || tag === 'PRE' || tag === 'CODE' || tag === 'svg' || tag === 'SCRIPT' || tag === 'STYLE') return;
+      if (node.classList.contains('type-name')) return;
+      Array.from(node.childNodes).forEach(walk);
+    } else if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      if (!pattern.test(text)) return;
+      pattern.lastIndex = 0;
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      let m;
+      while ((m = pattern.exec(text)) !== null) {
+        const typeName = m[1];
+        const anchor = typeIndex.get(typeName);
+        // Don't linkify a type inside its own type-block
+        const ownerBlock = node.parentElement?.closest('.type-block');
+        if (ownerBlock && ownerBlock.id === anchor) continue;
+        if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+        const a = document.createElement('a');
+        a.className = 'type-link';
+        a.href = '#' + anchor;
+        a.textContent = typeName;
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth' });
+        });
+        frag.appendChild(a);
+        last = m.index + typeName.length;
+      }
+      if (last === 0) return;
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    }
+  }
+  walk(document.querySelector('main'));
+})();
 </script>
