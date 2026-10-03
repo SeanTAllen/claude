@@ -135,9 +135,8 @@ Architecture diagrams use inline SVG. Key rules:
 
 ## HTML framework
 
-The output is a single self-contained HTML file. It is rendered inside a
-skeleton that provides `<!DOCTYPE>`, `<head>`, and `<body>` — write only
-the content (starting with `<title>`).
+The output is a complete, self-contained HTML document — `<!DOCTYPE html>`
+through `</html>`, ready to serve as a static page.
 
 ### Fonts
 
@@ -218,10 +217,21 @@ straightforward type-to-type linking is the starting point.
 
 ## Hosting
 
-The default is to publish as a Claude artifact. The overview can also be
-saved as a local file or pushed to a GitHub gist (use
-htmlpreview.github.io as the proxy URL, since GitHub serves raw gist HTML
-as text/plain).
+Reports are published to the `ponylang/reports` GitHub Pages site. Follow
+the instructions in that repo's `AGENTS.md` for the full process. The
+short version:
+
+1. Use the checkout at `~/code/ponylang/reports` (pull latest first). If
+   it's not on `main` or doesn't exist, clone from GitHub into `~/tmp`.
+2. Pick a slug for the report. For PR overviews, include the repo name
+   and enough context to be meaningful on its own — e.g.
+   `stallion-chunked-transfer-encoding`, not `pr-42`.
+3. Write the report to `r/<slug>/index.html`.
+4. Update `r/index.html` to add the report under the appropriate
+   category.
+5. Squash into a single commit and push to main.
+6. The report will be live at
+   `https://ponylang.github.io/reports/r/<slug>/`.
 
 ## Reference
 
