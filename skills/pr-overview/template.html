@@ -3,6 +3,11 @@
   Read this for CSS framework, JS patterns, and section structure.
   Don't copy verbatim — adapt content to the specific PR.
 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PR #N Overview</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap">
 <style>
@@ -78,6 +83,7 @@ body {
   color: var(--fg);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
+  margin: 0;
   padding: 0;
 }
 
@@ -85,7 +91,7 @@ body {
 
 nav {
   position: fixed;
-  top: env(safe-area-inset-top, 0px);
+  top: 0;
   left: 0;
   width: 220px;
   height: 100vh;
@@ -115,7 +121,7 @@ nav .pr-title {
   line-height: 1.4;
 }
 
-nav ul { list-style: none; padding: 12px 0; flex: 1; }
+nav ul { list-style: none; padding: 12px 0; margin: 0; flex: 1; }
 
 nav a {
   display: block;
@@ -274,7 +280,7 @@ svg text { font-family: 'Inter', sans-serif; fill: var(--fg); }
 .type-name { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; min-width: 0; }
 .type-body { padding: 12px 14px; }
 .type-doc { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
-.method-list { list-style: none; }
+.method-list { list-style: none; padding: 0; margin: 0; }
 .method-list li { padding: 6px 0; border-top: 1px solid var(--border); font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; }
 .method-list li:first-child { border-top: none; }
 .method-kind { color: var(--accent); font-weight: 600; font-size: 11px; }
@@ -306,6 +312,8 @@ a.type-link:hover { border-bottom-style: solid; }
   .before-after { grid-template-columns: 1fr; }
 }
 </style>
+</head>
+<body>
 
 <!-- NAV RAIL -->
 <nav>
@@ -492,27 +500,22 @@ navLinks.forEach(a => {
 });
 
 // --- Type navigation ---
-// Build an index of type names from .type-block headers, then linkify
-// matching text nodes elsewhere in the document.
 (function() {
   const typeIndex = new Map();
   document.querySelectorAll('.type-block[id]').forEach(block => {
     const nameEl = block.querySelector('.type-name');
     if (!nameEl) return;
-    // Extract the bare type name (strip type params, "is" clauses, package prefixes)
     const raw = nameEl.textContent.trim();
     const bare = raw.replace(/\[.*/, '').replace(/\s+is\s+.*/, '').replace(/.*\./, '');
     if (bare) typeIndex.set(bare, block.id);
   });
   if (typeIndex.size === 0) return;
 
-  // Sort longest-first so "ConnectedUDPSocket" matches before "UDPSocket"
   const names = Array.from(typeIndex.keys()).sort((a, b) => b.length - a.length);
   const pattern = new RegExp('\\b(' + names.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\b', 'g');
 
   function walk(node) {
     if (node.nodeType === Node.ELEMENT_NODE) {
-      // Skip: links, SVG, pre/code blocks, and the type-name span itself
       const tag = node.tagName;
       if (tag === 'A' || tag === 'PRE' || tag === 'CODE' || tag === 'svg' || tag === 'SCRIPT' || tag === 'STYLE') return;
       if (node.classList.contains('type-name')) return;
@@ -527,7 +530,6 @@ navLinks.forEach(a => {
       while ((m = pattern.exec(text)) !== null) {
         const typeName = m[1];
         const anchor = typeIndex.get(typeName);
-        // Don't linkify a type inside its own type-block
         const ownerBlock = node.parentElement?.closest('.type-block');
         if (ownerBlock && ownerBlock.id === anchor) continue;
         if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
@@ -550,3 +552,6 @@ navLinks.forEach(a => {
   walk(document.querySelector('main'));
 })();
 </script>
+
+</body>
+</html>
