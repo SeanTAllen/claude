@@ -11,7 +11,8 @@ environments/          Platform-specific environment config
 claude/
   settings.json        Claude Code settings
   hooks/               Claude Code context-injection hooks
-codex/                 Codex CLI-specific config (placeholder)
+codex/
+  config.toml          Codex CLI settings
 install.py             Symlink installer for all harnesses
 ```
 
@@ -40,6 +41,7 @@ With no flags, the script auto-detects which harnesses are installed (`~/.claude
 **Codex CLI:**
 
 - `~/.codex/AGENTS.md` → repo's `AGENTS.md`
+- `~/.codex/config.toml` → repo's `codex/config.toml`
 - Each skill directory in `skills/` → `~/.agents/skills/<name>/`
 
 Skills are symlinked individually so that skills from other repos can coexist.

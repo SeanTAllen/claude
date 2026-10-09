@@ -14,8 +14,8 @@ What it does:
   for skills to read regardless of harness).
 - Claude Code: symlinks AGENTS.md as CLAUDE.md, claude/settings.json,
   claude/hooks/, environments/, and each skill directory into ~/.claude/.
-- Codex: symlinks AGENTS.md into ~/.codex/AGENTS.md and each skill
-  directory into ~/.agents/skills/.
+- Codex: symlinks AGENTS.md and codex/config.toml into ~/.codex/ and
+  each skill directory into ~/.agents/skills/.
 
 Harness selection:
 - With no --claude/--codex flag, installs for every harness detected on this
@@ -153,11 +153,15 @@ def install_claude(repo, home, dry_run):
 
 
 def install_codex(repo, home, dry_run):
-    """Install Codex config: AGENTS.md and skills."""
+    """Install Codex config: AGENTS.md, config.toml, and skills."""
     codex_home = home / ".codex"
 
     print("  AGENTS.md:")
     print("  " + symlink(repo / "AGENTS.md", codex_home / "AGENTS.md", dry_run))
+
+    print("  config.toml:")
+    print("  " + symlink(repo / "codex" / "config.toml",
+                         codex_home / "config.toml", dry_run))
 
     print("  skills:")
     install_skills(repo, skills_dir(home, "codex"), dry_run, indent="  ")
@@ -272,11 +276,11 @@ def uninstall_codex(repo, home, dry_run):
     codex_home = home / ".codex"
     removed_config = []
 
-    agents_md = codex_home / "AGENTS.md"
     if codex_home.is_dir():
-        found = find_repo_symlink(repo, agents_md)
-        if found:
-            removed_config.append(found)
+        for item in (codex_home / "AGENTS.md", codex_home / "config.toml"):
+            found = find_repo_symlink(repo, item)
+            if found:
+                removed_config.append(found)
 
     dst = skills_dir(home, "codex")
     removed_skills = find_skill_symlinks(repo, dst) if dst.is_dir() else []
