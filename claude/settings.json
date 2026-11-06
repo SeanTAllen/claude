@@ -44,5 +44,6 @@
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "idleCompaction": false
 }
