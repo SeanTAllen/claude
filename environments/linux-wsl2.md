@@ -14,7 +14,7 @@
 
 **SSL version**: This machine has OpenSSL 3.x. If a project's Makefile has an `ssl` option, use `ssl=3.0.x` (e.g., `make ssl=3.0.x`). Most Pony projects don't have this option.
 
-**PonyCheck source**: `/home/sean/code/ponylang/ponyc/packages/pony_check/`
+**PonyCheck source**: `/home/sean/code/ponylang/ponyc/packages/pony_test/`
 
 **Documentation locations**:
 - Tutorial: `/home/sean/code/ponylang/pony-tutorial/docs/` (subdirs: `reference-capabilities/`, `c-ffi/`, `generics/`, `gotchas/`)
