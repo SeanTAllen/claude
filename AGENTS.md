@@ -37,7 +37,7 @@
 
 1. **After devising a plan**, before presenting it to Sean for discussion. Run the principle-review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until clean. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
 
-2. **After completing implementation**, before opening a PR. This is a two-stage process:
+2. **After completing implementation**, before opening a PR. Run `make lint` first for any Pony project that has the target — fix all issues before proceeding to review. Then a two-stage process:
    - **Self-review** (principle-review loop): Lightweight, single-agent. Catches obvious issues — stale comments, missing docs, principle violations. Iterate until clean.
    - **Code review** (load `/pony-code-review`) or **docs review** (load `/pony-docs-review`): Use pony-code-review for code changes, pony-docs-review for documentation-only changes. Full (8-persona) or lightweight (3-persona) — the orchestrator selects the mode based on change scope and reports the choice when presenting results. Sean can request full mode if lightweight was used and he wants deeper coverage. Load the relevant skill for mode selection criteria. The implementer receives the synthesized findings and triages them:
      - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
@@ -273,7 +273,7 @@ After writing new tests, temporarily break each assertion to confirm it fires. A
 
 **Package docstrings should guide, not just describe**: The package-level docstring (in the file named after the package, e.g., `msgpack.pony` for the `msgpack` package) is the user's entry point. It should steer users toward the right API choices, not just enumerate what exists. This is especially important when multiple APIs serve overlapping purposes and some are safer or more appropriate for common use cases — say so explicitly, with reasoning.
 
-**Building**: For ponyc itself, follow BUILD.md — the build uses CMake presets, not `make`. For other Pony projects with a Makefile, always use `make` instead of running `ponyc` directly. These Makefiles typically use `corral` to fetch dependencies before compiling. Common targets: `make` (build and test), `make test` (run tests), `make clean` (clean build artifacts).
+**Building**: For ponyc itself, follow BUILD.md — the build uses CMake presets, not `make`. For other Pony projects with a Makefile, always use `make` instead of running `ponyc` directly. These Makefiles typically use `corral` to fetch dependencies before compiling. Common targets: `make` (build and test), `make test` (run tests), `make lint` (run pony-lint), `make clean` (clean build artifacts).
 
 **Match `--ponymaxthreads` to active actor count in benchmarks**: Never run a benchmark with more scheduler threads than the program has busy actors. Over-provisioned schedulers steal constantly, turning the numbers into placement luck.
 
