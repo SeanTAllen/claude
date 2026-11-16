@@ -37,7 +37,7 @@
 
 1. **After devising a plan**, before presenting it to Sean for discussion. Run the principle-review loop (load `/principle-review` for protocol details) — spawn a fresh-context reviewer subagent, address findings, spawn another fresh reviewer, repeat until clean. For plan reviews, adapt the reviewer prompt: instead of reading changed files and running tests, the reviewer should read the plan document, read existing code the plan references, verify assumptions about the codebase, and check for structural gaps (missing steps, naming conflicts, incorrect dependencies).
 
-2. **After completing implementation**, before opening a PR. Run whatever project-specific linting exists first — fix all issues before proceeding to review. Then a two-stage process:
+2. **After completing implementation**, before opening a PR. Lint first (see "Lint before every push") — fix all issues before proceeding to review. Then a two-stage process:
    - **Self-review** (principle-review loop): Lightweight, single-agent. Catches obvious issues — stale comments, missing docs, principle violations. Iterate until clean.
    - **Code review** (load `/pony-code-review`) or **docs review** (load `/pony-docs-review`): Use pony-code-review for code changes, pony-docs-review for documentation-only changes. Full (9-persona) or lightweight (4-persona) — the orchestrator selects the mode based on change scope and reports the choice when presenting results. Sean can request full mode if lightweight was used and he wants deeper coverage. Load the relevant skill for mode selection criteria. The implementer receives the synthesized findings and triages them:
      - **Fix**: Unambiguous findings where the right action is clear from the finding itself — bugs, missing tests, stale docs, pattern violations. Fix these without waiting for Sean.
@@ -138,6 +138,8 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 ## Git
 
 **Always work on a branch**: Create a feature branch for all changes unless explicitly told to work on main. Never commit directly to main.
+
+**Lint before every push**: If the project has linting (`make lint`, or whatever the project uses), run it before every push — the initial squash push, follow-up commits after review, post-merge cleanup pushes, all of them. A push that introduces lint failures is a wasted CI round. Don't rely on the pre-review lint pass to cover changes made after it.
 
 **Commit work-in-progress as you go**: Commit after each logical chunk — don't leave edits sitting uncommitted on the branch. Uncommitted edits to tracked files are lost the moment anything switches the branch in that checkout (a background subagent, other tooling, your own mistake); only untracked files survive. Committing early keeps a branch switch from erasing work. Squash before the PR as usual.
 
