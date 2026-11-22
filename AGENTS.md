@@ -167,6 +167,10 @@ The only exception: if you believe a change is truly trivial (a typo fix, a one-
 
 **PR descriptions are just a summary**: Don't include a "Test plan" section in PR descriptions unless asked. Keep it to a summary of what changed and why. Don't add section headers like "## Summary" — the content is obviously a summary from its position, so the header adds nothing.
 
+## Local Development Environments
+
+Several CPU architectures and operating systems are available for local development and testing. See `/local-development-environments` for the platforms and their SSH aliases.
+
 ## Docker
 
 **Reach for Docker before concluding a tool is unavailable**: When a CLI tool the task needs isn't installed locally (mkdocs, actionlint, ruff, and the like), don't report it as a limitation and stop — most such tools have an official Docker image. Run it via Docker. Only call the tool genuinely unavailable after confirming there's no usable image.

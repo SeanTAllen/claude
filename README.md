@@ -46,6 +46,8 @@ With no flags, the script auto-detects which harnesses are installed (`~/.claude
 
 Skills are symlinked individually so that skills from other repos can coexist.
 
+Rerun `python install.py` after pulling an update that adds a skill.
+
 Other options:
 
 - `--dry-run` — preview what would be done without making changes
