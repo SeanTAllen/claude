@@ -1,7 +1,3 @@
-## Git
-
-**GPG signing is on by default**: Always use `--no-gpg-sign` when making git commits on this machine. This also applies to rebases (`git pull --rebase --no-gpg-sign`, `git rebase --no-gpg-sign`) since rebases create new commits that trigger signing. This flag only exists on commit-creating commands (commit, rebase, merge, cherry-pick) — do not use it with `git push`.
-
 ## WSL2 Temp Files
 
 **Use `~/tmp` instead of `/tmp`**: Store temporary files in `~/tmp`, not `/tmp`. Create the directory if it doesn't exist. WSL doesn't automatically clean `/tmp` on reboot the way a native Linux install does, and `~/tmp` keeps temp files in the user's space where they're easier to find and manage. Still clean up after yourself — delete temp files when you're done.
